@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y07TTMJDX1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-Y07TTMJDX1');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y07TTMJDX1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y07TTMJDX1');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Where to Stay in Bali: The Ultimate Area Guide | Bali Real Vacation">
-    <meta name="description" content="Discover the distinct regions of Bali. From the vibrant coastal towns of the South to the serene cultural heart of Ubud, find the perfect destination for your tropical getaway.">
+    <meta name="title" content="The Ultimate Bali Area Guide | Bali Real Vacation">
+    <meta name="description" content="Discover Bali's top regions. From the dramatic cliffs of Nusa Penida to the volcanic highlands of Mount Batur, find the perfect destination and tour for your tropical getaway.">
 
-    <title>Where to Stay in Bali: The Ultimate Area Guide | Bali Real Vacation</title>
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.balirealvacation.com/bali-destinations-guide.html">
+    <meta property="og:title" content="The Ultimate Bali Area Guide | Bali Real Vacation">
+    <meta property="og:description" content="From the dramatic cliffs of Nusa Penida to the volcanic highlands of Mount Batur, find the perfect destination and tour for your tropical getaway.">
+    <meta property="og:image" content="https://www.balirealvacation.com/src/assets/ulun-danu-beratan-temple-beautiful.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.balirealvacation.com/bali-destinations-guide.html">
+    <meta property="twitter:title" content="The Ultimate Bali Area Guide | Bali Real Vacation">
+    <meta property="twitter:description" content="From the dramatic cliffs of Nusa Penida to the volcanic highlands of Mount Batur, find the perfect destination and tour for your tropical getaway.">
+    <meta property="twitter:image" content="https://www.balirealvacation.com/src/assets/ulun-danu-beratan-temple-beautiful.jpg">
+
+    <title>The Ultimate Bali Area Guide | Bali Real Vacation</title>
     <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -33,220 +43,46 @@
             --font-body: 'Open Sans', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.7;
-            font-family: var(--font-body);
-        }
-
-        h1, h2, h3, h4, .logo-text, .btn {
-            font-family: var(--font-heading);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; font-family: var(--font-body); }
+        h1, h2, h3, h4, .logo-text, .btn { font-family: var(--font-heading); }
 
         /* Navbar */
-        header {
-            background-color: #fff;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 12px;
-        }
-
-        .logo img {
-            height: 50px; 
-            width: auto;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .logo img:hover {
-            transform: scale(1.05); 
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-            transition: color 0.3s ease;
-        }
-
-        .logo:hover .logo-text {
-            color: var(--secondary-color);
-        }
-
-        /* Mobile Menu Button Styles */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: var(--primary-color);
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .mobile-menu-btn:hover {
-            color: var(--secondary-color);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-family: var(--font-heading);
-            font-weight: 600;
-            transition: color 0.3s;
-        }
-
-        nav ul li a:hover {
-            color: var(--secondary-color);
-        }
+        header { background-color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+        .logo img { height: 50px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
+        .logo img:hover { transform: scale(1.05); }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); transition: color 0.3s ease; }
+        .logo:hover .logo-text { color: var(--secondary-color); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; color: var(--primary-color); cursor: pointer; transition: color 0.3s ease; }
+        .mobile-menu-btn:hover { color: var(--secondary-color); }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-dark); font-family: var(--font-heading); font-weight: 600; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--secondary-color); }
 
         /* Standard Buttons */
-        .btn {
-            padding: 12px 30px;
-            background-color: var(--secondary-color);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: background 0.3s, transform 0.3s;
-            display: inline-block;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #e66b3b;
-            transform: translateY(-2px);
-        }
+        .btn { padding: 12px 30px; background-color: var(--secondary-color); color: #fff; text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 1.1rem; transition: background 0.3s, transform 0.3s; display: inline-block; border: none; cursor: pointer; margin: 5px; }
+        .btn:hover { background-color: #e66b3b; transform: translateY(-2px); }
 
         /* Blog Specific Styles */
-        .blog-hero {
-            height: 55vh;
-            background: linear-gradient(rgba(0, 40, 70, 0.6), rgba(0, 40, 70, 0.6)), url('src/assets/ulun-danu-beratan-temple-beautiful.webp') center 30%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: var(--text-light);
-            padding: 0 20px;
-        }
+        .blog-hero { height: 55vh; background: linear-gradient(rgba(0, 40, 70, 0.6), rgba(0, 40, 70, 0.6)), url('src/assets/ulun-danu-beratan-temple-beautiful.webp') center 30%/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--text-light); padding: 0 20px; }
+        .blog-hero h1 { font-size: 3.5rem; margin-bottom: 15px; max-width: 900px; }
+        .blog-hero p { font-size: 1.2rem; max-width: 600px; font-weight: 400; }
 
-        .blog-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            max-width: 900px;
-        }
-        
-        .blog-hero p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            font-weight: 400;
-        }
-
-        .blog-container {
-            max-width: 900px;
-            margin: -60px auto 60px;
-            background: #fff;
-            padding: 60px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
-            position: relative;
-            z-index: 10;
-        }
-
-        .blog-content h2 {
-            color: var(--primary-color);
-            margin-top: 50px;
-            margin-bottom: 20px;
-            font-size: 2.2rem;
-            border-bottom: 2px solid var(--bg-light);
-            padding-bottom: 10px;
-        }
-
-        .blog-content h3 {
-            color: var(--text-dark);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .blog-content p {
-            font-size: 1.1rem;
-            color: #444;
-            margin-bottom: 20px;
-        }
+        .blog-container { max-width: 900px; margin: -60px auto 60px; background: #fff; padding: 60px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10; }
+        .blog-content h2 { color: var(--primary-color); margin-top: 50px; margin-bottom: 20px; font-size: 2.2rem; border-bottom: 2px solid var(--bg-light); padding-bottom: 10px; }
+        .blog-content h3 { color: var(--text-dark); margin-top: 30px; margin-bottom: 15px; font-size: 1.4rem; }
+        .blog-content p { font-size: 1.1rem; color: #444; margin-bottom: 20px; }
 
         /* Upgraded CTA Box */
-        .cta-box {
-            background-color: var(--bg-light);
-            padding: 35px;
-            border-radius: 12px;
-            margin: 45px 0;
-            text-align: center;
-            border: 1px solid rgba(0,0,0,0.03);
-            border-top: 5px solid var(--primary-color);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-            transition: transform 0.3s ease;
-        }
+        .cta-box { background-color: var(--bg-light); padding: 35px; border-radius: 12px; margin: 45px 0; text-align: center; border: 1px solid rgba(0,0,0,0.03); border-top: 5px solid var(--secondary-color); box-shadow: 0 10px 25px rgba(0,0,0,0.04); transition: transform 0.3s ease; }
+        .cta-box:hover { transform: translateY(-5px); }
+        .cta-box h4 { font-size: 1.6rem; color: var(--text-dark); margin-bottom: 15px; }
+        .cta-box p { margin-bottom: 25px; font-size: 1.05rem; color: #555; }
 
-        .cta-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .cta-box h4 {
-            font-size: 1.6rem;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-        }
-
-        .cta-box p {
-            margin-bottom: 25px;
-            font-size: 1.05rem;
-            color: #555;
-        }
-
-        /* Footer & Floating Buttons */
-        footer {
-            background-color: #1a1a1a;
-            color: #ccc;
-            text-align: center;
-            padding: 50px 20px;
-            font-family: var(--font-body);
-        }
-        
-        footer h2 {
-            color: var(--text-light);
-            margin-bottom: 10px;
-        }
-
+        /* Footer */
+        footer { background-color: #1a1a1a; color: #ccc; text-align: center; padding: 50px 20px; font-family: var(--font-body); }
+        footer h2 { color: var(--text-light); margin-bottom: 10px; }
         .social-links { margin: 25px 0; }
         .social-links a { color: #fff; font-size: 24px; margin: 0 12px; transition: color 0.3s; }
         .social-links a:hover { color: var(--secondary-color); }
@@ -255,75 +91,29 @@
         .footer-legal a:hover { color: var(--secondary-color); }
         .footer-legal .divider { color: #555; margin: 0 10px; }
 
-        /* Floating Buttons positioned on the Bottom Left */
-        .floating-buttons {
-            position: fixed;
-            bottom: 30px;
-            left: 30px; /* Positioned left to avoid Botpress overlap */
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            z-index: 1000;
-        }
-
-        .float-btn {
-            width: 60px; height: 60px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 30px; color: #fff; text-decoration: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            transition: transform 0.3s;
-        }
+        /* Floating Buttons & Scroll to Top */
+        .floating-buttons { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .float-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #fff; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.3s; }
         .float-btn:hover { transform: scale(1.1); }
         .wa-btn { background-color: #25D366; }
         .tg-btn { background-color: #0088cc; }
 
+        #scrollTopBtn { display: none; position: fixed; bottom: 100px; right: 30px; z-index: 1000; background-color: var(--primary-color); color: white; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 22px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s, background-color 0.3s; }
+        #scrollTopBtn:hover { background-color: var(--secondary-color); transform: scale(1.1); }
+
         /* Responsive Header Updates */
         @media(max-width: 768px) {
-            header {
-                padding: 15px 20px;
-                flex-direction: row; 
-                position: relative;
-            }
-            
+            header { padding: 15px 20px; flex-direction: row; position: relative; }
             .mobile-menu-btn { display: block; }
-
-            #navMenu {
-                display: none; 
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: #fff;
-                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-                padding: 20px 0;
-            }
-
+            #navMenu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #fff; box-shadow: 0 10px 15px rgba(0,0,0,0.1); padding: 20px 0; z-index: 100; }
             #navMenu.active { display: block; }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                margin: 0;
-            }
-
+            nav ul { flex-direction: column; align-items: center; gap: 20px; margin: 0; }
             .blog-hero h1 { font-size: 2.2rem; line-height: 1.3; }
             .blog-container { margin: -40px 20px 40px; padding: 30px 20px; }
             .blog-content h2 { font-size: 1.8rem; }
-        }
-        /* Resize floating buttons for mobile screens */
-        @media(max-width: 768px) {
-            .floating-buttons {
-                bottom: 20px;
-                left: 20px;
-                gap: 10px;
-            }
-            .float-btn {
-                width: 40px; 
-                height: 40px;
-                font-size: 20px;
-            }
+            .floating-buttons { bottom: 20px; left: 20px; gap: 10px; }
+            .float-btn { width: 40px; height: 40px; font-size: 20px; }
+            #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; }
         }
     </style>
 </head>
@@ -342,7 +132,6 @@
         <nav id="navMenu">
             <ul>
                 <li><a href="index.html#home">Home</a></li>
-                <li><a href="index.html#about">About Us</a></li>
                 <li><a href="index.html#packages">Tour Packages</a></li>
                 <li><a href="/private-driver-tours.html">Private Driver</a></li>
                 <li><a href="/airport-transfers.html">Airport Transfer</a></li>
@@ -352,64 +141,68 @@
     </header>
 
     <section class="blog-hero">
-        <h1>Where to Stay in Bali</h1>
-        <p>Your Ultimate Area Guide to Exploring the Island of the Gods</p>
+        <h1>The Ultimate Bali Area Guide</h1>
+        <p>A Local's Guide to Exploring the Island of the Gods</p>
     </section>
 
     <main class="blog-container">
         <div class="blog-content">
-            <p>Choosing the right place to stay in Bali can make or break your tropical vacation. Unlike a single city, Bali is a vast island of diverse landscapes and cultural hubs. Each region offers a vastly different experience—from energetic beach towns and cultural rainforest retreats to untouched offshore islands. Because traveling between these regions can be time-consuming due to the island's unique infrastructure, understanding what each area offers is the key to planning your perfect itinerary.</p>
+            <p>Welcome to Bali! As locals, we know that choosing where to spend your time can be overwhelming. Bali is a vast island of diverse landscapes—from vibrant coastal cliffs and serene cultural hubs to lush jungles and active volcanoes. To help you plan your perfect itinerary, we have distilled the island's best regions and paired them directly with our most popular private tours.</p>
 
-            <h2>The Vibrant South: Beaches, Sunsets, and Energy</h2>
-            <p>Southern Bali is the island's most developed region, famous for drawing travelers who want world-class dining, energetic nightlife, and beautiful sunsets.</p>
-            
-            <h3>Canggu & Seminyak</h3>
-            <p><strong>Canggu</strong> has rapidly transformed into the trendiest destination on the island. It is a haven for digital nomads, surfers, and foodies, boasting endless boutique cafes and vibrant beach clubs. Just slightly to the south, <strong>Seminyak</strong> offers a more upscale atmosphere, defined by luxury villas, high-end shopping boutiques, and chic oceanfront dining.</p>
-            
-            <h3>Uluwatu & The Bukit Peninsula</h3>
-            <p>Perched on the southern limestone cliffs, <strong>Uluwatu</strong> provides some of the most dramatic ocean views in all of Southeast Asia. Known for challenging surf breaks, luxurious cliffside resorts, and secluded white-sand coves, it is the perfect spot for travelers seeking a highly aesthetic, slightly more remote coastal vibe.</p>
-            
-            <h3>Sanur & Nusa Dua</h3>
-            <p>If you are traveling with a family or prefer a tranquil environment, the eastern coast of the southern peninsula is ideal. <strong>Sanur</strong> offers a quiet, paved beachfront promenade that is perfect for strolling or cycling, maintaining a charming traditional village feel. <strong>Nusa Dua</strong>, on the other hand, is a gated enclave of manicured, five-star luxury resorts featuring some of the calmest, most swimmable waters on the island.</p>
-            
-            <h2>The Cultural Heart: Central & Northern Bali</h2>
-            <p>As you move away from the coast and into the mountains, the temperature drops, the jungles thicken, and the deep spiritual roots of Balinese Hinduism become immediately apparent.</p>
-            
-            <h3>Ubud & Surrounds</h3>
-            <p>Considered the artistic and spiritual epicenter of Bali, <strong>Ubud</strong> is surrounded by iconic emerald rice terraces and steep ravines. It is the perfect base for wellness retreats, yoga, art gallery hopping, and exploring ancient water temples. While the town center has become quite busy, tranquility is easily found by staying just a few minutes outside the main streets.</p>
-
-            <h3>Bedugul & Kintamani Highlands</h3>
-            <p>For nature lovers, the highlands offer a refreshing escape. <strong>Bedugul</strong> is famous for its misty crater lakes, lush botanical gardens, and the iconic Ulun Danu Beratan Temple. <strong>Kintamani</strong> draws adventurous travelers who wish to trek the active Mount Batur volcano or simply sip locally grown coffee while enjoying panoramic crater views.</p>
-
-            <h2>The Untouched Offshore Paradises: The Nusa Islands</h2>
-            <p>If you want to experience what the mainland looked like decades ago, you must cross the Badung Strait. Just a 45-minute fast boat ride from Sanur lies a trio of islands offering unparalleled natural beauty without the heavy traffic.</p>
-            
-            <h3>Nusa Penida</h3>
-            <p>The largest of the three, <strong>Nusa Penida</strong> is an adventurer's dream. It is famous globally for the towering, T-Rex-shaped cliffs of Kelingking Beach, the natural archways of Broken Beach, and some of the most vibrant coral reefs in Indonesia. The infrastructure here is still developing, which means the landscapes remain incredibly raw and dramatic. It is also one of the few places in the world where you can snorkel with giant, majestic Reef Manta Rays year-round.</p>
-
+            <h2>1. Nusa Penida: The Untouched Island Paradise</h2>
+            <p>Just a 45-minute fast boat ride from mainland Bali, Nusa Penida is an adventurer's dream. It offers unparalleled natural beauty, raw coastal cliffs, and some of the most vibrant coral reefs in Indonesia. It is the perfect escape from the busy southern beaches.</p>
+            <h3>Top Highlights</h3>
+            <p>Marvel at the iconic T-Rex cliff of <strong>Kelingking Beach</strong>, the natural arch of <strong>Broken Beach</strong>, and the pristine sands of <strong>Diamond Beach</strong>. For ocean lovers, snorkeling alongside majestic Reef Manta Rays at Manta Point and Crystal Bay is an absolute must-do.</p>
             <div class="cta-box">
-                <h4>Escape the Mainland Crowds</h4>
-                <p>Ready to discover Bali's breathtaking neighbor? We offer highly curated, private day trips to both the iconic West Coast and the untouched East Coast of Nusa Penida.</p>
-                <a href="/west-nusa-penida.html" class="btn">Explore West Penida</a> &nbsp; 
-                <a href="/east-nusa-penida.html" class="btn" style="background-color: var(--primary-color);">Explore East Penida</a>
+                <h4>Explore Nusa Penida</h4>
+                <p>Discover the island's dramatic beauty with our all-inclusive day trips.</p>
+                <a href="/west-nusa-penida.html" class="btn">West Penida Tour</a>
+                <a href="/east-nusa-penida.html" class="btn" style="background-color: var(--primary-color);">East Penida Tour</a>
+                <a href="/nusa-penida-snorkeling.html" class="btn" style="background-color: #25D366;">Snorkeling Tour</a>
             </div>
 
-            <h2>Essential Travel Tips for First-Timers</h2>
-            <p>To ensure a stress-free journey, keep these logistical realities in mind when choosing your destinations:</p>
-            <ul style="margin-left: 20px; margin-bottom: 20px; color: #444; font-size: 1.1rem; line-height: 1.8;">
-                <li><strong>Mind the Map:</strong> Distances in Bali are deceptive. A 15-kilometer journey can easily take an hour depending on the region and time of day.</li>
-                <li><strong>Public Transport is Rare:</strong> There is virtually no public transportation system. Navigating the island requires either renting a scooter (which demands an international license and high confidence) or hiring a private driver.</li>
-                <li><strong>Water Conditions Vary:</strong> Not all beaches are for swimming. The west coast (Canggu/Kuta) features strong surf breaks, while the east coast (Sanur/Nusa Dua) offers calm, reef-protected waters.</li>
-                <li><strong>Plan for Island Hopping:</strong> Don't spend your entire vacation in one hotel! The most rewarding itineraries blend a few days in a bustling southern beach town, a retreat into the cultural heart of Ubud, and an adventurous day trip across the water to Nusa Penida.</li>
-            </ul>
-
-            <div class="cta-box" style="border-top-color: #25D366;">
-                <h4>Dive into the Deep Blue</h4>
-                <p>Don't just look at the ocean—experience it. Snorkel alongside magnificent Manta Rays in the crystal-clear waters of Nusa Penida. We handle the boat tickets, the gear, and the itinerary.</p>
-                <a href="/nusa-penida-snorkeling.html" class="btn" style="background-color: #25D366;">View Snorkeling Tour</a>
+            <h2>2. Uluwatu & The Southern Peninsula: Culture Meets the Ocean</h2>
+            <p>Perched on the southern limestone cliffs, Uluwatu provides some of the most dramatic ocean views in Southeast Asia. It perfectly blends luxury, world-class surf breaks, and deep Balinese spirituality.</p>
+            <h3>Top Highlights</h3>
+            <p>Explore the towering Garuda Wisnu Kencana (GWK) Cultural Park, relax at the secluded Padang Padang Beach, and visit the iconic <strong>Uluwatu Temple</strong>. End your day by watching the mesmerizing <strong>Kecak Fire Dance</strong> performed on the cliffside at sunset.</p>
+            <div class="cta-box" style="border-top-color: #FF7F50;">
+                <h4>Experience the South</h4>
+                <p>Witness the best of South Bali's beaches and cultural performances.</p>
+                <a href="/uluwatu-full-day-tour.html" class="btn">Uluwatu Full Day Tour</a>
             </div>
 
-            <p>At <strong>Bali Real Vacation</strong>, our team of local, professional drivers and guides know every corner of this island. Whether you want to navigate the hidden waterfalls of the north or capture the perfect cliffside photo in Nusa Penida, we are here to ensure your journey is safe, comfortable, and unforgettable.</p>
+            <h2>3. North Bali: Waterfalls, Canyons, and Scenic Lakes</h2>
+            <p>Escape the busy south and head into the mountainous, cooler highlands of North Bali. This region is a haven for nature lovers and adrenaline seekers, showcasing Bali's lush jungles.</p>
+            <h3>Top Highlights</h3>
+            <p>Trek through the jungle to discover the majestic <strong>Sekumpul Waterfall</strong>, or take on the ultimate adventure with <strong>North Bali Canyoning</strong> (rappelling down active waterfalls!). Don't miss the picturesque Ulun Danu Beratan Temple floating on the lake in the Bedugul area.</p>
+            <div class="cta-box" style="border-top-color: var(--primary-color);">
+                <h4>Chase Waterfalls & Thrills</h4>
+                <p>Immerse yourself in Bali's hidden natural wonders.</p>
+                <a href="/sekumpul-waterfall-tour.html" class="btn">Sekumpul Waterfall Tour</a>
+                <a href="/canyoning-north-bali-tour.html" class="btn" style="background-color: var(--primary-color);">North Bali Canyoning</a>
+            </div>
+
+            <h2>4. Mount Batur & Kintamani: The Volcanic Highlands</h2>
+            <p>Located in the central highlands, Kintamani draws adventurous travelers looking to experience Bali's incredible volcanic landscapes and refreshing mountain air.</p>
+            <h3>Top Highlights</h3>
+            <p>The <strong>Mount Batur Sunrise Trek</strong> is a highly rewarding hike. Ascend the active volcano under the stars, reach the 1,717-meter summit for a glorious sunrise, and enjoy a unique breakfast cooked directly in the natural volcanic steam vents.</p>
+            <div class="cta-box">
+                <h4>Conquer the Volcano</h4>
+                <p>Wake up early for the most spectacular morning view on the island.</p>
+                <a href="/mount-batur-sunrise-trek.html" class="btn">Mount Batur Sunrise Trek</a>
+            </div>
+
+            <h2>5. Ubud & East Bali: The Cultural Heart</h2>
+            <p>Ubud is the artistic and spiritual epicenter of Bali, surrounded by emerald rice terraces and ravines. Further east, you will find ancient water palaces and the majestic Mount Agung.</p>
+            <h3>Top Highlights</h3>
+            <p>Wander the famous Tegalalang Rice Terrace, partake in a cleansing ritual at the Tirta Empul holy spring temple, or capture the iconic "Gates of Heaven" photo at Lempuyang Temple in East Bali.</p>
+            <div class="cta-box" style="border-top-color: var(--primary-color);">
+                <h4>Design Your Own Cultural Trip</h4>
+                <p>Hire a private driver to explore Ubud's arts, temples, and rice terraces at your own pace.</p>
+                <a href="/private-driver-tours.html" class="btn" style="background-color: var(--primary-color);">View Private Driver Tours</a>
+            </div>
+
+            <p>At <strong>Bali Real Vacation</strong>, our team of local, professional drivers and guides are ready to show you the true beauty of Indonesia. Book your adventure today and let us handle all the logistics!</p>
         </div>
     </main>
 
@@ -422,6 +215,8 @@
         </div>
 
         <div class="footer-legal">
+            <a href="/index.html#packages">Tour Packages</a>
+            <span class="divider">|</span>
             <a href="/private-driver-tours.html">Private Driver Tours</a>
             <span class="divider">|</span>
             <a href="/airport-transfers.html">Airport Transfers</a>
@@ -429,8 +224,6 @@
             <a href="/nusa-penida-guide.html">Nusa Penida Guide</a>
             <span class="divider">|</span>
             <a href="/privacy.html">Privacy Policy</a>
-            <span class="divider">|</span>
-            <a href="/term.html">Terms of Service</a>
         </div>
         
         <p>&copy; 2026 Bali Real Vacation. All Rights Reserved.</p>
@@ -444,6 +237,8 @@
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
+
+    <button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -474,8 +269,26 @@
                     });
                 });
             }
+
+            // Scroll to Top Logic
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (scrollTopBtn) {
+                window.addEventListener("scroll", () => {
+                    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                        scrollTopBtn.style.display = "block";
+                    } else {
+                        scrollTopBtn.style.display = "none";
+                    }
+                });
+                scrollTopBtn.addEventListener("click", () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
         });
     </script>
+
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>
 
 </body>
 </html>
