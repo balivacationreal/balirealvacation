@@ -452,18 +452,18 @@
         <div class="blog-content">
             <p><strong>Nusa Penida</strong> is an enchanting island just a short fast-boat ride from mainland Bali. It invites you to step away from the bustling tourist hubs and immerse yourself in a world of raw, untamed natural beauty. From dramatic coastal cliffs to vibrant underwater ecosystems, this hidden gem has become a go-to destination for travelers seeking an unforgettable adventure.</p>
 
-            <img src="src/assets/diamond-beach-nusa-penida.webp" alt="Diamond Beach Nusa Penida">
+            <img src="src/assets/diamond-beach-nusa-penida.webp" alt="Diamond Beach Nusa Penida" loading="lazy">
 
             <h2>The Dramatic West Coast Wonders</h2>
             <p>The western side of Nusa Penida is famous for its jaw-dropping cliff formations and unique geological marvels.</p>
             
             <h3>Kelingking Beach</h3>
             <p>Often referred to as the crown jewel of the island, Kelingking Beach is arguably the most iconic location on Nusa Penida. Its unique cliff formation resembles a T-Rex and offers a dramatic panorama of turquoise waters crashing against pristine white sand far below.</p>
-            <img src="src/assets/penida/kelingking-beach-view.webp" alt="Kelingking Beach">
+            <img src="src/assets/penida/kelingking-beach-view.webp" alt="Kelingking Beach" loading="lazy">
             
             <h3>Broken Beach & Angel's Billabong</h3>
             <p>Just a short drive away lies Broken Beach (Pasih Uug), a spectacular circular cove encircled by towering cliffs with a natural rock archway. A short walk from there is Angel's Billabong, a naturally formed crystal-clear infinity pool carved into the rugged cliffs, perfect for stunning photography during low tide.</p>
-            <img src="src/assets/penida/angel's-billabong-view.webp" alt="Angel's Billabong">
+            <img src="src/assets/penida/angel's-billabong-view.webp" alt="Angel's Billabong loading="lazy"">
             
             <div class="cta-box">
                 <h4>Experience the West Coast</h4>
@@ -476,11 +476,11 @@
             
             <h3>Diamond Beach & Atuh Beach</h3>
             <p>Diamond Beach is named after the sharp, diamond-shaped karst formations rising gracefully from the crystal-clear ocean. Right next door is Atuh Beach, a hidden gem offering a tranquil retreat with soft white sand framed by unique rock formations.</p>
-            <img src="src/assets/penida/stunning-atuh-beach.webp" alt="Atuh Beach">
+            <img src="src/assets/penida/stunning-atuh-beach.webp" alt="Atuh Beach" loading="lazy">
             
             <h3>Thousand Islands Viewpoint & Tree House</h3>
             <p>Also known as Raja Lima, this viewpoint offers one of the most breathtaking panoramic vistas on the island, featuring scattered rock formations across the ocean. Nearby, you will find the famous Molenteng Tree House, providing a magical backdrop for your vacation memories.</p>
-            <img src="src/assets/penida/thousand-islands.webp" alt="Thousand Island View Point">
+            <img src="src/assets/penida/thousand-islands.webp" alt="Thousand Island View Point" loading="lazy">
             
             <div class="cta-box">
                 <h4>Discover the East Coast</h4>
@@ -493,7 +493,7 @@
             
             <h3>Manta Point & Crystal Bay</h3>
             <p>Snorkeling in these nutrient-rich waters provides the exhilarating opportunity to swim alongside magnificent Reef Manta Rays. Crystal Bay, highly regarded for its excellent visibility and calm waters, is a snorkeling paradise teeming with vibrant tropical fish and colorful coral gardens.</p>
-            <img src="src/assets/penida/crystal-bay.webp" alt="Crystal Bay">
+            <img src="src/assets/penida/crystal-bay.webp" alt="Crystal Bay" loading="lazy">
             
             <div class="cta-box" style="border-top-color: #25D366;">
                 <h4>Dive Into The Blue</h4>
@@ -518,8 +518,8 @@
                 src="https://www.dailymotion.com/embed/video/xa0iy38?autoplay=0" 
                 frameborder="0" 
                 allow="fullscreen" 
-                allowfullscreen>
-                </iframe>
+                allowfullscreen
+                title="Nusa Penida Tour Highlights Video"> </iframe>
             </div>
         </div>
     </section>
@@ -558,6 +558,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Logic
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navMenu = document.getElementById('navMenu');
             const navLinks = document.querySelectorAll('#navMenu ul li a');
@@ -565,7 +566,6 @@
             if (mobileMenuBtn && navMenu) {
                 mobileMenuBtn.addEventListener('click', () => {
                     navMenu.classList.toggle('active');
-                    
                     const icon = mobileMenuBtn.querySelector('i');
                     if (navMenu.classList.contains('active')) {
                         icon.classList.remove('fa-bars');
@@ -585,25 +585,23 @@
                     });
                 });
             }
-        });
-    </script>
-<button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 
-    <script>
-        // Scroll to Top Logic
-        const scrollTopBtn = document.getElementById("scrollTopBtn");
-        window.addEventListener("scroll", () => {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                scrollTopBtn.style.display = "block";
-            } else {
-                scrollTopBtn.style.display = "none";
+            // Scroll to Top Logic
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (scrollTopBtn) {
+                window.addEventListener("scroll", () => {
+                    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                        scrollTopBtn.style.display = "block";
+                    } else {
+                        scrollTopBtn.style.display = "none";
+                    }
+                });
+                scrollTopBtn.addEventListener("click", () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             }
         });
-        scrollTopBtn.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
     </script>
-
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>
 </body>
