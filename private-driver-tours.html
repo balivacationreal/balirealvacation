@@ -114,6 +114,16 @@
             .floating-buttons { bottom: 20px; left: 20px; gap: 10px; flex-direction: row; }
             .float-btn { width: 45px; height: 45px; font-size: 22px; }
         }
+	/* Scroll to Top Button */
+        #scrollTopBtn {
+            display: none; position: fixed; bottom: 100px; right: 30px; z-index: 1000;
+            background-color: var(--primary-color); color: white; border: none;
+            border-radius: 50%; width: 55px; height: 55px; font-size: 22px;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        #scrollTopBtn:hover { background-color: var(--secondary-color); transform: scale(1.1); }
+        @media(max-width: 768px) { #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; } }
     </style>
 </head>
 <body>
@@ -314,7 +324,7 @@
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
-
+<button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Hamburger Menu Logic
@@ -375,6 +385,20 @@
                 console.error('Could not fetch exchange rates for IDR conversion.', error);
             }
         });
+	// Scroll to Top Logic
+            const scrollTopBtn = document.getElementById("scrollTopBtn");
+            if (scrollTopBtn) {
+                window.addEventListener("scroll", () => {
+                    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                        scrollTopBtn.style.display = "block";
+                    } else {
+                        scrollTopBtn.style.display = "none";
+                    }
+                });
+                scrollTopBtn.addEventListener("click", () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
     </script>
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>   
