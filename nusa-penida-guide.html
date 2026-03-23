@@ -12,9 +12,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="title" content="The Ultimate Guide to Nusa Penida | Bali Real Vacation">
     <meta name="description" content="Discover the pristine beaches, iconic cliffs, and underwater wonders of Nusa Penida. Your complete travel guide to exploring Bali's breathtaking neighbor.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.balirealvacation.com/nusa-penida-guide.html">
+    <meta property="og:title" content="The Ultimate Guide to Nusa Penida | Bali Real Vacation">
+    <meta property="og:description" content="Discover pristine beaches, iconic cliffs, and underwater wonders. Your complete travel guide to exploring Bali's breathtaking neighbor.">
+    <meta property="og:image" content="https://www.balirealvacation.com/src/assets/diamond-beach-nusa-penida.webp">
 
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.balirealvacation.com/nusa-penida-guide.html">
+    <meta property="twitter:title" content="The Ultimate Guide to Nusa Penida | Bali Real Vacation">
+    <meta property="twitter:description" content="Discover pristine beaches, iconic cliffs, and underwater wonders. Your complete travel guide to exploring Bali's breathtaking neighbor.">
+    <meta property="twitter:image" content="https://www.balirealvacation.com/src/assets/diamond-beach-nusa-penida.webp">
     <title>The Ultimate Guide to Nusa Penida | Bali Real Vacation</title>
-    <link rel="icon" type="image/webp" href="src/assets/favicon-bali-real.png">
+    <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -146,7 +156,7 @@
         /* Blog Specific Styles */
         .blog-hero {
             height: 55vh;
-            background: linear-gradient(rgba(0, 40, 70, 0.6), rgba(0, 40, 70, 0.6)), url('src/assets/perfect-view-kelingking-beach.webp') center/cover;
+            background: linear-gradient(rgba(0, 40, 70, 0.6), rgba(0, 40, 70, 0.6)), url('src/assets/penida/stunning-broken-beach.webp') center/cover;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -343,6 +353,8 @@
                 padding: 15px 20px;
                 flex-direction: row; 
                 position: relative;
+                justify-content: space-between; 
+                align-items: center;
             }
             
             .mobile-menu-btn { display: block; }
@@ -394,6 +406,16 @@
                 font-size: 20px;
             }
         }
+        /* Scroll to Top Button */
+        #scrollTopBtn {
+            display: none; position: fixed; bottom: 100px; right: 30px; z-index: 1000;
+            background-color: var(--primary-color); color: white; border: none;
+            border-radius: 50%; width: 55px; height: 55px; font-size: 22px;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        #scrollTopBtn:hover { background-color: var(--secondary-color); transform: scale(1.1); }
+        @media(max-width: 768px) { #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; } }
     </style>
 </head>
 <body>
@@ -565,6 +587,24 @@
             }
         });
     </script>
+<button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
 
+    <script>
+        // Scroll to Top Logic
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+        window.addEventListener("scroll", () => {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.style.display = "block";
+            } else {
+                scrollTopBtn.style.display = "none";
+            }
+        });
+        scrollTopBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
+    <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>
 </body>
 </html>
