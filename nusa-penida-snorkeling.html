@@ -6,6 +6,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nusa Penida Snorkeling & Land Tour | Bali Real Vacation</title>
+    
+    <meta name="description" content="Experience the ultimate Nusa Penida adventure. Swim alongside majestic Manta Rays and explore the breathtaking cliffs of the West Coast in one unforgettable day.">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.balirealvacation.com/nusa-penida-snorkeling.html">
+    <meta property="og:title" content="Nusa Penida Snorkeling & Land Tour | Bali Real Vacation">
+    <meta property="og:description" content="Experience the ultimate Nusa Penida adventure. Swim alongside majestic Manta Rays and explore the breathtaking cliffs of the West Coast in one unforgettable day.">
+    <meta property="og:image" content="https://www.balirealvacation.com/src/assets/snorkeling/snorkeling-with-mantaray.jpg">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.balirealvacation.com/nusa-penida-snorkeling.html">
+    <meta property="twitter:title" content="Nusa Penida Snorkeling & Land Tour | Bali Real Vacation">
+    <meta property="twitter:description" content="Experience the ultimate Nusa Penida adventure. Swim alongside majestic Manta Rays and explore the breathtaking cliffs of the West Coast in one unforgettable day.">
+    <meta property="twitter:image" content="https://www.balirealvacation.com/src/assets/snorkeling/snorkeling-with-mantaray.jpg">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TouristTrip",
+      "name": "Nusa Penida Snorkeling & Land Tour",
+      "description": "Experience the ultimate Nusa Penida adventure. Swim alongside majestic Manta Rays and explore the breathtaking cliffs of the West Coast in one unforgettable day.",
+      "image": "https://www.balirealvacation.com/src/assets/snorkeling/snorkeling-with-mantaray.jpg",
+      "tourType": "Water Sports and Sightseeing Tour",
+      "provider": {
+        "@type": "TravelAgency",
+        "name": "Bali Real Vacation",
+        "url": "https://www.balirealvacation.com"
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "69.00",
+        "availability": "https://schema.org/InStock",
+        "url": "https://www.balirealvacation.com/nusa-penida-snorkeling.html",
+        "priceValidUntil": "2027-12-31"
+      }
+    }
+    </script>
+
     <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,7 +61,7 @@
         nav ul { list-style: none; display: flex; gap: 20px; }
         nav ul li a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.3s; }
         nav ul li a:hover { color: var(--secondary-color); }
-        .tour-hero { height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('src/assets/snorkeling-manta-point.webp') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--text-light); padding: 0 20px; }
+        .tour-hero { height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('src/assets/snorkeling/snorkeling-mantaray-top-view.webp') center/cover; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: var(--text-light); padding: 0 20px; }
         .tour-hero h1 { font-size: 3.5rem; margin-bottom: 15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.5); }
         .tour-container { max-width: 1000px; margin: -50px auto 60px; background: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); position: relative; z-index: 10; }
         .tour-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; margin-top: 30px; }
@@ -59,7 +98,7 @@
         .tg-btn { background-color: #0088cc; }
         .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; color: var(--primary-color); cursor: pointer; transition: color 0.3s ease; }
         @media(max-width: 768px) { .tour-grid { grid-template-columns: 1fr; } .tour-hero h1 { font-size: 2.5rem; } .tour-container { margin: -30px 20px 40px; padding: 30px 20px; } header { padding: 15px 20px; flex-direction: row; position: relative; } .mobile-menu-btn { display: block; } #navMenu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #fff; box-shadow: 0 10px 15px rgba(0,0,0,0.1); padding: 20px 0; } #navMenu.active { display: block; } nav ul { flex-direction: column; align-items: center; gap: 20px; margin: 0; } }
-    /* Resize floating buttons for mobile screens */
+        /* Resize floating buttons for mobile screens */
         @media(max-width: 768px) {
             .floating-buttons {
                 bottom: 20px;
@@ -72,7 +111,17 @@
                 font-size: 20px;
             }
         }
-		/* Scroll to Top Button */
+	/* Tour Gallery Styles */
+        .tour-gallery { margin-top: 40px; margin-bottom: 20px; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .gallery-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease; cursor: pointer; }
+        .gallery-img:hover { transform: scale(1.05); z-index: 2; position: relative; }
+        
+        @media(max-width: 768px) {
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .gallery-img { height: 150px; }
+        }
+	/* Scroll to Top Button */
         #scrollTopBtn {
             display: none; position: fixed; bottom: 100px; right: 30px; z-index: 1000;
             background-color: var(--primary-color); color: white; border: none;
@@ -96,7 +145,7 @@
             <ul>
                 <li><a href="index.html#home">Home</a></li>
                 <li><a href="index.html#packages">Tour Packages</a></li>
-                 <li><a href="/private-driver-tours.html">Private Driver</a></li>
+                <li><a href="/private-driver-tours.html">Private Driver</a></li>
                 <li><a href="/airport-transfers.html">Airport Transfers</a></li>
                 <li><a href="index.html#guides">Travel Guides</a></li>
                 <li><a href="index.html#contact">Contact</a></li>
@@ -113,6 +162,9 @@
         <div class="tour-grid">
             <div class="tour-description">
                 <h2 class="section-heading">Tour Overview</h2>
+                
+                <img src="src/assets/snorkeling/manta-ray-swim.webp" alt="Swimming with Manta Rays in Nusa Penida" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);" loading="lazy">
+                
                 <p style="font-size: 1.1rem; margin-bottom: 30px; color: #444;">Experience the ultimate Nusa Penida adventure with our premium, all-inclusive day trip. Dive into the crystal-clear waters to swim alongside majestic Manta Rays before exploring the island's most famous land attractions. This comprehensive package combines three world-class snorkeling spots with the breathtaking cliffs of the West Coast, ensuring you see the absolute best of both the ocean and the island in one unforgettable day.</p>
                 
                 <h2 class="section-heading">What to Bring</h2>
@@ -124,6 +176,9 @@
                 </ul>
 
                 <h2 class="section-heading">Tour Itinerary</h2>
+                
+                <img src="src/assets/snorkeling/crystal-bay-beach.webp" alt="Crystal Bay Beach Nusa Penida" style="width: 100%; height: auto; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);" loading="lazy">
+                
                 <ul class="itinerary-list">
                     <li class="itinerary-item">
                         <div class="itinerary-icon"><i class="fa-solid fa-car"></i></div>
@@ -154,6 +209,21 @@
                         <div class="itinerary-details"><h3>04:45 PM - Return to Bali</h3><p>Fast boat ride back and drop-off at your hotel.</p></div>
                     </li>
                 </ul>
+				<div class="tour-gallery">
+                    <h2 class="section-heading">Tour Gallery</h2>
+                    <div class="gallery-grid">
+                        <img src="src/assets/snorkeling/snorkeling-penida-island.webp" alt="Snorkeling in Nusa Penida" class="gallery-img" loading="lazy">
+                        <img src="src/assets/snorkeling/snorkeling-boats.webp" alt="Snorkeling boats in Nusa Penida" class="gallery-img" loading="lazy">
+                        <img src="src/assets/snorkeling/coral-reef-penida.webp" alt="Beautiful coral reefs" class="gallery-img" loading="lazy">
+                        <img src="src/assets/snorkeling/living-corals-penida.webp" alt="Living corals in Penida" class="gallery-img" loading="lazy">
+						<img src="src/assets/snorkeling/penida-snorkeling-gopro.webp" alt="Fun snorkeling in Penida" class="gallery-img" loading="lazy">
+                        <img src="src/assets/snorkeling/surrounded-with-fish-penida.webp" alt="Surrounded by many fishes" class="gallery-img" loading="lazy">
+						<img src="src/assets/snorkeling/swim-along-the-turtle-penida.webp" alt="Swimming along the turtle" class="gallery-img" loading="lazy">
+                        <img src="src/assets/snorkeling/green-turtle-penida.webp" alt="Green turtle in Penida" class="gallery-img" loading="lazy">
+						<img src="src/assets/snorkeling/feeding-fishes-in-penida.webp" alt="Feeding the fishes" class="gallery-img" loading="lazy">
+                        <img src="src/assets/snorkeling/snorkeling-with-mantaray.jpg" alt="Snorkeling with mantaray in Penida" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
             </div>
 
             <aside>
@@ -210,7 +280,8 @@
         <a href="https://t.me/+6281239156586" class="float-btn tg-btn" target="_blank" title="Contact us on Telegram"><i class="fa-brands fa-telegram"></i></a>
         <a href="https://wa.me/6281239156586" class="float-btn wa-btn" target="_blank" title="Contact us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
     </div>
-<button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -269,20 +340,21 @@
                 console.error('Exchange rate fetch failed.', error); 
             }
         });
-	// Scroll to Top Logic
-            const scrollTopBtn = document.getElementById("scrollTopBtn");
-            if (scrollTopBtn) {
-                window.addEventListener("scroll", () => {
-                    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                        scrollTopBtn.style.display = "block";
-                    } else {
-                        scrollTopBtn.style.display = "none";
-                    }
-                });
-                scrollTopBtn.addEventListener("click", () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
+        
+        // Scroll to Top Logic
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+        if (scrollTopBtn) {
+            window.addEventListener("scroll", () => {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    scrollTopBtn.style.display = "block";
+                } else {
+                    scrollTopBtn.style.display = "none";
+                }
+            });
+            scrollTopBtn.addEventListener("click", () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
     </script>
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>
