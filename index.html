@@ -257,7 +257,7 @@
     .guides-section { padding: 20px 20px 0; }
     .guides-intro { margin-bottom: 30px; }
     .guides-intro p { font-size: 1rem; padding: 0 10px; } /* The padding here prevents text from hitting the screen edge */
-   
+    .guides-section > div[style*="grid"] { padding: 0 20px !important; }
     /* Hero Section Mobile Optimization */
     .hero { 
         height: 65vh; /* Reduces the height slightly to reveal the next section */
@@ -265,7 +265,6 @@
         background-position: center 30%; /* Shifts the focal point up slightly so the temple isn't cut off */
         padding: 0 15px; 
     }
-    
     .hero p {
         font-size: 1.05rem; 
         margin-bottom: 25px; 
@@ -727,7 +726,50 @@
             </div>
         </div>
     </section>
+<section class="guides-section" style="background-color: #fff; padding-top: 60px; padding-bottom: 60px;">
+        <h2 class="section-title">Bali Travel Essentials</h2>
+        <p style="text-align: center; color: #555; max-width: 600px; margin: -20px auto 40px;">Everything you need to know before you touch down on the Island of the Gods.</p>
+        
+        <div class="packages-container" style="gap: 20px;">
+            <div class="package-card" style="padding: 30px; background: var(--primary-color); color: #fff; width: 100%; max-width: 500px;">
+                <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--secondary-color); font-weight: bold;">☀️ Peak Season</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: #fff;">Dry Season</h3>
+                <p style="font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 20px;">Clear skies, sunny days, and ideal surf conditions. Perfect for island hopping to Nusa Penida and hiking Mount Batur.</p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">Apr</span>
+                    <span style="background: var(--secondary-color); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">May - Sep</span>
+                    <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">Oct</span>
+                </div>
+            </div>
 
+            <div class="package-card" style="padding: 30px; background: var(--bg-light); width: 100%; max-width: 500px;">
+                <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary-color); font-weight: bold;">🌧️ Low Season</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: var(--text-dark);">Wet Season</h3>
+                <p style="font-size: 0.95rem; line-height: 1.7; color: #555; margin-bottom: 20px;">Lush, green, and magical. Fewer crowds, lower prices, and waterfalls like Sekumpul are at peak power. Rain usually lasts only a few hours.</p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: var(--primary-color); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Nov - Mar</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1020px; margin: 40px auto 0; padding: 0 50px;">
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-passport" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Visa on Arrival</h4>
+                <p style="font-size: 0.9rem; color: #666;">Most nationalities can get a 30-day VOA at the airport or apply online beforehand.</p>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-plug" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Power Plugs</h4>
+                <p style="font-size: 0.9rem; color: #666;">Bali uses European-style Type C and F two-pin plugs (230V).</p>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-hands-praying" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Cultural Respect</h4>
+                <p style="font-size: 0.9rem; color: #666;">Cover shoulders and knees at temples. A sarong is usually required and provided.</p>
+            </div>
+        </div>
+    </section>
     <section class="testimonials" id="reviews">
         <h2 class="section-title">What Our Travelers Say</h2>
         <div class="testimonials-container">
