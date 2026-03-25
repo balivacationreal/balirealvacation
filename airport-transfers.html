@@ -23,7 +23,31 @@
     <meta property="twitter:title" content="Bali Airport Transfer Service | Bali Real Vacation">
     <meta property="twitter:description" content="Reliable, private airport transfers from Ngurah Rai International Airport (DPS) to your hotel in Bali. Cold drinks included. Book your ride today!">
     <meta property="twitter:image" content="https://www.balirealvacation.com/src/assets/ketut-waiting.jpg">
-    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Airport Transfer",
+      "name": "Bali Airport Transfers",
+      "description": "Reliable, comfortable, and private transport from Ngurah Rai Airport (DPS) directly to your hotel in Bali.",
+      "provider": {
+        "@type": "TravelAgency",
+        "name": "Bali Real Vacation",
+        "url": "https://www.balirealvacation.com"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Bali"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": "200000",
+        "highPrice": "900000",
+        "offerCount": "16"
+      }
+    }
+    </script>
     <title>Bali Airport Transfer Service | Bali Real Vacation</title>
     <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
     
@@ -416,9 +440,9 @@
                     localStorage.setItem('cached_idr_rate_time', now);
                 }
 
-                // Update each pre-rendered row with live rates
-                document.querySelectorAll('#pricing-body tr[data-idr]').forEach(row => {
-                    const idrAmount = parseInt(row.getAttribute('data-idr'));
+               // Update each pre-rendered row with live rates
+                document.querySelectorAll('.price-idr').forEach(span => {
+                    const idrAmount = parseInt(span.getAttribute('data-idr'));
 
                     const formattedIdr = new Intl.NumberFormat('id-ID', {
                         style: 'currency', currency: 'IDR', minimumFractionDigits: 0
@@ -427,8 +451,9 @@
                     const usd = Math.round(idrAmount * usdRate);
                     const aud = Math.round(idrAmount * audRate);
 
-                    row.querySelector('.price-idr').textContent = formattedIdr;
-                    row.querySelector('.price-converted').textContent = `~$${usd} USD | ~A$${aud} AUD`;
+                    span.textContent = formattedIdr;
+                    // The converted price is the very next span
+                    span.nextElementSibling.textContent = `~$${usd} USD | ~A$${aud} AUD`;
                 });
 
             } catch (error) {
