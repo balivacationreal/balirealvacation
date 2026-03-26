@@ -23,6 +23,31 @@
     <meta property="twitter:title" content="Private Driver & Custom Tours | Bali Real Vacation">
     <meta property="twitter:description" content="Hire a private car and driver for a full-day tour around Bali and Nusa Penida. Choose your itinerary and pay only for transport!">
     <meta property="twitter:image" content="https://www.balirealvacation.com/src/assets/crew/ketut-widiasa-smiles.jpg">
+	<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Private Driver and Custom Tours",
+      "name": "Bali Private Driver & Custom Tours",
+      "description": "Hire a private car and English-speaking driver for a full-day custom tour around Bali and Nusa Penida.",
+      "provider": {
+        "@type": "TravelAgency",
+        "name": "Bali Real Vacation",
+        "url": "https://www.balirealvacation.com"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Bali"
+      },
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": "800000",
+        "highPrice": "900000",
+        "offerCount": "8"
+      }
+    }
+    </script>
     <title>Private Driver & Custom Tours | Bali Real Vacation</title>
     <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
     
@@ -317,14 +342,14 @@
     </footer>
 
     <div class="floating-buttons">
-        <a href="https://t.me/+6281239156586" class="float-btn tg-btn" target="_blank" title="Contact us on Telegram">
+        <a href="https://t.me/+6281239156586" class="float-btn tg-btn" target="_blank" title="Contact us on Telegram" aria-label="Contact us on Telegram">
             <i class="fa-brands fa-telegram"></i>
         </a>
-        <a href="https://wa.me/6281239156586" class="float-btn wa-btn" target="_blank" title="Contact us on WhatsApp">
+        <a href="https://wa.me/6281239156586" class="float-btn wa-btn" target="_blank" title="Contact us on WhatsApp" aria-label="Contact us on WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
         </a>
     </div>
-<button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
+    <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Hamburger Menu Logic
@@ -352,33 +377,37 @@
                 });
             }
 
-            // IDR to USD & AUD Live Conversion Logic
+            // Lightweight Currency Conversion Updater with Caching
             try {
-                // Fetch exchange rates using IDR as the base currency
-                const response = await fetch('https://open.er-api.com/v6/latest/IDR');
-                const data = await response.json();
-                
-                const usdRate = data.rates.USD;
-                const audRate = data.rates.AUD;
+                let usdRate = localStorage.getItem('cached_idr_to_usd_rate');
+                let audRate = localStorage.getItem('cached_idr_to_aud_rate');
+                let rateTime = localStorage.getItem('cached_idr_rate_time');
+                const now = new Date().getTime();
+
+                // Fetch fresh rates if cache is missing or older than 12 hours
+                if (!usdRate || !audRate || !rateTime || (now - rateTime > 43200000)) {
+                    const response = await fetch('https://open.er-api.com/v6/latest/IDR');
+                    const data = await response.json();
+                    usdRate = data.rates.USD;
+                    audRate = data.rates.AUD;
+                    
+                    localStorage.setItem('cached_idr_to_usd_rate', usdRate);
+                    localStorage.setItem('cached_idr_to_aud_rate', audRate);
+                    localStorage.setItem('cached_idr_rate_time', now);
+                }
 
                 document.querySelectorAll('.auto-price').forEach(el => {
                     const idrValue = parseFloat(el.getAttribute('data-idr'));
                     
                     if (!isNaN(idrValue)) {
-                        // Calculate conversions
-                        const usd = (idrValue * usdRate).toFixed(0);
-                        const aud = (idrValue * audRate).toFixed(0);
+                        const usd = Math.round(idrValue * usdRate);
+                        const aud = Math.round(idrValue * audRate);
                         
-                        // Format the IDR string properly
                         const formattedIdr = new Intl.NumberFormat('id-ID', {
-                            style: 'currency',
-                            currency: 'IDR',
-                            minimumFractionDigits: 0,
-                            maximumFractionDigits: 0
+                            style: 'currency', currency: 'IDR', minimumFractionDigits: 0
                         }).format(idrValue);
 
-                        // Inject the updated HTML into the price div
-                        el.innerHTML = `${formattedIdr} <span class="converted-price">| ~$${usd} USD | ~$${aud} AUD</span>`;
+                        el.innerHTML = `${formattedIdr} <span class="converted-price">| ~$${usd} USD | ~A$${aud} AUD</span>`;
                     }
                 });
             } catch (error) {
