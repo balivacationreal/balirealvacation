@@ -44,6 +44,34 @@
       }
     }
     </script>
+	<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What is included in the West Nusa Penida tour?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our tour is all-inclusive! It covers return fast boat tickets from Sanur, a private AC car with an English-speaking driver on the island, entrance fees to all destinations, parking fees, and mineral water."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Is the fast boat ticket included?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, round-trip fast boat tickets from Sanur Harbor to Nusa Penida are fully included in the package price. We handle the booking so you don't have to wait in line."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Can I swim at Kelingking Beach?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "While the view from the top is spectacular, we generally do not recommend hiking down to swim at Kelingking Beach during a day tour. The hike is very steep and takes over an hour, and the waves/currents at the bottom can be extremely dangerous."
+        }
+      }]
+    }
+    </script>
     <link rel="icon" type="image/webp" href="src/assets/favicon-bali-real.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -234,7 +262,64 @@
             </aside>
         </div>
     </main>
+<section class="faq-section" style="padding: 60px 20px; background-color: var(--bg-light); max-width: 800px; margin: 0 auto; border-radius: 12px;">
+        <h2 class="section-title text-center reveal" style="margin-bottom: 30px;">Frequently Asked Questions</h2>
+        
+        <div class="faq-container reveal delay-1">
+            <div class="faq-item" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
+                <button class="faq-question" style="width: 100%; text-align: left; background: none; border: none; font-size: 1.1rem; font-weight: 600; color: var(--primary-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    What is included in the West Nusa Penida tour?
+                    <i class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div class="faq-answer" style="display: none; padding-top: 10px; color: #555; line-height: 1.6;">
+                    <p>Our tour is all-inclusive! It covers return fast boat tickets from Sanur, a private AC car with an English-speaking driver on the island, entrance fees to all destinations, parking fees, and mineral water. Lunch is at your own expense.</p>
+                </div>
+            </div>
 
+            <div class="faq-item" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
+                <button class="faq-question" style="width: 100%; text-align: left; background: none; border: none; font-size: 1.1rem; font-weight: 600; color: var(--primary-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    Is the fast boat ticket included?
+                    <i class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div class="faq-answer" style="display: none; padding-top: 10px; color: #555; line-height: 1.6;">
+                    <p>Yes, round-trip fast boat tickets from Sanur Harbor to Nusa Penida are fully included in the package price. We handle the booking so you don't have to wait in line.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" style="border-bottom: 1px solid #ddd; padding: 15px 0;">
+                <button class="faq-question" style="width: 100%; text-align: left; background: none; border: none; font-size: 1.1rem; font-weight: 600; color: var(--primary-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    Can I swim at Kelingking Beach?
+                    <i class="fa-solid fa-chevron-down transition-transform"></i>
+                </button>
+                <div class="faq-answer" style="display: none; padding-top: 10px; color: #555; line-height: 1.6;">
+                    <p>While the view from the top is spectacular, we generally do not recommend hiking down to swim at Kelingking Beach during a day tour. The hike is very steep and takes over an hour, and the waves/currents at the bottom can be extremely dangerous.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-tours" style="padding: 80px 50px; background-color: #fff;">
+        <h2 class="section-title text-center reveal">You Might Also Like</h2>
+        <div class="packages-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 40px auto 0;">
+            
+            <a href="/east-nusa-penida.html" class="package-card reveal delay-1" style="text-decoration: none; color: inherit; display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="src/assets/diamond-beach-nusa-penida.webp" alt="East Nusa Penida Tour" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 10px;">East Nusa Penida</h3>
+                    <p style="color: #666; font-size: 0.9rem;">Diamond Beach, Tree House, and Thousand Islands.</p>
+                </div>
+            </a>
+
+            <a href="/nusa-penida-snorkeling.html" class="package-card reveal delay-2" style="text-decoration: none; color: inherit; display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <img src="src/assets/snorkeling/swim-along-the-turtle-penida.webp" alt="Nusa Penida Snorkeling" style="width: 100%; height: 200px; object-fit: cover;">
+                <div style="padding: 20px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 10px;">Penida Snorkeling</h3>
+                    <p style="color: #666; font-size: 0.9rem;">Swim with Manta Rays at Manta Bay and Crystal Bay.</p>
+                </div>
+            </a>
+
+        </div>
+    </section>
     <footer id="contact">
         <h2>Bali Real Vacation</h2>
         <p>Your trusted travel partner in Bali & Nusa Penida.</p>
@@ -312,6 +397,23 @@
             } catch (error) { 
                 console.error('Exchange rate fetch failed.', error); 
             }
+
+			// FAQ Accordion Logic
+            document.querySelectorAll('.faq-question').forEach(button => {
+                button.addEventListener('click', () => {
+                    const answer = button.nextElementSibling;
+                    const icon = button.querySelector('i');
+                    
+                    if (answer.style.display === 'block') {
+                        answer.style.display = 'none';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.style.display = 'block';
+                        icon.style.transform = 'rotate(180deg)';
+                        icon.style.transition = 'transform 0.3s ease';
+                    }
+                });
+            });
         });
 	// Scroll to Top Logic
             const scrollTopBtn = document.getElementById("scrollTopBtn");
