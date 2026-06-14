@@ -1,0 +1,13 @@
+{
+  "name": "balirealvacation",
+  "version": "2.0.0",
+  "description": "Bali Real Vacation — static site (Eleventy)",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+<footer id="contact">
+    <h2>Bali Real Vacation</h2>
+    <p>{{ site.tagline }}</p>
+    <div class="social-links">
+        <a href="{{ site.instagram }}" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-legal">
+        {% for link in site.footerLinks %}
+        <a href="{{ link.href }}">{{ link.label }}</a>{% if not loop.last %}<span class="divider">|</span>{% endif %}
+        {% endfor %}
+    </div>
+    <p>&copy; 2026 Bali Real Vacation. All Rights Reserved.</p>
+</footer>
+
+<div class="floating-buttons">
+    <a href="https://t.me/{{ site.telegram }}" class="float-btn tg-btn" target="_blank" title="Contact us on Telegram" aria-label="Contact us on Telegram"><i class="fa-brands fa-telegram"></i></a>
+    <a href="https://wa.me/{{ site.whatsapp }}" class="float-btn wa-btn" target="_blank" title="Contact us on WhatsApp" aria-label="Contact us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+</div>
+
+<button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+<!-- Mobile sticky booking bar -->
+<div class="mobile-book-bar">
+    <div class="mbb-label">Plan your trip<b>Chat with a local</b></div>
+    <a href="https://wa.me/{{ site.whatsapp }}" class="mbb-btn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Book</a>
+</div>

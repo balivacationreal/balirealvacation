@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y07TTMJDX1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-Y07TTMJDX1');
-    </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Bali Real Vacation</title>
-    <link rel="canonical" href="https://balirealvacation.com/privacy.html">
-    <meta name="robots" content="noindex, follow">
-    <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
+---
+permalink: "/privacy.html"
+title: "Privacy Policy | Bali Real Vacation"
+description: ""
+canonical: "https://balirealvacation.com/privacy.html"
+robots: "noindex, follow"
+ogTitle: "Privacy Policy | Bali Real Vacation"
+ogDescription: ""
+ogType: "website"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}{% endraw %}{% endblock %}
+
+{% block headstyle %}{% raw %}<style>
         :root {
             --primary-color: #005B96; 
             --secondary-color: #FF7F50; 
@@ -98,32 +92,10 @@
         }
         #scrollTopBtn:hover { background-color: var(--secondary-color); transform: scale(1.1); }
         @media(max-width: 768px) { #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; } }
-    </style>
-</head>
-<body>
+    </style>{% endraw %}{% endblock %}
 
-    <header>
-        <a href="/" class="logo">
-            <img src="src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation Logo" width="50" height="50">
-            <span class="logo-text">Bali Real Vacation</span>
-        </a>
-        <button class="mobile-menu-btn" id="mobileMenuBtn">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <nav id="navMenu">
-            <ul>
-                <li><a href="/#home">Home</a></li>
-                <li><a href="/#about">About Us</a></li>
-                <li><a href="/#packages">Tour Packages</a></li>
-                <li><a href="/private-driver-tours.html">Private Driver</a></li>
-                <li><a href="/airport-transfers.html">Airport Transfers</a></li>
-                <li><a href="/local-partners.html">Local Partners</a></li>
-                <li><a href="/#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="legal-wrapper">
+{% block content %}{% raw %}
+<div class="legal-wrapper">
         <div class="legal-container">
             <h1>Privacy Policy</h1>
             <p><strong>Last Updated: February 2026</strong></p>
@@ -154,81 +126,4 @@
             <p>If you have any questions regarding this privacy policy, you may contact us directly via our official WhatsApp number: <strong>+62 812-3915-6586</strong>.</p>
         </div>
     </div>
-
-    <footer id="contact">
-        <h2>Bali Real Vacation</h2>
-        <p>Your trusted travel partner in Bali & Nusa Penida.</p>
-        <div class="social-links">
-            <a href="https://instagram.com/balirealvacation" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        </div>
-        <div class="footer-legal">
-            <a href="/private-driver-tours.html">Private Driver Tours</a>
-            <span class="divider">|</span>
-            <a href="/airport-transfers.html">Airport Transfers</a>
-            <span class="divider">|</span>
-            <a href="/local-partners.html">Local Partners</a>
-            <span class="divider">|</span>
-            <a href="/nusa-penida-guide.html">Nusa Penida Guide</a>
-            <span class="divider">|</span>
-            <a href="/bali-destinations-guide.html">Bali Area Guide</a>
-            <span class="divider">|</span>
-            <a href="/privacy.html">Privacy Policy</a>
-            <span class="divider">|</span>
-            <a href="/term.html">Terms of Service</a>
-        </div>
-        <p>&copy; 2026 Bali Real Vacation. All Rights Reserved.</p>
-    </footer>
-
-    <div class="floating-buttons">
-        <a href="https://t.me/+6282317794462" class="float-btn tg-btn" target="_blank" title="Contact us on Telegram"><i class="fa-brands fa-telegram"></i></a>
-        <a href="https://wa.me/6282317794462" class="float-btn wa-btn" target="_blank" title="Contact us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
-    </div>
-<button id="scrollTopBtn" title="Go to top"><i class="fa-solid fa-arrow-up"></i></button>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navMenu = document.getElementById('navMenu');
-            const navLinks = document.querySelectorAll('#navMenu ul li a');
-
-            if (mobileMenuBtn && navMenu) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                    const icon = mobileMenuBtn.querySelector('i');
-                    if (navMenu.classList.contains('active')) {
-                        icon.classList.remove('fa-bars');
-                        icon.classList.add('fa-xmark');
-                    } else {
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    }
-                });
-
-                navLinks.forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('active');
-                        const icon = mobileMenuBtn.querySelector('i');
-                        icon.classList.remove('fa-xmark');
-                        icon.classList.add('fa-bars');
-                    });
-                });
-            }
-        });
-	// Scroll to Top Logic
-            const scrollTopBtn = document.getElementById("scrollTopBtn");
-            if (scrollTopBtn) {
-                window.addEventListener("scroll", () => {
-                    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                        scrollTopBtn.style.display = "block";
-                    } else {
-                        scrollTopBtn.style.display = "none";
-                    }
-                });
-                scrollTopBtn.addEventListener("click", () => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                });
-            }
-    </script>
-    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js" defer></script>
-    <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>
-</body>
-</html>
+{% endraw %}{% endblock %}

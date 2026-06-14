@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.ga }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.ga }}');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}">
+    <link rel="canonical" href="{{ canonical }}">
+    <meta name="robots" content="{{ robots or 'index, follow' }}">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="{{ ogType or 'website' }}">
+    <meta property="og:url" content="{{ canonical }}">
+    <meta property="og:title" content="{{ ogTitle or title }}">
+    <meta property="og:description" content="{{ ogDescription or description }}">
+    <meta property="og:image" content="{{ ogImage or (site.url + '/src/assets/ulun-danu-beratan-temple-beautiful.webp') }}">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ canonical }}">
+    <meta property="twitter:title" content="{{ ogTitle or title }}">
+    <meta property="twitter:description" content="{{ ogDescription or description }}">
+    <meta property="twitter:image" content="{{ ogImage or (site.url + '/src/assets/ulun-danu-beratan-temple-beautiful.webp') }}">
+
+    {% block jsonld %}{% endblock %}
+
+    <link rel="icon" type="image/webp" href="src/assets/bali-real-vacation-logo.webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    {# Page-specific section CSS (loads BEFORE the global sheet so global tokens + refresh win) #}
+    {% block headstyle %}{% endblock %}
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    {% include "partials/nav.njk" %}
+
+    {% block content %}{% endblock %}
+
+    {% include "partials/footer.njk" %}
+
+    <script src="/js/main.js" defer></script>
+    <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js" defer></script>
+    <script src="https://files.bpcontent.cloud/2026/02/28/15/20260228152626-Y7SR99L0.js" defer></script>
+</body>
+</html>

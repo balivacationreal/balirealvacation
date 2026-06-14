@@ -7,7 +7,11 @@
 # ============================================================
 
 [build]
-  publish = "."
+  command = "npm run build"
+  publish = "_site"
+
+[build.environment]
+  NODE_VERSION = "20"
 
 # ----- 1. Force www -> non-www (301) -------------------------
 # Every www request is permanently redirected to the apex domain.

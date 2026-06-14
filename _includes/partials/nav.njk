@@ -1,0 +1,16 @@
+<header>
+    <a href="/" class="logo">
+        <img src="src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation Logo" width="50" height="50">
+        <span class="logo-text">Bali Real Vacation</span>
+    </a>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <nav id="navMenu">
+        <ul>
+            {% for item in site.nav %}
+            <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>
