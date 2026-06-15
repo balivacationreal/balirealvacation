@@ -106,13 +106,9 @@ nav ul li a:hover {
   color: var(--secondary-color);
 }
 /* Hero Section */
+/* Generic hero shell — NO background here, so each page controls its own.
+   (A background set here would override every page's hero via the cascade.) */
 .hero {
-  height: 80vh;
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("src/assets/ulun-danu-beratan-temple-stunning-view.webp");
-  background-size: cover;
-  background-position: center 15%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -120,6 +116,24 @@ nav ul li a:hover {
   text-align: center;
   color: var(--text-light);
   padding: 0 20px;
+  position: relative;
+  overflow: hidden;
+}
+/* Homepage hero ONLY — vibrant ocean→aqua gradient (preview v1 look) */
+#home {
+  min-height: 88vh;
+  background: linear-gradient(135deg, #00557f 0%, #0a6e85 55%, #13b5a6 100%);
+}
+#home::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 80% 10%,
+    rgba(255, 127, 80, 0.28),
+    transparent 60%
+  );
+  pointer-events: none;
 }
 .hero h1 {
   font-size: 3rem;
@@ -1084,7 +1098,7 @@ textarea:focus-visible {
     bottom: 84px;
   }
   #scrollTopBtn {
-    bottom: 150px;
+    bottom: 90px;
   }
 }
 
@@ -1146,14 +1160,6 @@ textarea:focus-visible {
   line-height: 0;
   pointer-events: none;
 }
-.hero {
-  position: relative;
-}
-
-/* Hero: dual CTA + wave layering */
-.hero {
-  overflow: hidden;
-}
 .hero h1,
 .hero p,
 .hero .btn,
@@ -1185,19 +1191,8 @@ textarea:focus-visible {
    touches the 7 tour cards, never the season/essentials cards.
    ============================================================ */
 /* Hero polish */
-.hero {
-  height: 88vh;
-  background-image:
-    linear-gradient(
-      135deg,
-      rgba(0, 55, 90, 0.72),
-      rgba(4, 41, 62, 0.5) 45%,
-      rgba(19, 181, 166, 0.4)
-    ),
-    url("src/assets/ulun-danu-beratan-temple-stunning-view.webp") !important;
-  background-size: cover !important;
-  background-position: center !important;
-}
+/* (Removed the old broken global hero background — the homepage hero is now
+   handled by the #home rule above; other pages keep their own hero image.) */
 .hero .eyebrow {
   display: inline-flex;
   align-items: center;

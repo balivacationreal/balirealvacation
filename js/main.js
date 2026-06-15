@@ -133,7 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   // 7. FAQ Accordion Logic
-  const faqItems = document.querySelectorAll(".faq-item"); // or whatever class your FAQ wrapper uses
   document.querySelectorAll(".faq-question").forEach((question) => {
     question.addEventListener("click", () => {
       const item = question.parentElement;
