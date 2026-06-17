@@ -1,6 +1,6 @@
 <header>
-    <a href="/" class="logo">
-        <img src="src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation Logo" width="50" height="50">
+    <a href="{{ collections.i18nUrl['index_' + lang] or '/' }}" class="logo">
+        <img src="/src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation Logo" width="50" height="50">
         <span class="logo-text">Bali Real Vacation</span>
     </a>
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation menu">
@@ -9,8 +9,14 @@
     <nav id="navMenu">
         <ul>
             {% for item in site.nav %}
-            <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+            {%- set parts = item.href.split('#') -%}
+            {%- set tkey = (parts[0] | replace('/', '') | replace('.html', '')) or 'index' -%}
+            {%- set anchor = ('#' + parts[1]) if (parts | length > 1) else '' -%}
+            {%- set localized = collections.i18nUrl[tkey + '_' + lang] -%}
+            {%- set href = (localized + anchor) if localized else item.href -%}
+            <li><a href="{{ href }}">{{ ui[item.key][lang] or ui[item.key].en }}</a></li>
             {% endfor %}
         </ul>
+        {% include "partials/lang-switcher.njk" %}
     </nav>
 </header>

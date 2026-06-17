@@ -1,0 +1,756 @@
+---
+permalink: "/zh/index.html"
+title: "Bali Real Vacation | 巴厘岛与佩尼达岛私人全包旅游"
+description: "通过我们无忧且环保的旅行路线，探索巴厘岛和佩尼达岛的魔力。非常适合家庭、团体和独自冒险者。"
+canonical: "https://balirealvacation.com/zh/"
+robots: "index, follow"
+ogTitle: "Bali Real Vacation | 巴厘岛与佩尼达岛优质旅游"
+ogDescription: "通过我们无忧且环保的旅行路线，探索巴厘岛和佩尼达岛的魔力。非常适合家庭、团体和独自冒险者。"
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beautiful.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Bali Real Vacation",
+      "url": "https://balirealvacation.com/",
+      "logo": "https://balirealvacation.com/src/assets/bali-real-vacation-logo.webp",
+      "image": "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beautiful.webp",
+      "description": "在巴厘岛和佩尼达岛提供优质、无忧、环保的私人旅行行程。",
+      "telephone": "+62-812-3915-6586",
+      "priceRange": "$$",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Bali, Indonesia"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Bali",
+        "addressCountry": "ID"
+      }
+    }
+    </script>{% endraw %}{% endblock %}
+
+{% block headstyle %}{% raw %}<style>
+/* Modernized Color Palette & Typography */
+        :root {
+            --primary-color: #005B96;
+            --secondary-color: #FF7F50;
+            --text-dark: #2C3E50;
+            --text-light: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; font-family: var(--font-body); }
+        h1, h2, h3, h4, .logo-text, .btn { font-family: var(--font-heading); }
+        /* Navbar */
+        header { background-color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+        .logo img { height: 50px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
+        .logo img:hover { transform: scale(1.05); }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); transition: color 0.3s ease; }
+        .logo:hover .logo-text { color: var(--secondary-color); }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--secondary-color); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; color: var(--primary-color); cursor: pointer; transition: color 0.3s ease; }
+        .mobile-menu-btn:hover { color: var(--secondary-color); }
+        /* Hero Section */
+        .hero{height: 80vh;background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/src/assets/ulun-danu-beratan-temple-stunning-view.webp'); background-size: cover; background-position: center 15%; display: flex;flex-direction: column; justify-content: center; align-items: center; text-align: center;color: var(--text-light);padding: 0 20px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; }
+        .btn { padding: 12px 30px; background-color: var(--secondary-color); color: #fff; text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s; border: none; cursor: pointer; }
+        .btn:hover { background-color: #e68a00; }
+        /* Section Titles */
+        .section-title { text-align: center; margin: 60px 0 40px; font-size: 2.5rem; color: var(--primary-color); }
+        /* Packages Section */
+        .packages-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 0 50px 60px; }
+        .package-card { background: #fff; width: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .package-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .package-img { width: 100%; height: 220px; object-fit: cover; }
+        .package-content { padding: 20px; }
+        .package-title { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-dark); }
+        .package-details { list-style: none; margin-bottom: 20px; }
+        .package-details li { margin-bottom: 8px; font-size: 0.95rem; }
+        .package-details li i { color: var(--primary-color); margin-right: 10px; }
+        .tour-pricing { margin: 15px 0; padding: 15px; background-color: var(--bg-light); border-radius: 8px; text-align: left; }
+        .price-list { list-style: none; padding: 0; margin: 0; }
+        .price-list li { padding: 10px 0; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; margin: 0; }
+        .price-list li:last-child { border-bottom: none; padding-bottom: 0; }
+        .tier-label { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
+        .price-group { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+        .usd-price { color: var(--primary-color); font-size: 1.15rem; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+        .idr-price { color: #555; font-size: 0.8rem; font-weight: 600; line-height: 1; }
+        .per-pax-note { font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center; font-style: italic; }
+        /* About Us Section - Fixed Layout */
+        .about-section { padding: 80px 50px; background-color: #fff; }
+        .about-container { display: flex; align-items: center; max-width: 1200px; margin: 0 auto; gap: 50px; }
+        .about-image { flex: 1; position: relative; }
+        .about-image img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); object-fit: cover; min-height: 400px; }
+        .experience-badge { position: absolute; bottom: -20px; right: -20px; background-color: var(--secondary-color); color: #fff; padding: 20px; border-radius: 50%; width: 120px; height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); line-height: 1.2; z-index: 5; }
+        .about-content { flex: 1; }
+        .about-content h3 { font-size: 1.8rem; color: var(--text-dark); margin-bottom: 20px; }
+        .about-content p { margin-bottom: 15px; color: #555; font-size: 1.05rem; }
+        .about-features { list-style: none; margin-top: 25px; }
+        .about-features li { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600; color: var(--text-dark); }
+        .about-features li i { color: #25D366; margin-right: 10px; }
+        /* Crew Section */
+        .crew-section { padding: 60px 50px 80px; background-color: var(--bg-light); text-align: center; }
+        .crew-intro { max-width: 600px; margin: 0 auto 40px; color: #555; font-size: 1.1rem; }
+        .crew-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .crew-card { background: #fff; width: 320px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; text-align: left; }
+        .crew-card:hover { transform: translateY(-8px); }
+        .crew-img { width: 100%; height: 250px; object-fit: cover; }
+        .crew-info { padding: 25px; }
+        .crew-info h3 { font-size: 1.4rem; color: var(--text-dark); margin-bottom: 5px; }
+        .crew-role { display: block; color: var(--secondary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .crew-info p { font-size: 0.95rem; color: #666; line-height: 1.6; }
+        /* Guides Section */
+        .guides-section { background-color: var(--bg-light); padding: 40px 50px 0; }
+        .guides-intro { text-align: center; margin-bottom: 40px; }
+        .guides-intro p { color: #555; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        /* Testimonials Section - Upgraded to Grid */
+        .testimonials { padding: 40px 50px 80px; background-color: #fff; }
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background: var(--bg-light);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .quote-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            opacity: 0.15;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .stars { color: #FFD700; margin-bottom: 15px; font-size: 1.2rem; position: relative; z-index: 2; }
+        .review-text { font-style: italic; color: #666; margin-bottom: 25px; font-size: 0.95rem; line-height: 1.7; position: relative; z-index: 2; }
+        .reviewer h4 { color: var(--text-dark); margin-bottom: 5px; }
+        .reviewer span { font-size: 0.85rem; color: var(--primary-color); font-weight: 600; }
+        /* Booking Form Section */
+        .booking-section { padding: 60px 50px 80px; background-color: var(--bg-light); }
+        .booking-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .booking-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-row { display: flex; gap: 20px; }
+        .form-group { flex: 1; display: flex; flex-direction: column; }
+        .form-group label { font-weight: 600; margin-bottom: 8px; color: var(--text-dark); font-size: 0.95rem; }
+        .form-group input, .form-group select, .form-group textarea { padding: 12px 15px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Open Sans', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-color); }
+        .submit-btn { width: 100%; margin-top: 10px; font-size: 1.2rem; padding: 15px; }
+        /* Footer & Social */
+        footer { background-color: #222; color: #ccc; text-align: center; padding: 40px 20px; }
+        .social-links { margin: 20px 0; }
+        .social-links a { color: #fff; font-size: 24px; margin: 0 10px; transition: color 0.3s; }
+        .social-links a:hover { color: var(--secondary-color); }
+        .footer-legal { margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-legal a { color: #ccc; text-decoration: none; transition: color 0.3s ease; }
+        .footer-legal a:hover { color: var(--secondary-color); }
+        .footer-legal .divider { color: #666; margin: 0 10px; }
+        /* Floating Buttons */
+        .floating-buttons { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .float-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #fff; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s; }
+        .float-btn:hover { transform: scale(1.1); }
+        .wa-btn { background-color: #25D366; }
+        .tg-btn { background-color: #0088cc; }
+        /* Bridge Banner Section */
+        .bridge-banner {
+            background: linear-gradient(135deg, var(--primary-color), #00365a);
+            color: #fff;
+            text-align: center;
+            padding: 60px 40px;
+            margin: 0 auto 80px;
+            max-width: 1100px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 91, 150, 0.2);
+        }
+        .bridge-banner h2 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        .bridge-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #e0f0ff;
+        }
+        .bridge-banner .btn-custom {
+            background-color: #fff;
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .bridge-banner .btn-custom:hover {
+            background-color: var(--secondary-color);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 127, 80, 0.4);
+        }
+    /* Universal Responsive Rules */
+    @media(max-width: 992px) {
+    .about-container { flex-direction: column; }
+    .experience-badge { right: 20px; }
+    }
+    @media(max-width: 768px) {
+    /* 1. Fix the Header and Logo sizes */
+    header { padding: 15px 20px; flex-direction: row; position: relative; justify-content: space-between; align-items: center; }
+    .logo img { height: 50px; }
+    .logo-text { font-size: 24px; }
+    /* Mobile Menu Logic (Keep your existing) */
+    .mobile-menu-btn { display: block; }
+    #navMenu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #fff; box-shadow: 0 10px 15px rgba(0,0,0,0.1); padding: 20px 0; z-index: 99; }
+    #navMenu.active { display: block; }
+    nav ul { flex-direction: column; align-items: center; gap: 20px; margin: 0; }
+    /* Typography Adjustments */
+    .hero h1 { font-size: 2rem; line-height: 1.3; }
+    .section-title { font-size: 1.8rem; }
+    /* Adjust Container Paddings */
+    .about-section, .crew-section, .testimonials, .booking-section { padding: 40px 20px; }
+    .packages-container { padding: 0 20px 40px; gap: 20px; }
+    .package-card, .crew-card { width: 100%; max-width: 380px; }
+    /* 2. Fix the Overlapping Badge */
+    .about-image { margin-bottom: 30px; } /* Adds space so the badge doesn't hit the text */
+    .experience-badge { right: 10px; bottom: -15px; width: 90px; height: 90px; font-size: 0.8rem; padding: 10px; }
+    .about-content h3 { font-size: 1.5rem; margin-top: 15px; }
+    /* Form Adjustments */
+    .form-row { flex-direction: column; gap: 20px; }
+    .booking-container { padding: 25px; }
+    /* 3. Clean up the Floating Buttons */
+    /* Move them to a horizontal row, make them smaller, and push them up slightly to avoid OS navigation bars */
+    .floating-buttons { bottom: 20px; left: 20px; gap: 10px; flex-direction: row; }
+    .float-btn { width: 45px; height: 45px; font-size: 22px; }
+    /* Guides section adjustments on mobile */
+    .guides-section { padding: 20px 20px 0; }
+    .guides-intro { margin-bottom: 30px; }
+    .guides-intro p { font-size: 1rem; padding: 0 10px; } /* The padding here prevents text from hitting the screen edge */
+    .guides-section > div[style*="grid"] { padding: 0 20px !important; }
+    /* Hero Section Mobile Optimization */
+    .hero {
+        height: 65vh; /* Reduces the height slightly to reveal the next section */
+        min-height: 400px; /* Ensures it never gets too squished on very short screens */
+        background-position: center 30%; /* Shifts the focal point up slightly so the temple isn't cut off */
+        padding: 0 15px;
+        }
+    .hero p {
+        font-size: 1.05rem;
+        margin-bottom: 25px;
+        padding: 0 10px; /* Prevents the text from touching the screen edges */
+            }
+    /* Bridge Banner Mobile Fix */
+    .bridge-banner { margin: 0 20px 60px; padding: 40px 20px; }
+    .bridge-banner h2 { font-size: 1.8rem; }
+            }
+    /* Scroll to Top Button */
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        #scrollTopBtn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        @media(max-width: 768px) {
+            #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; }
+        }
+    /* Top Destinations Grid */
+        .destinations-section { padding: 80px 50px; background-color: #fff; text-align: center; }
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .destination-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-decoration: none; /* In case we wrap them in links */
+        }
+        .destination-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .destination-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            text-align: left;
+            color: #fff;
+        }
+        .destination-card:hover .destination-img { transform: scale(1.1); }
+        .destination-overlay h3 { font-size: 1.6rem; margin-bottom: 5px; font-family: var(--font-heading); }
+        .destination-overlay p { font-size: 0.95rem; opacity: 0.9; }
+        @media(max-width: 768px) { .destinations-section { padding: 50px 20px; } }
+    /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px); /* Starts slightly lower */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform; /* Hardware acceleration for smooth performance */
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0); /* Glides into place */
+        }
+        /* Optional: Staggered delays for items in a grid */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+		.delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+    </style>{% endraw %}{% endblock %}
+
+{% block content %}{% raw %}
+<section class="hero" id="home">
+    <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> 巴厘岛 &middot; 佩尼达岛</span>
+    <h1>探索巴厘岛与佩尼达岛的魔力</h1>
+    <p>为国内外游客提供优质的旅游行程和难忘的体验。</p>
+    <div class="hero-cta">
+      <a href="#packages" class="btn">探索套餐</a>
+      <a href="https://wa.me/6282317794462" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-whatsapp"></i> 在线咨询</a>
+    </div>
+    <div class="hero-wave"><svg viewBox="0 0 1440 110" width="100%" height="110" preserveAspectRatio="none"><path fill="#FBF8F3" d="M0,64L60,58.7C120,53,240,43,360,48C480,53,600,75,720,80C840,85,960,75,1080,64C1200,53,1320,43,1380,37.3L1440,32L1440,110L0,110Z"></path></svg></div>
+</section>
+
+<div class="trust-bar">
+  <div class="ti"><i class="fa-solid fa-star"></i><div><b>4.9 / 5</b><span>300+ 满意的游客</span></div></div>
+  <div class="ti"><i class="fa-brands fa-whatsapp"></i><div><b>即时回复</b><span>WhatsApp 真人客服</span></div></div>
+  <div class="ti"><i class="fa-solid fa-hand-holding-dollar"></i><div><b>无隐藏费用</b><span>价格透明</span></div></div>
+  <div class="ti"><i class="fa-solid fa-leaf"></i><div><b>环保意识</b><span>保护岛屿生态</span></div></div>
+</div>
+
+<section class="about-section" id="about">
+    <div class="about-container">
+        <div class="about-image">
+            <img src="/src/assets/tanah-lot-temple.webp" alt="巴厘岛著名的海神庙" loading="lazy">
+            <div class="experience-badge">
+                <span>正宗的</span>
+                <span>当地体验</span>
+            </div>
+        </div>
+        <div class="about-content">
+            <h2 class="section-title" style="text-align: left; margin-top: 0;">关于我们</h2>
+            <h3>不仅仅是旅游 – 这是真正的度假</h3>
+            <p>欢迎来到 <strong>Bali Real Vacation</strong>。我们专门为国内外游客定制巴厘岛和佩尼达岛的优质、无忧旅行行程。</p>
+            <p>我们深知为大型团体规划旅行是一件令人头疼的事——既要兼顾年轻人的活力，又要照顾长辈的舒适度。这就是为什么我们的团队会处理每一个细节，从快艇票到经验丰富的当地司机，确保无论您是与大家庭、伴侣还是独自旅行，都能享受顺畅的旅程。</p>
+            <p>除了提供难忘的冒险，我们还致力于保护我们所展示的岛屿。我们倡导可持续的环保旅游，以保护美丽的海洋生物并提高对关键当地环境的认识。</p>
+            <ul class="about-features">
+                <li><i class="fa-solid fa-check-circle"></i> 无缝衔接的家庭与团体协调</li>
+                <li><i class="fa-solid fa-check-circle"></i> 环保旅行实践</li>
+                <li><i class="fa-solid fa-check-circle"></i> 价格透明且无隐藏费用</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="crew-section reveal" id="crew">
+    <h2 class="section-title">认识您的当地向导</h2>
+    <p class="crew-intro">我们经验丰富且友好的司机在这里确保您的旅程安全、有趣且令人难忘。</p>
+    <div class="crew-container">
+        <div class="crew-card reveal delay-1">
+            <img src="/src/assets/crew/ketut-widiasa.webp" alt="Ketut Widiasa" class="crew-img" loading="lazy">
+            <div class="crew-info">
+                <h3>Ketut Widiasa</h3>
+                <span class="crew-role">资深司机与向导</span>
+                <p>Ketut 来自巴厘岛北部的布莱伦，是一位经验丰富的司机。他口齿伶俐，幽默风趣，并且总是保持车厢一尘不染。他在路上反应迅速且极具责任感。</p>
+            </div>
+        </div>
+        <div class="crew-card reveal delay-2">
+            <img src="/src/assets/crew/gede-jahendra.webp" alt="Gede Jahendra" class="crew-img" loading="lazy">
+            <div class="crew-info">
+                <h3>Gede Jahendra</h3>
+                <span class="crew-role">当地专家</span>
+                <p>Gede 在佩尼达岛土生土长，对巴厘岛的隐藏宝石有着深刻的了解。他以极其诚实、可靠和负责任而受到我们客户的认可。</p>
+            </div>
+        </div>
+        <div class="crew-card reveal delay-3">
+            <img src="/src/assets/crew/putu-ardi.webp" alt="Putu Ardi" class="crew-img" loading="lazy">
+            <div class="crew-info">
+                <h3>Putu Ardi</h3>
+                <span class="crew-role">向导与摄影师</span>
+                <p>Putu 是真正的佩尼达岛当地人，为人善良诚实。除了提供向导服务，他还是一位出色的摄影师，会确保在您的任何冒险中捕捉到完美的瞬间。</p>
+            </div>
+        </div>
+        <div class="crew-card reveal delay-4">
+            <img src="/src/assets/crew/kadek-tresna.webp" alt="Kadek Tresna" class="crew-img" loading="lazy">
+            <div class="crew-info">
+                <h3>Kadek Tresna</h3>
+                <span class="crew-role">资深司机与向导</span>
+                <p>Kadek 为团队带来了数十年的经验，是一位敬业的资深司机和真正的巴厘岛当地人。他勤奋、诚实且对岛屿了如指掌，确保为您提供安全舒适的旅程。</p>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="destinations-section" id="destinations">
+        <h2 class="section-title reveal" style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 10px;">探索巴厘岛及周边</h2>
+        <p class="reveal delay-1" style="color: #666; font-size: 1.1rem; margin-bottom: 40px;">在选择行程之前，先找到您心目中的完美天堂。</p>
+        <div class="destinations-grid">
+            <a href="/zh/nusa-penida-guide.html" class="destination-card reveal delay-1" style="display: block;">
+                <img src="/src/assets/diamond-beach-nusa-penida.webp" alt="佩尼达岛" class="destination-img" loading="lazy">
+                <div class="destination-overlay"><h3>佩尼达岛</h3><p>壮丽悬崖与魔鬼鱼</p></div>
+            </a>
+            <a href="/zh/uluwatu-full-day-tour.html" class="destination-card reveal delay-2" style="display: block;">
+                <img src="/src/assets/uluwatu-temple-cliffview.webp" alt="乌鲁瓦图" class="destination-img" loading="lazy">
+                <div class="destination-overlay"><h3>乌鲁瓦图</h3><p>冲浪胜地与火舞</p></div>
+            </a>
+            <a href="/zh/mount-batur-sunrise-trek.html" class="destination-card reveal delay-3" style="display: block;">
+                <img src="/src/assets/batur/mount-batur-trekking.webp" alt="巴图尔火山" class="destination-img" loading="lazy">
+                <div class="destination-overlay"><h3>巴图尔火山</h3><p>火山日出与温泉</p></div>
+            </a>
+            <a href="/zh/sekumpul-waterfall-tour.html" class="destination-card reveal delay-1" style="display: block;">
+                <img src="/src/assets/sekumpul/sekumpul-waterfalls-top-view.webp" alt="巴厘岛北部" class="destination-img" loading="lazy">
+                <div class="destination-overlay"><h3>巴厘岛北部</h3><p>隐秘瀑布与丛林</p></div>
+            </a>
+        </div>
+        <div class="reveal delay-2" style="margin-top: 40px;">
+            <a href="/zh/bali-destinations-guide.html" class="btn" style="display: inline-block; padding: 12px 30px; border-radius: 30px;">阅读完整区域指南</a>
+        </div>
+    </section>
+
+<div class="bridge-banner">
+    <h2>设计您自己的海岛冒险</h2>
+    <p>不想要全包套餐？预订我们经验丰富的司机，开启专属的包车定制游，完全按照自己的节奏探索巴厘岛。</p>
+    <a href="/zh/private-driver-tours.html" class="btn-custom">查看私人包车选项</a>
+</div>
+    <h2 class="section-title reveal" id="packages">我们的热门旅游套餐</h2>
+   <div class="packages-container" id="packages-list">
+  <div class="package-card reveal">
+    <span class="card-tag"><i class="fa-solid fa-mountain-sun"></i> 佩尼达岛</span>
+    <img src="/src/assets/perfect-view-kelingking-beach.webp" alt="西佩尼达岛凯灵金海滩标志性的霸王龙悬崖" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">西佩尼达岛之旅</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$65</strong><span class="idr-price" data-usd="65">Rp 1.090.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$55</strong><span class="idr-price" data-usd="55">Rp 920.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$49</strong><span class="idr-price" data-usd="49">Rp 820.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> 凯灵金海滩 (Kelingking)</li>
+        <li><i class="fa-solid fa-location-dot"></i> 破裂海滩 (Broken Beach)</li>
+        <li><i class="fa-solid fa-location-dot"></i> 天使的比拉邦 (Angel's Billabong)</li>
+        <li><i class="fa-solid fa-location-dot"></i> 水晶湾 (Crystal Bay)</li>
+      </ul>
+      <a href="/zh/west-nusa-penida.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-1">
+    <span class="card-tag"><i class="fa-solid fa-mountain-sun"></i> 佩尼达岛</span>
+    <img src="/src/assets/diamond-beach-nusa-penida.webp" alt="东佩尼达岛钻石海滩的喀斯特岩层" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">东佩尼达岛之旅</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$69</strong><span class="idr-price" data-usd="69">Rp 1.150.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$59</strong><span class="idr-price" data-usd="59">Rp 990.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$55</strong><span class="idr-price" data-usd="55">Rp 920.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> 钻石海滩 (Diamond Beach)</li>
+        <li><i class="fa-solid fa-location-dot"></i> 阿图海滩 (Atuh Beach)</li>
+        <li><i class="fa-solid fa-location-dot"></i> 树屋 (Molenteng)</li>
+        <li><i class="fa-solid fa-location-dot"></i> 千岛观景台</li>
+      </ul>
+      <a href="/zh/east-nusa-penida.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-2">
+    <span class="card-tag"><i class="fa-solid fa-water"></i> 浮潜</span>
+    <img src="/src/assets/snorkeling/swim-along-the-turtle-penida.webp" alt="在佩尼达岛与海龟和魔鬼鱼一起浮潜" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">佩尼达岛浮潜</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$79</strong><span class="idr-price" data-usd="79">Rp 1.320.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$75</strong><span class="idr-price" data-usd="75">Rp 1.250.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$69</strong><span class="idr-price" data-usd="69">Rp 1.150.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-water"></i> 魔鬼鱼湾 (Manta Bay)</li>
+        <li><i class="fa-solid fa-water"></i> 加马特湾 (Gamat Bay)</li>
+        <li><i class="fa-solid fa-water"></i> 峭壁潜点 (Wall Point)</li>
+        <li><i class="fa-solid fa-water"></i> 水晶湾 (Crystal Bay)</li>
+      </ul>
+      <a href="/zh/nusa-penida-snorkeling.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-3">
+    <span class="card-tag"><i class="fa-solid fa-place-of-worship"></i> 文化</span>
+    <img src="/src/assets/uluwatu-temple-cliffview.webp" alt="日落时分矗立在印度洋上方悬崖上的乌鲁瓦图断崖庙" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">乌鲁瓦图全日游</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$75</strong><span class="idr-price" data-usd="75">Rp 1.250.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$65</strong><span class="idr-price" data-usd="65">Rp 1.090.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$59</strong><span class="idr-price" data-usd="59">Rp 990.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> GWK 文化公园</li>
+        <li><i class="fa-solid fa-location-dot"></i> 帕当帕当海滩</li>
+        <li><i class="fa-solid fa-location-dot"></i> 乌鲁瓦图断崖庙</li>
+        <li><i class="fa-solid fa-location-dot"></i> 凯卡克与火舞表演</li>
+      </ul>
+      <a href="/zh/uluwatu-full-day-tour.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-4">
+    <span class="card-tag"><i class="fa-solid fa-water"></i> 瀑布</span>
+    <img src="/src/assets/sekumpul/sekumpul-waterfalls-top-view.webp" alt="巴厘岛北部丛林中雄伟的赛库普瀑布鸟瞰图" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">赛库普瀑布</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$55</strong><span class="idr-price" data-usd="55">Rp 920.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$49</strong><span class="idr-price" data-usd="49">Rp 820.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$45</strong><span class="idr-price" data-usd="45">Rp 750.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> 赛库普丛林徒步</li>
+        <li><i class="fa-solid fa-location-dot"></i> 赛库普与斐济瀑布</li>
+        <li><i class="fa-solid fa-location-dot"></i> 风景午餐</li>
+        <li><i class="fa-solid fa-location-dot"></i> 双子湖观景台</li>
+      </ul>
+      <a href="/zh/sekumpul-waterfall-tour.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-5">
+    <span class="card-tag"><i class="fa-solid fa-person-hiking"></i> 探险</span>
+    <img src="/src/assets/canyoning/anahata-canyoning.webp" alt="在巴厘岛北部沿活跃瀑布速降的峡谷探险" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">北巴厘岛峡谷探险</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$85</strong><span class="idr-price" data-usd="85">Rp 1.400.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$75</strong><span class="idr-price" data-usd="75">Rp 1.250.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$69</strong><span class="idr-price" data-usd="69">Rp 1.150.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-person-falling"></i> 持证向导与全套装备</li>
+        <li><i class="fa-solid fa-person-falling"></i> 瀑布速降</li>
+        <li><i class="fa-solid fa-person-falling"></i> 天然滑水道</li>
+        <li><i class="fa-solid fa-person-falling"></i> 悬崖跳水与游泳</li>
+      </ul>
+      <a href="/zh/canyoning-north-bali-tour.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-6">
+    <span class="card-tag"><i class="fa-solid fa-mountain-sun"></i> 日出徒步</span>
+    <img src="/src/assets/batur/mount-batur-trekking.webp" alt="徒步者在日出时分攀登巴厘岛巴图尔火山" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">巴图尔火山日出徒步</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">2人团</span><div class="price-group"><strong class="usd-price">$49</strong><span class="idr-price" data-usd="49">Rp 820.000</span></div></li>
+          <li><span class="tier-label">3人团</span><div class="price-group"><strong class="usd-price">$45</strong><span class="idr-price" data-usd="45">Rp 750.000</span></div></li>
+          <li><span class="tier-label">4人及以上</span><div class="price-group"><strong class="usd-price">$39</strong><span class="idr-price" data-usd="39">Rp 650.000</span></div></li>
+        </ul><p class="per-pax-note">* 价格为每人</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-mountain-sun"></i> 清晨酒店接送</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> 持证当地徒步向导</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> 火山蒸汽早餐</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> 湖泊与火山口景观</li>
+      </ul>
+      <a href="/zh/mount-batur-sunrise-trek.html" class="btn" style="display:block;text-align:center;margin-top:15px;">查看详情</a>
+    </div>
+  </div>
+</div>
+    <section class="guides-section" id="guides">
+        <div class="guides-intro">
+            <h2 class="section-title reveal">旅行指南与贴士</h2>
+            <p>借助我们专业团队的内部知识和当地见解，规划您完美的海岛冒险。</p>
+        </div>
+        <div class="packages-container">
+            <div class="package-card">
+                <img src="/src/assets/perfect-view-kelingking-beach.webp" alt="佩尼达岛旅行指南" class="package-img" loading="lazy">
+                <div class="package-content">
+                    <h3 class="package-title" style="font-size: 1.3rem;">佩尼达岛终极指南</h3>
+                    <p style="margin-bottom: 20px; color: #555; font-size: 0.95rem; line-height: 1.6;">探索原始海滩、标志性的石灰岩悬崖和水下奇观。在游览巴厘岛这个令人惊叹的邻岛之前，您需要了解的一切尽在于此。</p>
+                    <a href="/zh/nusa-penida-guide.html" class="btn" style="display: block; text-align: center; background-color: var(--primary-color);">阅读指南</a>
+                </div>
+            </div>
+            <div class="package-card">
+                <img src="/src/assets/ulun-danu-beratan-temple-beautiful.webp" alt="巴厘岛区域指南" class="package-img" loading="lazy">
+                <div class="package-content">
+                    <h3 class="package-title" style="font-size: 1.3rem;">巴厘岛终极区域指南</h3>
+                    <p style="margin-bottom: 20px; color: #555; font-size: 0.95rem; line-height: 1.6;">从南部充满活力的海滨小镇到乌布宁静的文化中心，找到适合您热带度假的完美目的地。</p>
+                    <a href="/zh/bali-destinations-guide.html" class="btn" style="display: block; text-align: center; background-color: var(--primary-color);">阅读指南</a>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="guides-section" style="background-color: #fff; padding-top: 60px; padding-bottom: 60px;">
+        <h2 class="section-title reveal">巴厘岛旅行须知</h2>
+        <p style="text-align: center; color: #555; max-width: 600px; margin: -20px auto 40px;">在您踏上神明之岛之前需要了解的一切。</p>
+        <div class="packages-container" style="gap: 20px;">
+            <div class="package-card" style="padding: 30px; background: var(--primary-color); color: #fff; width: 100%; max-width: 500px;">
+                <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--secondary-color); font-weight: bold;">☀️ 旺季</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: #fff;">旱季</h3>
+                <p style="font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 20px;">晴空万里，阳光明媚，冲浪条件理想。非常适合跳岛前往佩尼达岛和攀登巴图尔火山。</p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">四月</span>
+                    <span style="background: var(--secondary-color); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">五月 - 九月</span>
+                    <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">十月</span>
+                </div>
+            </div>
+            <div class="package-card" style="padding: 30px; background: var(--bg-light); width: 100%; max-width: 500px;">
+                <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary-color); font-weight: bold;">🌧️ 淡季</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: var(--text-dark);">雨季</h3>
+                <p style="font-size: 0.95rem; line-height: 1.7; color: #555; margin-bottom: 20px;">郁郁葱葱，绿意盎然，充满魔力。游客更少，价格更低，赛库普等瀑布水势最为壮观。雨通常只持续几个小时。</p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: var(--primary-color); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">十一月 - 三月</span>
+                </div>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1020px; margin: 40px auto 0; padding: 0 50px;">
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-passport" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">落地签证</h4>
+                <p style="font-size: 0.9rem; color: #666;">大多数国籍的游客可在机场办理 30 天落地签证，或提前在线申请。</p>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-plug" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">电源插座</h4>
+                <p style="font-size: 0.9rem; color: #666;">巴厘岛使用欧式 C 型和 F 型双脚插座（230V）。</p>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-hands-praying" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">尊重文化</h4>
+                <p style="font-size: 0.9rem; color: #666;">进入寺庙需遮盖肩膀和膝盖。通常需要并会提供纱笼。</p>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials" id="reviews">
+        <h2 class="section-title reveal">游客怎么说</h2>
+        <div class="testimonials-container">
+            <div class="testimonial-card reveal delay-1">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <div>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">"绝对难忘的体验！团队为我们安排好了一切，从快艇到浮潜装备。与魔鬼鱼一起游泳是梦想成真。"</p>
+                </div>
+                <div class="reviewer"><h4>Sarah Jenkins</h4><span>澳大利亚</span></div>
+            </div>
+            <div class="testimonial-card reveal delay-2">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <div>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                    <p class="review-text">"我们的家庭旅行完美无瑕。司机非常友好，在大批人群到来之前就知道凯灵金海滩所有最佳的拍照地点。强烈推荐！"</p>
+                </div>
+                <div class="reviewer"><h4>Budi Santoso</h4><span>印度尼西亚雅加达</span></div>
+            </div>
+            <div class="testimonial-card reveal delay-3">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <div>
+                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                    <p class="review-text">"非常专业的旅行社。通过 WhatsApp 的沟通即时高效，东佩尼达岛之旅令人叹为观止。物超所值！"</p>
+                </div>
+                <div class="reviewer"><h4>Liam O'Connor</h4><span>英国</span></div>
+            </div>
+        </div>
+    </section>
+    <section class="booking-section" id="book-now">
+        <h2 class="section-title">预订您的冒险之旅</h2>
+        <div class="booking-container reveal">
+            <form class="booking-form" action="#" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">全名</label>
+                        <input type="text" id="name" placeholder="请输入您的全名" autocomplete="name" autocapitalize="words" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp">WhatsApp 号码</label>
+                        <input type="tel" id="whatsapp" placeholder="+62..." autocomplete="tel" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="package">选择旅游套餐</label>
+                        <select id="package" required>
+                            <option value="" disabled selected>选择行程...</option>
+                            <option value="West Nusa Penida">西佩尼达岛之旅</option>
+                            <option value="East Nusa Penida">东佩尼达岛之旅</option>
+                            <option value="Nusa Penida Snorkeling">佩尼达岛浮潜</option>
+                            <option value="Uluwatu Full Day">乌鲁瓦图全日游</option>
+                            <option value="Sekumpul Waterfall">赛库普瀑布之旅</option>
+                            <option value="North Bali Canyoning">北巴厘岛峡谷探险</option>
+                            <option value="Mount Batur Sunrise Trekking">巴图尔火山日出徒步</option>
+                            <option value="Private Transport (Custom Tour)">私人包车（定制游）</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">旅行日期</label>
+                        <input type="date" id="date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pax">人数</label>
+                        <input type="number" id="pax" min="1" placeholder="多少人？" inputmode="numeric" pattern="[0-9]*" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">特殊要求 / 备注</label>
+                    <textarea id="message" rows="4" placeholder="有任何饮食要求或特定接送地点吗？" autocapitalize="sentences"></textarea>
+                </div>
+                <button type="submit" class="btn submit-btn">提交预订请求</button>
+                <div class="payment-trust-badge" style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd;">
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 12px; font-weight: 600;">接受安全支付</p>
+                    <div style="font-size: 2.5rem; display: flex; justify-content: center; gap: 20px;">
+                        <i class="fa-brands fa-cc-mastercard" title="Mastercard" style="color: #eb001b; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <i class="fa-brands fa-cc-paypal" title="PayPal" style="color: #00457c; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <i class="fa-solid fa-building-columns" title="Wire Transfer" style="color: #4CAF50; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endraw %}{% endblock %}

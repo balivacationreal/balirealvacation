@@ -1,0 +1,113 @@
+---
+permalink: "/id/term.html"
+title: "Ketentuan Layanan | Bali Real Vacation"
+description: ""
+canonical: "https://balirealvacation.com/id/term.html"
+robots: "noindex, follow"
+ogTitle: "Ketentuan Layanan | Bali Real Vacation"
+ogDescription: ""
+ogType: "website"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}{% endraw %}{% endblock %}
+
+{% block headstyle %}{% raw %}<style>
+        :root {
+            --primary-color: #005B96; 
+            --secondary-color: #FF7F50; 
+            --text-dark: #2C3E50; 
+            --text-light: #FFFFFF;
+            --bg-light: #F8F9FA; 
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; font-family: var(--font-body); display: flex; flex-direction: column; min-height: 100vh; }
+        h1, h2, h3, h4, .logo-text { font-family: var(--font-heading); }
+
+        /* Navbar */
+        header { background-color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+        .logo img { height: 50px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
+        .logo img:hover { transform: scale(1.05); }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); transition: color 0.3s ease; }
+        .logo:hover .logo-text { color: var(--secondary-color); }
+        
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-family: var(--font-heading); transition: color 0.3s; }
+        nav ul li a:hover { color: var(--secondary-color); }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; color: var(--primary-color); cursor: pointer; transition: color 0.3s ease; }
+        .mobile-menu-btn:hover { color: var(--secondary-color); }
+
+        /* Legal Page Content Formatting */
+        .legal-wrapper { flex: 1; padding: 60px 20px; }
+        .legal-container { max-width: 900px; margin: 0 auto; background: #fff; padding: 50px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); }
+        .legal-container h1 { color: var(--primary-color); font-size: 2.2rem; margin-bottom: 30px; border-bottom: 2px solid var(--bg-light); padding-bottom: 15px; }
+        .legal-container h2 { color: var(--text-dark); font-size: 1.4rem; margin-top: 30px; margin-bottom: 15px; }
+        .legal-container p { margin-bottom: 15px; color: #444; font-size: 1.05rem; }
+        .legal-container ul { margin-left: 20px; margin-bottom: 15px; color: #444; font-size: 1.05rem; }
+        .legal-container li { margin-bottom: 8px; }
+
+        /* Footer */
+        footer { background-color: #1a1a1a; color: #ccc; text-align: center; padding: 50px 20px; margin-top: auto; }
+        footer h2 { color: var(--text-light); margin-bottom: 10px; }
+        .social-links { margin: 25px 0; }
+        .social-links a { color: #fff; font-size: 24px; margin: 0 12px; transition: color 0.3s; }
+        .social-links a:hover { color: var(--secondary-color); }
+        .footer-legal { margin-bottom: 20px; font-size: 0.95rem; }
+        .footer-legal a { color: #ccc; text-decoration: none; transition: color 0.3s ease; }
+        .footer-legal a:hover { color: var(--secondary-color); }
+        .footer-legal .divider { color: #555; margin: 0 10px; }
+
+        /* Floating Buttons */
+        .floating-buttons { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .float-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #fff; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.3s; }
+        .float-btn:hover { transform: scale(1.1); }
+        .wa-btn { background-color: #25D366; }
+        .tg-btn { background-color: #0088cc; }
+
+        /* Responsive */
+        @media(max-width: 768px) {
+            header { padding: 15px 20px; flex-direction: row; position: relative; }
+            .mobile-menu-btn { display: block; }
+            #navMenu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #fff; box-shadow: 0 10px 15px rgba(0,0,0,0.1); padding: 20px 0; }
+            #navMenu.active { display: block; }
+            nav ul { flex-direction: column; align-items: center; gap: 20px; margin: 0; }
+            .legal-container { padding: 30px 20px; margin-top: 0; }
+            .legal-container h1 { font-size: 1.8rem; }
+            .floating-buttons { bottom: 20px; left: 20px; gap: 10px; }
+            .float-btn { width: 40px; height: 40px; font-size: 20px; }
+        }
+	/* Scroll to Top Button */
+        #scrollTopBtn {
+            display: none; position: fixed; bottom: 100px; right: 30px; z-index: 1000;
+            background-color: var(--primary-color); color: white; border: none;
+            border-radius: 50%; width: 55px; height: 55px; font-size: 22px;
+            cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.3); 
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        #scrollTopBtn:hover { background-color: var(--secondary-color); transform: scale(1.1); }
+        @media(max-width: 768px) { #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; } }
+    </style>{% endraw %}{% endblock %}
+
+{% block content %}{% raw %}
+<div class="legal-wrapper">
+        <div class="legal-container">
+            <h1>Ketentuan Layanan</h1>
+            <p><strong>Terakhir Diperbarui: Februari 2026</strong></p>
+            <p>Selamat datang di Bali Real Vacation. Dengan mengakses situs web kami dan memesan layanan wisata kami, Anda menyetujui untuk terikat oleh syarat dan ketentuan berikut.</p>
+            <h2>1. Pemesanan &amp; Pembayaran</h2>
+            <p>Semua pemesanan wisata melalui formulir situs web kami dianggap sebagai permintaan. Pemesanan baru final setelah dikonfirmasi oleh tim kami melalui WhatsApp. Ketentuan pembayaran (termasuk uang muka yang diperlukan) akan diinformasikan langsung selama proses konfirmasi.</p>
+            <h2>2. Harapan Perjalanan Ramah Lingkungan</h2>
+            <p>Kami berkomitmen melestarikan keindahan alam Indonesia. Kami mengimbau semua tamu untuk menghormati lingkungan lokal yang kami kunjungi, termasuk tidak menyentuh atau menginjak ekosistem laut yang rapuh saat snorkeling, membuang sampah dengan benar, serta mengikuti arahan pemandu lokal demi jejak yang berkelanjutan.</p>
+            <h2>3. Pembatalan &amp; Perubahan</h2>
+            <p>Kami memahami bahwa rencana perjalanan dapat berubah. Jika Anda perlu mengubah atau membatalkan pemesanan, harap beri tahu kami melalui WhatsApp sesegera mungkin. Kebijakan pembatalan spesifik dan biaya yang mungkin timbul akan diberikan saat konfirmasi pemesanan.</p>
+            <h2>4. Tanggung Jawab</h2>
+            <p>Bali Real Vacation hanya bertindak sebagai penyelenggara pengaturan perjalanan Anda. Meskipun kami mengambil segala tindakan pencegahan untuk memastikan keselamatan Anda dengan mempekerjakan pemandu lokal berpengalaman, kami tidak bertanggung jawab atas cedera pribadi, kehilangan, atau kerusakan barang yang terjadi selama perjalanan.</p>
+        </div>
+    </div>
+{% endraw %}{% endblock %}

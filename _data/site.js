@@ -6,25 +6,25 @@ module.exports = {
   whatsapp: "6282317794462",
   telegram: "+6282317794462",
   instagram: "https://instagram.com/balirealvacation",
-  // Primary navigation — edit once, applies to every page
+  // Primary navigation. `key` maps to _data/ui.json for translated labels.
+  // `href` is prefixed per-language in nav.njk (e.g. /zh + /private-driver-tours.html).
   nav: [
-    { label: "Home", href: "/#home" },
-    { label: "About Us", href: "/#about" },
-    { label: "Tour Packages", href: "/#packages" },
-    { label: "Private Driver", href: "/private-driver-tours.html" },
-    { label: "Airport Transfers", href: "/airport-transfers.html" },
-    { label: "Local Partners", href: "/local-partners.html" },
-    { label: "Travel Guides", href: "/#guides" },
-    { label: "Contact", href: "/#contact" }
+    { key: "home",            href: "/#home" },
+    { key: "about",           href: "/#about" },
+    { key: "packages",        href: "/#packages" },
+    { key: "private_driver",  href: "/private-driver-tours.html" },
+    { key: "airport_transfer",href: "/airport-transfers.html" },
+    { key: "local_partners",  href: "/local-partners.html" },
+    { key: "guides",          href: "/#guides" },
+    { key: "contact",         href: "/#contact" }
   ],
-  // Footer link row — edit once
   footerLinks: [
-    { label: "Private Driver Tours", href: "/private-driver-tours.html" },
-    { label: "Airport Transfers", href: "/airport-transfers.html" },
-    { label: "Local Partners", href: "/local-partners.html" },
-    { label: "Nusa Penida Guide", href: "/nusa-penida-guide.html" },
-    { label: "Bali Area Guide", href: "/bali-destinations-guide.html" },
-    { label: "Privacy Policy", href: "/privacy.html" },
-    { label: "Terms of Service", href: "/term.html" }
+    { key: "f_private_driver", href: "/private-driver-tours.html" },
+    { key: "f_airport",        href: "/airport-transfers.html" },
+    { key: "f_local_partners", href: "/local-partners.html" },
+    { key: "f_penida_guide",   href: "/nusa-penida-guide.html" },
+    { key: "f_bali_guide",     href: "/bali-destinations-guide.html" },
+    { key: "f_privacy",        href: "/privacy.html" },
+    { key: "f_terms",          href: "/term.html" }
   ]
 };

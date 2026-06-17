@@ -1,0 +1,350 @@
+---
+permalink: "/id/airport-transfers.html"
+title: "Penjemputan Bandara Bali – Mobil Pribadi dari Bandara DPS ke Hotel | Bali Real Vacation"
+description: "Penjemputan pribadi yang andal dari Bandara Ngurah Rai (DPS) ke hotel mana pun di Bali. Termasuk minuman dingin. Mulai Rp 200.000/mobil. Pesan via WhatsApp."
+canonical: "https://balirealvacation.com/id/airport-transfers.html"
+robots: "index, follow"
+ogTitle: "Penjemputan Bandara Bali – Mobil Pribadi dari Bandara DPS ke Hotel | Bali Real Vacation"
+ogDescription: "Penjemputan pribadi yang andal dari Bandara Ngurah Rai (DPS) ke hotel mana pun di Bali. Termasuk minuman dingin. Mulai Rp 200.000/mobil."
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/ketut-waiting.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Airport Transfer",
+      "name": "Bali Airport Transfers",
+      "description": "Reliable, comfortable, and private transport from Ngurah Rai Airport (DPS) directly to your hotel in Bali. Free cold drinks included.",
+      "provider": {
+        "@type": "TravelAgency",
+        "name": "Bali Real Vacation",
+        "url": "https://balirealvacation.com",
+        "telephone": "+62-812-3915-6586"
+      },
+      "areaServed": {"@type": "State","name": "Bali, Indonesia"},
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "IDR",
+        "lowPrice": "200000",
+        "highPrice": "900000",
+        "offerCount": "16"
+      }
+    }
+    </script>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{"@type":"Question","name":"Bagaimana cara memesan penjemputan bandara pribadi di Bali?","acceptedAnswer":{"@type":"Answer","text":"Simply fill in the booking form on this page or send us a WhatsApp message with your name, flight number, arrival date and time, and destination hotel. We will confirm your booking within minutes."}},{"@type":"Question","name":"What is included in the Bali airport transfer price?","acceptedAnswer":{"@type":"Answer","text":"The price covers private A/C transport from Ngurah Rai Airport (DPS) directly to your hotel, a professional driver who monitors your flight arrival, and complimentary cold drinks and water for each passenger."}},{"@type":"Question","name":"Bagaimana jika penerbangan saya tertunda?","acceptedAnswer":{"@type":"Answer","text":"Our driver monitors your flight status in real-time and adjusts pick-up time accordingly. You will not be charged extra for flight delays. The driver will wait for you with a name sign in the arrivals hall."}},{"@type":"Question","name":"Berapa penumpang yang muat dalam satu mobil?","acceptedAnswer":{"@type":"Answer","text":"Standard pricing covers up to 4 passengers with standard luggage. For groups of 5 or more, or guests with extra luggage, we can arrange a minivan at a slightly higher rate. Please mention your group size when booking."}},{"@type":"Question","name":"What is the difference between Bali airport transfer and a private driver tour?","acceptedAnswer":{"@type":"Answer","text":"An airport transfer is a one-way or return journey between the airport and your hotel. A private driver tour is a full-day sightseeing experience where you visit multiple destinations across Bali with an English-speaking driver-guide."}}]
+    }
+    </script>{% endraw %}{% endblock %}
+
+{% block headstyle %}{% raw %}<style>
+    :root{--primary-color:#005B96;--secondary-color:#FF7F50;--text-dark:#2C3E50;--text-light:#FFFFFF;--bg-light:#F8F9FA;--font-heading:'Montserrat',sans-serif;--font-body:'Open Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background-color:var(--bg-light);color:var(--text-dark);line-height:1.7;font-family:var(--font-body)}
+    h1,h2,h3,h4,.logo-text,.btn{font-family:var(--font-heading)}
+    header{background-color:#fff;padding:15px 50px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
+    .logo{display:flex;align-items:center;text-decoration:none;gap:12px}
+    .logo img{height:50px;width:auto;object-fit:contain}
+    .logo-text{font-size:24px;font-weight:700;color:var(--primary-color);transition:color .3s}
+    .logo:hover .logo-text{color:var(--secondary-color)}
+    nav ul{list-style:none;display:flex;gap:20px}
+    nav ul li a{text-decoration:none;color:var(--text-dark);font-weight:600;transition:color .3s}
+    nav ul li a:hover{color:var(--secondary-color)}
+    .mobile-menu-btn{display:none;background:none;border:none;font-size:28px;color:var(--primary-color);cursor:pointer}
+    .hero{height:55vh;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.6)),url('/src/assets/ulun-danu-beratan-temple-stunning-view.webp') center 15%/cover;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;padding:0 20px}
+    .hero h1{font-size:3rem;margin-bottom:20px;text-shadow:2px 2px 8px rgba(0,0,0,.5)}
+    .hero p{font-size:1.2rem;opacity:.9;max-width:600px}
+    .transfer-container{max-width:1200px;margin:50px auto;padding:0 20px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px}
+    .pricing-section{background:#fff;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.05);padding:30px;border:1px solid rgba(0,0,0,.03)}
+    .pricing-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:20px;border-bottom:2px solid var(--bg-light);padding-bottom:10px}
+    .perks{display:flex;gap:15px;margin-bottom:25px;background:#e8f4f8;padding:15px;border-radius:8px;color:var(--primary-color);font-weight:600;font-size:.95rem}
+    .perks i{color:var(--secondary-color);font-size:1.2rem}
+    table{width:100%;border-collapse:collapse;margin-bottom:20px}
+    th{background-color:var(--primary-color);color:#fff;padding:12px 15px;text-align:left;font-family:var(--font-heading);font-size:1rem}
+    th:first-child{border-top-left-radius:8px}
+    th:last-child{border-top-right-radius:8px}
+    td{padding:12px 15px;border-bottom:1px solid #eee;color:var(--text-dark)}
+    tr:hover td{background-color:var(--bg-light)}
+    .dest-name{font-weight:600;font-size:1.05rem}
+    .price-idr{font-weight:700;color:var(--secondary-color);font-size:1.1rem;display:block}
+    .price-converted{font-size:.8rem;color:#888;font-weight:600}
+    .booking-card{background:var(--bg-light);padding:30px;border-radius:12px;border:1px solid rgba(0,0,0,.03);box-shadow:0 5px 15px rgba(0,0,0,.05);position:sticky;top:100px}
+    .booking-card h3{color:var(--primary-color);font-size:1.5rem;margin-bottom:20px}
+    .form-group{margin-bottom:15px}
+    .form-group label{display:block;font-weight:600;margin-bottom:8px;color:var(--text-dark);font-size:.95rem}
+    .form-group input{width:100%;padding:12px 15px;border:1px solid #ccc;border-radius:8px;font-family:'Open Sans',sans-serif;font-size:1rem;outline:none;transition:border-color .3s}
+    .form-group input:focus{border-color:var(--primary-color)}
+    .btn{padding:15px;background-color:var(--secondary-color);color:#fff;text-decoration:none;border-radius:8px;font-weight:700;font-size:1.1rem;transition:background .3s;border:none;cursor:pointer;width:100%;margin-top:10px;display:block;text-align:center}
+    .btn:hover{background-color:#e66b3b}
+    .faq-transfer{max-width:1200px;margin:0 auto 60px;padding:0 20px}
+    .faq-transfer h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;font-family:var(--font-heading)}
+    footer{background-color:#1a1a1a;color:#ccc;text-align:center;padding:50px 20px;margin-top:50px}
+    footer h2{color:#fff;margin-bottom:10px}
+    .social-links{margin:20px 0}
+    .social-links a{color:#fff;font-size:24px;margin:0 12px;transition:color .3s}
+    .social-links a:hover{color:var(--secondary-color)}
+    .footer-legal{margin:20px 0;font-size:.95rem}
+    .footer-legal a{color:#ccc;text-decoration:none;transition:color .3s}
+    .footer-legal a:hover{color:var(--secondary-color)}
+    .footer-legal .divider{margin:0 10px;color:#555}
+    .floating-buttons{position:fixed;bottom:30px;left:30px;display:flex;flex-direction:column;gap:15px;z-index:1000}
+    .float-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;text-decoration:none;box-shadow:0 10px 25px rgba(0,0,0,.15);transition:transform .3s}
+    .float-btn:hover{transform:scale(1.1)}
+    .wa-btn{background-color:#25D366}
+    .tg-btn{background-color:#0088cc}
+    #scrollTopBtn{display:none;position:fixed;bottom:100px;right:30px;z-index:1000;background-color:var(--primary-color);color:#fff;border:none;border-radius:50%;width:55px;height:55px;font-size:22px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.3);transition:transform .3s,background-color .3s}
+    #scrollTopBtn:hover{background-color:var(--secondary-color);transform:scale(1.1)}
+    
+    /* ── FAQ Accordion ── */
+    .faq-section{padding:50px 0;border-top:2px solid var(--bg-light);margin-top:40px}
+    .faq-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;font-family:var(--font-heading)}
+    .faq-item{border:1px solid #e9ecef;border-radius:10px;margin-bottom:12px;overflow:hidden;background:#fff}
+    .faq-question{width:100%;background:none;border:none;padding:18px 20px;text-align:left;font-family:var(--font-heading);font-size:1rem;font-weight:600;color:var(--text-dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;line-height:1.4}
+    .faq-question:hover,.faq-question.active{background:var(--bg-light)}
+    .faq-question.active{color:var(--primary-color)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-answer.open{max-height:500px}
+    .faq-answer p{padding:0 20px 18px;color:#555;font-size:.95rem;line-height:1.7;margin:0}
+    .faq-chevron{transition:transform .3s;font-size:.85rem;color:var(--primary-color);flex-shrink:0;margin-left:10px}
+    .faq-question.active .faq-chevron{transform:rotate(180deg)}
+    /* ── Related Tours ── */
+    .related-section{padding:50px;background:var(--bg-light)}
+    .related-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;text-align:center;font-family:var(--font-heading)}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+    .related-card{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.06);text-decoration:none;background:#fff;transition:transform .3s,box-shadow .3s;display:block}
+    .related-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.1)}
+    .related-card img{width:100%;height:150px;object-fit:cover}
+    .related-card-info{padding:15px}
+    .related-card-info h3{font-size:1rem;color:var(--text-dark);margin-bottom:4px;font-family:var(--font-heading)}
+    .related-card-info p{font-size:.82rem;color:#888;margin:0}
+    @media(max-width:768px){.related-section{padding:30px 20px}}
+    @media(max-width:992px){.transfer-container{grid-template-columns:1fr}.booking-card{position:static;margin-top:30px}}
+    @media(max-width:768px){
+        header{padding:15px 20px;flex-direction:row;position:relative}
+        .mobile-menu-btn{display:block}
+        #navMenu{display:none;position:absolute;top:100%;left:0;width:100%;background-color:#fff;box-shadow:0 10px 15px rgba(0,0,0,.1);padding:20px 0;z-index:99}
+        #navMenu.active{display:block}
+        nav ul{flex-direction:column;align-items:center;gap:20px;margin:0}
+        .hero h1{font-size:2.2rem}
+        .transfer-container{margin:30px auto}
+        th,td{padding:10px}
+        .floating-buttons{bottom:20px;left:20px;gap:10px;flex-direction:row}
+        .float-btn{width:40px;height:40px;font-size:20px}
+        #scrollTopBtn{width:45px;height:45px;font-size:18px;bottom:90px;right:20px}
+    }
+    </style>{% endraw %}{% endblock %}
+
+{% block content %}{% raw %}
+<section class="hero">
+        <h1>Penjemputan Bandara Bali</h1>
+        <p>Transportasi pribadi yang andal dan nyaman dari Bandara Ngurah Rai (DPS) langsung ke hotel Anda.</p>
+    </section>
+
+    <div class="transfer-container">
+        <div class="pricing-section">
+            <h2>Tarif Penjemputan</h2>
+            <div style="text-align:center;margin-bottom:25px;">
+                <img src="/src/assets/ketut-waiting.webp" alt="Sopir Ketut menunggu di aula kedatangan Bandara Ngurah Rai Bali dengan papan nama" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.08);" fetchpriority="high">
+            </div>
+            <div class="perks">
+                <span><i class="fa-solid fa-bottle-water"></i> Minuman dingin / air gratis</span>
+                <span style="margin-left:15px;"><i class="fa-solid fa-car"></i> Kendaraan pribadi ber-AC</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Area Tujuan</th>
+                        <th>Harga (Per Mobil)</th>
+                    </tr>
+                </thead>
+                <tbody id="pricing-body">
+                    <tr>
+                        <td class="dest-name">Kuta</td>
+                        <td>
+                            <span class="price-idr" data-idr="200000">Rp 200.000</span>
+                            <span class="price-converted">~$13 USD | ~A$19 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Legian</td>
+                        <td>
+                            <span class="price-idr" data-idr="250000">Rp 250.000</span>
+                            <span class="price-converted">~$16 USD | ~A$24 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Jimbaran</td>
+                        <td>
+                            <span class="price-idr" data-idr="250000">Rp 250.000</span>
+                            <span class="price-converted">~$16 USD | ~A$24 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Seminyak</td>
+                        <td>
+                            <span class="price-idr" data-idr="300000">Rp 300.000</span>
+                            <span class="price-converted">~$19 USD | ~A$29 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Sanur</td>
+                        <td>
+                            <span class="price-idr" data-idr="300000">Rp 300.000</span>
+                            <span class="price-converted">~$19 USD | ~A$29 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Nusa Dua</td>
+                        <td>
+                            <span class="price-idr" data-idr="300000">Rp 300.000</span>
+                            <span class="price-converted">~$19 USD | ~A$29 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Canggu</td>
+                        <td>
+                            <span class="price-idr" data-idr="400000">Rp 400.000</span>
+                            <span class="price-converted">~$25 USD | ~A$38 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Ubud</td>
+                        <td>
+                            <span class="price-idr" data-idr="400000">Rp 400.000</span>
+                            <span class="price-converted">~$25 USD | ~A$38 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Uluwatu</td>
+                        <td>
+                            <span class="price-idr" data-idr="400000">Rp 400.000</span>
+                            <span class="price-converted">~$25 USD | ~A$38 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Tanah Lot</td>
+                        <td>
+                            <span class="price-idr" data-idr="450000">Rp 450.000</span>
+                            <span class="price-converted">~$28 USD | ~A$43 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Padang Bay</td>
+                        <td>
+                            <span class="price-idr" data-idr="500000">Rp 500.000</span>
+                            <span class="price-converted">~$31 USD | ~A$48 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Candidasa</td>
+                        <td>
+                            <span class="price-idr" data-idr="700000">Rp 700.000</span>
+                            <span class="price-converted">~$44 USD | ~A$67 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Kintamani</td>
+                        <td>
+                            <span class="price-idr" data-idr="700000">Rp 700.000</span>
+                            <span class="price-converted">~$44 USD | ~A$67 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Lovina</td>
+                        <td>
+                            <span class="price-idr" data-idr="800000">Rp 800.000</span>
+                            <span class="price-converted">~$50 USD | ~A$76 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Amed</td>
+                        <td>
+                            <span class="price-idr" data-idr="900000">Rp 900.000</span>
+                            <span class="price-converted">~$56 USD | ~A$86 AUD</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="dest-name">Pemuteran</td>
+                        <td>
+                            <span class="price-idr" data-idr="900000">Rp 900.000</span>
+                            <span class="price-converted">~$56 USD | ~A$86 AUD</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p style="font-size:.85rem;color:#777;margin-top:15px;font-style:italic;">* Harga per mobil (maksimal 4 penumpang dengan bagasi standar). Untuk grup lebih besar, hubungi kami untuk tarif minivan.</p>
+        </div>
+
+        <div>
+            <div class="booking-card">
+                <h3>Pesan Penjemputan Bandara Anda</h3>
+                <form id="airport-form" novalidate>
+                    <div class="form-group">
+                        <label for="name">Nama Tamu Utama</label>
+                        <input type="text" id="name" name="name" autocomplete="name" placeholder="Nama pada papan kedatangan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp">Nomor WhatsApp</label>
+                        <input type="tel" id="whatsapp" name="tel" autocomplete="tel" placeholder="+62..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="flight">Nomor Penerbangan</label>
+                        <input type="text" id="flight" placeholder="mis. JQ 43" required>
+                    </div>
+                    <div style="display:flex;gap:15px;">
+                        <div class="form-group" style="flex:1;">
+                            <label for="date">Tanggal Kedatangan</label>
+                            <input type="date" id="date" required>
+                        </div>
+                        <div class="form-group" style="flex:1;">
+                            <label for="time">Jam Kedatangan</label>
+                            <input type="time" id="time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hotel">Tujuan / Nama Hotel</label>
+                        <input type="text" id="hotel" placeholder="Nama lengkap hotel & area" required>
+                    </div>
+                    <button type="submit" class="btn"><i class="fa-brands fa-whatsapp" style="margin-right:8px;"></i> Minta Penjemputan via WhatsApp</button>
+                    <div style="text-align:center;margin-top:25px;padding-top:20px;border-top:1px solid #ddd;">
+                        <p style="font-size:.9rem;color:#666;margin-bottom:12px;font-weight:600;">Pembayaran Aman Diterima</p>
+                        <div style="font-size:2.5rem;display:flex;justify-content:center;gap:20px;">
+                            <i class="fa-brands fa-cc-mastercard" title="Mastercard" style="color:#eb001b;"></i>
+                            <i class="fa-brands fa-cc-paypal" title="PayPal" style="color:#00457c;"></i>
+                            <i class="fa-solid fa-building-columns" title="Wire Transfer" style="color:#4CAF50;"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="faq-transfer">
+        <h2>Pertanyaan yang Sering Diajukan</h2>
+        <div class="faq-item">
+            <button class="faq-question">Bagaimana cara memesan penjemputan bandara pribadi di Bali? <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+            <div class="faq-answer"><p>Isi formulir pemesanan di atas atau kirim pesan WhatsApp kepada kami dengan nama, nomor penerbangan, tanggal/jam kedatangan, dan hotel tujuan Anda. Kami akan mengonfirmasi pemesanan dalam hitungan menit dan mengirimkan detail penjemputan lengkap.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Apa saja yang termasuk dalam harga penjemputan bandara? <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+            <div class="faq-answer"><p>Harga mencakup kendaraan pribadi ber-AC dari Bandara Ngurah Rai (DPS) langsung ke hotel Anda, sopir profesional yang memantau kedatangan penerbangan Anda secara real-time, dan minuman dingin gratis untuk setiap penumpang.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Bagaimana jika penerbangan saya tertunda? <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+            <div class="faq-answer"><p>Sopir kami memantau status penerbangan Anda dan menyesuaikan waktu penjemputan. Anda tidak akan dikenakan biaya tambahan untuk keterlambatan penerbangan. Sopir akan menunggu Anda dengan papan nama di aula kedatangan — tanpa stres saat tiba.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Berapa penumpang yang muat dalam satu mobil? <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+            <div class="faq-answer"><p>Harga standar berlaku untuk maksimal 4 penumpang dengan bagasi standar. Untuk grup 5 orang atau lebih, atau tamu dengan bagasi ekstra, kami dapat menyediakan minivan dengan tarif sedikit lebih tinggi. Sebutkan jumlah rombongan Anda saat memesan.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Apa perbedaan antara penjemputan bandara dan tur sopir pribadi? <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+            <div class="faq-answer"><p>Penjemputan bandara adalah perjalanan satu arah langsung antara Bandara DPS dan hotel Anda. Tur sopir pribadi adalah pengalaman wisata sehari penuh keliling Bali dengan sopir-pemandu berbahasa Inggris. Keduanya dapat dipesan melalui kami.</p></div>
+        </div>
+    </div>
+{% endraw %}{% endblock %}

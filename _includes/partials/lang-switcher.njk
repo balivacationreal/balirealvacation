@@ -1,0 +1,7 @@
+<div class="lang-switcher" aria-label="Language">
+  {%- for s in collections.i18n[transKey] -%}
+    {%- for l in languages -%}{%- if l.code == s.lang -%}
+    <a href="{{ s.url }}" hreflang="{{ s.lang }}"{% if s.lang == lang %} class="active" aria-current="true"{% endif %}>{{ l.short }}</a>
+    {%- endif -%}{%- endfor -%}
+  {%- endfor -%}
+</div>

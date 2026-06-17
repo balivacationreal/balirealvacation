@@ -1,0 +1,256 @@
+---
+permalink: "/zh/west-nusa-penida.html"
+title: "西佩尼达岛之旅 – 精灵坠崖, 破碎沙滩 & 水晶湾 | Bali Real Vacation"
+description: "西佩尼达岛全包私人一日游。参观精灵坠崖 (Kelingking Beach)、破碎沙滩 (Broken Beach)、天神浴池和水晶湾。包含快艇与午餐。全包价 $49/人起。"
+canonical: "https://balirealvacation.com/zh/west-nusa-penida.html"
+robots: "index, follow"
+ogTitle: "西佩尼达岛之旅 – 精灵坠崖, 破碎沙滩 & 水晶湾 | Bali Real Vacation"
+ogDescription: "西佩尼达岛全包私人一日游。参观精灵坠崖 (Kelingking Beach)、破碎沙滩 (Broken Beach)、天神浴池和水晶湾。包含快艇与午餐。全包价 $49/人起。"
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/perfect-view-kelingking-beach.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "西佩尼达岛之旅",
+  "description": "西佩尼达岛全包私人一日游。参观精灵坠崖、破碎沙滩、天神浴池和水晶湾。包含快艇与午餐。",
+  "image": "https://balirealvacation.com/src/assets/perfect-view-kelingking-beach.webp",
+  "tourType": "观光旅游",
+  "provider": {
+    "@type": "TravelAgency",
+    "name": "Bali Real Vacation",
+    "url": "https://balirealvacation.com/zh/",
+    "telephone": "+62-812-3915-6586"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "49.00",
+    "availability": "https://schema.org/InStock",
+    "url": "https://balirealvacation.com/zh/west-nusa-penida.html",
+    "priceValidUntil": "2027-12-31"
+  }
+}
+</script>{% endraw %}{% endblock %}
+
+{% block headstyle %}
+{% raw %}{% block headstyle %}{% raw %}<style>
+    :root{--primary-color:#005B96;--secondary-color:#FF7F50;--text-dark:#2C3E50;--text-light:#FFFFFF;--bg-light:#F8F9FA;--font-heading:'Montserrat',sans-serif;--font-body:'Open Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background-color:var(--bg-light);color:var(--text-dark);line-height:1.7;font-family:var(--font-body)}
+    h1,h2,h3,h4,.logo-text,.btn{font-family:var(--font-heading)}
+    header{background-color:#fff;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
+    .logo{display:flex;align-items:center;text-decoration:none;gap:12px}
+    .logo img{height:50px;width:auto;object-fit:contain;transition:transform .3s}
+    .logo-text{font-size:24px;font-weight:700;color:var(--primary-color);transition:color .3s}
+    .logo:hover .logo-text{color:var(--secondary-color)}
+    nav ul{list-style:none;display:flex;gap:20px}
+    nav ul li a{text-decoration:none;color:var(--text-dark);font-weight:600;transition:color .3s}
+    nav ul li a:hover{color:var(--secondary-color)}
+    .mobile-menu-btn{display:none;background:none;border:none;font-size:28px;color:var(--primary-color);cursor:pointer;transition:color .3s}
+    .tour-hero{height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--text-light);padding:0 20px}
+    .tour-hero h1{font-size:3.5rem;margin-bottom:15px;text-shadow:2px 2px 8px rgba(0,0,0,.5)}
+    .tour-container{max-width:1000px;margin:-50px auto 60px;background:#fff;padding:50px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.03);position:relative;z-index:10}
+    .tour-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;margin-top:30px}
+    h2.section-heading{color:var(--primary-color);font-size:2rem;margin-bottom:20px;border-bottom:2px solid var(--bg-light);padding-bottom:10px}
+    .itinerary-list{list-style:none;margin-bottom:30px}
+    .itinerary-item{display:flex;margin-bottom:25px;background:var(--bg-light);padding:20px;border-radius:10px;border-left:4px solid var(--secondary-color)}
+    .itinerary-icon{font-size:24px;color:var(--primary-color);margin-right:20px;margin-top:5px;width:30px;text-align:center}
+    .itinerary-details h3{font-size:1.3rem;margin-bottom:8px;color:var(--text-dark)}
+    .itinerary-details p{color:#555;font-size:1rem}
+    .pricing-card{background:var(--bg-light);padding:30px;border-radius:12px;text-align:center;border:1px solid rgba(0,0,0,.03);box-shadow:0 5px 15px rgba(0,0,0,.05);position:sticky;top:100px}
+    .price-tier{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #ddd}
+    .price-tier:last-of-type{border-bottom:none;margin-bottom:20px}
+    .price-tier span{font-weight:600}
+    .price-amount{color:var(--secondary-color);font-size:1.2rem;font-weight:700;display:flex;flex-direction:column;align-items:flex-end}
+    .idr-price{color:#666;font-size:.85rem;font-weight:600;margin-top:2px}
+    .btn{padding:15px 30px;background-color:var(--secondary-color);color:#fff;text-decoration:none;border-radius:30px;font-weight:700;font-size:1.1rem;transition:transform .3s,background .3s;display:block;width:100%;text-align:center;border:none;cursor:pointer}
+    .btn:hover{background-color:#e66b3b;transform:translateY(-2px)}
+    .inclusions-list{list-style:none;margin-top:20px;text-align:left}
+    .inclusions-list li{margin-bottom:10px;font-size:.95rem;color:#444}
+    .inclusions-list li i{color:#25D366;margin-right:10px}
+    .tour-gallery{margin-top:50px;padding-top:30px;border-top:2px solid var(--bg-light)}
+    .tour-gallery h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:20px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+    .gallery-item{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.05);aspect-ratio:4/3}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .gallery-item:hover img{transform:scale(1.1)}
+    footer{background-color:#1a1a1a;color:#ccc;text-align:center;padding:50px 20px}
+    footer h2{color:#fff;margin-bottom:10px}
+    .social-links{margin:20px 0}
+    .social-links a{color:#fff;font-size:24px;margin:0 12px;transition:color .3s}
+    .social-links a:hover{color:var(--secondary-color)}
+    .footer-legal{margin:20px 0;font-size:.95rem}
+    .footer-legal a{color:#ccc;text-decoration:none;transition:color .3s}
+    .footer-legal a:hover{color:var(--secondary-color)}
+    .footer-legal .divider{margin:0 10px;color:#555}
+    .floating-buttons{position:fixed;bottom:30px;left:30px;display:flex;flex-direction:column;gap:15px;z-index:1000}
+    .float-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;text-decoration:none;box-shadow:0 10px 25px rgba(0,0,0,.15);transition:transform .3s}
+    .float-btn:hover{transform:scale(1.1)}
+    .wa-btn{background-color:#25D366}
+    .tg-btn{background-color:#0088cc}
+    #scrollTopBtn{display:none;position:fixed;bottom:100px;right:30px;z-index:1000;background-color:var(--primary-color);color:#fff;border:none;border-radius:50%;width:55px;height:55px;font-size:22px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.3);transition:transform .3s,background-color .3s}
+    #scrollTopBtn:hover{background-color:var(--secondary-color);transform:scale(1.1)}
+    @media(max-width:768px){
+        .tour-grid{grid-template-columns:1fr}
+        .tour-hero h1{font-size:2.2rem}
+        .tour-container{margin:-30px 15px 40px;padding:25px 20px}
+        header{padding:15px 20px;flex-direction:row;position:relative}
+        .mobile-menu-btn{display:block}
+        #navMenu{display:none;position:absolute;top:100%;left:0;width:100%;background-color:#fff;box-shadow:0 10px 15px rgba(0,0,0,.1);padding:20px 0;z-index:99}
+        #navMenu.active{display:block}
+        nav ul{flex-direction:column;align-items:center;gap:20px;margin:0}
+        .floating-buttons{bottom:20px;left:20px;gap:10px}
+        .float-btn{width:40px;height:40px;font-size:20px}
+        #scrollTopBtn{width:45px;height:45px;font-size:18px;bottom:90px;right:20px}
+    }
+    .tour-hero{background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.6)),url('/src/assets/perfect-view-kelingking-beach.webp') center/cover}
+    
+    /* ── FAQ Accordion ── */
+    .faq-section{padding:50px 0;border-top:2px solid var(--bg-light);margin-top:40px}
+    .faq-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;font-family:var(--font-heading)}
+    .faq-item{border:1px solid #e9ecef;border-radius:10px;margin-bottom:12px;overflow:hidden;background:#fff}
+    .faq-question{width:100%;background:none;border:none;padding:18px 20px;text-align:left;font-family:var(--font-heading);font-size:1rem;font-weight:600;color:var(--text-dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;line-height:1.4}
+    .faq-question:hover,.faq-question.active{background:var(--bg-light)}
+    .faq-question.active{color:var(--primary-color)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-answer.open{max-height:500px}
+    .faq-answer p{padding:0 20px 18px;color:#555;font-size:.95rem;line-height:1.7;margin:0}
+    .faq-chevron{transition:transform .3s;font-size:.85rem;color:var(--primary-color);flex-shrink:0;margin-left:10px}
+    .faq-question.active .faq-chevron{transform:rotate(180deg)}
+    /* ── Related Tours ── */
+    .related-section{padding:50px;background:var(--bg-light)}
+    .related-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;text-align:center;font-family:var(--font-heading)}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+    .related-card{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.06);text-decoration:none;background:#fff;transition:transform .3s,box-shadow .3s;display:block}
+    .related-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.1)}
+    .related-card img{width:100%;height:150px;object-fit:cover}
+    .related-card-info{padding:15px}
+    .related-card-info h3{font-size:1rem;color:var(--text-dark);margin-bottom:4px;font-family:var(--font-heading)}
+    .related-card-info p{font-size:.82rem;color:#888;margin:0}
+    @media(max-width:768px){.related-section{padding:30px 20px}}
+    </style>{% endraw %}{% endblock %}{% endraw %}
+{% endblock %}
+
+{% block content %}{% raw %}
+<section class="tour-hero">
+    <h1>西佩尼达岛之旅</h1>
+    <p style="font-size:1.2rem;margin-top:10px;">壮丽的悬崖、纯净的海滩与隐藏的宝藏</p>
+</section>
+
+<main class="tour-container">
+    <div class="tour-grid">
+        <div class="tour-description">
+            <p style="font-size:1.1rem;margin-bottom:30px;color:#444;">逃离平凡，通过我们独家的西佩尼达岛私人一日游，发现一个隐藏的天堂。您将被壮丽的悬崖、纯净的海滩和秘密的自然宝藏所吸引。我们负责处理每一个细节——从酒店接送到快艇航行——让您只需尽情享受印度尼西亚最壮观的目的地之一。</p>
+            
+            <h2 class="section-heading">行程安排</h2>
+            <ul class="itinerary-list">
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-car"></i></div>
+                    <div class="itinerary-details"><h3>06:30 AM – 酒店接送</h3><p>从您的巴厘岛酒店乘坐私人专车前往萨努尔 (Sanur) 港口。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-ship"></i></div>
+                    <div class="itinerary-details"><h3>07:30 AM – 快艇前往佩尼达岛</h3><p>乘坐高速快艇穿过海峡前往岛屿（约 35 分钟）。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-water"></i></div>
+                    <div class="itinerary-details"><h3>09:00 AM – 天神浴池 (Angel's Billabong)</h3><p>探索刻在岩壁上的令人惊叹的天然无边泳池。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-camera"></i></div>
+                    <div class="itinerary-details"><h3>11:00 AM – 破碎沙滩 (Broken Beach)</h3><p>惊叹于壮观的圆形海湾及其天然的岩石拱门。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                    <div class="itinerary-details"><h3>12:00 PM – 精灵坠崖 (Kelingking Beach)</h3><p>观赏标志性的霸王龙形悬崖，拍摄令人惊叹的全景照片。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="itinerary-details"><h3>01:00 PM – 午餐</h3><p>享用美味的当地午餐（提供巴厘岛或西式美食）。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <div class="itinerary-details"><h3>02:30 PM – 水晶湾 (Crystal Bay)</h3><p>在这个被棕榈树环绕的美丽海滩放松、游泳并享受阳光。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-ship"></i></div>
+                    <div class="itinerary-details"><h3>04:30 PM – 返回巴厘岛</h3><p>乘坐快艇返回萨努尔港口，然后私人专车送您回酒店。</p></div>
+                </li>
+            </ul>
+
+            <div class="tour-gallery">
+                <h2>旅游图集</h2>
+                <!-- same images as english -->
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="/src/assets/penida/angels-billabong.webp" alt="Angel's Billabong" fetchpriority="high" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/broken-beach-view.webp" alt="Broken Beach" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/broken-beach-top-view.webp" alt="Broken Beach" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/kelingking-beach-view.webp" alt="Kelingking Beach" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/down-to-kelingking-beach.webp" alt="Trekking down to Kelingking" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/white-sand-kelingking-beach.webp" alt="Kelingking sand" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/crystal-bay-nusa-penida.webp" alt="Crystal Bay" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/penida/crystal-bay.webp" alt="Crystal Bay top view" loading="lazy" width="300" height="225"></div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>常见问题解答 (FAQ)</h2>
+                <div class="faq-item">
+                    <button class="faq-question">西佩尼达岛的旅游价格包括哪些项目？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>全包价格涵盖往返萨努尔港口的私人空调车接送、往返快艇票、全天英语向导、所有目的地门票（精灵坠崖、破碎沙滩、天神浴池、水晶湾）以及当地午餐。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">从巴厘岛到佩尼达岛的快艇需要多长时间？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>从萨努尔港出发的快艇大约需要 30–45 分钟，具体取决于海况。我们早上 07:30 出发，大约 08:30 抵达佩尼达岛。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">什么时候是游览佩尼达岛的最佳季节？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>旱季（5 月至 10 月）是理想的时间——天空晴朗、海面平静，摄影条件极佳。在此期间，道路和海滩最容易通行。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">行程包括徒步下到精灵坠崖海滩吗？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>我们参观标志性的霸王龙悬崖观景台。选择徒步下陡峭的悬崖到海滩（单程约 1 小时）由您自行决定——仅建议体力好的客人尝试。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">我应该提前多久预订西佩尼达岛之旅？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>我们建议您至少提前 2-3 天预订，特别是在旺季（6月至8月）。通过 WhatsApp 给我们发消息，我们将立即确认空位并安排所有细节。</p></div>
+                </div>
+            </div>
+        </div>
+
+        <aside>
+            <div class="pricing-card">
+                <h3 style="color:var(--primary-color);font-size:1.5rem;margin-bottom:10px;">套餐价格</h3>
+                <p style="color:#666;font-size:.9rem;margin-bottom:20px;">全包私人行程</p>
+                <div class="price-tier">
+                    <span>2 人团</span>
+                    <div class="price-amount">$65 <span class="idr-price" data-usd="65">| Rp 1.090.000</span></div>
+                </div>
+                <div class="price-tier">
+                    <span>3 人团</span>
+                    <div class="price-amount">$55 <span class="idr-price" data-usd="55">| Rp 920.000</span></div>
+                </div>
+                <div class="price-tier">
+                    <span>4+ 人团</span>
+                    <div class="price-amount">$49 <span class="idr-price" data-usd="49">| Rp 820.000</span></div>
+                </div>
+
+                <a href="https://wa.me/6282317794462?text=Hello%20Bali%20Real%20Vacation!%20我想预订西佩尼达岛之旅%20(West%20Nusa%20Penida%20Tour)." class="btn" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-whatsapp" style="margin-right:8px;"></i> 通过 WhatsApp 预订
+                </a>
+                <ul class="inclusions-list">
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 私人空调车接送 (巴厘岛 & 佩尼达岛)</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 往返快艇票</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 英文向导</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 包含所有景点门票</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 包含当地午餐</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</main>
+{% endraw %}{% endblock %}

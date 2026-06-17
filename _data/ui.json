@@ -1,0 +1,22 @@
+{
+  "home":            { "en": "Home", "id": "Beranda", "zh": "首页" },
+  "about":           { "en": "About Us", "id": "Tentang Kami", "zh": "关于我们" },
+  "packages":        { "en": "Tour Packages", "id": "Paket Wisata", "zh": "旅游套餐" },
+  "private_driver":  { "en": "Private Driver", "id": "Sopir Pribadi", "zh": "专属司机" },
+  "airport_transfer":{ "en": "Airport Transfers", "id": "Antar-Jemput Bandara", "zh": "机场接送" },
+  "local_partners":  { "en": "Local Partners", "id": "Mitra Lokal", "zh": "本地合作伙伴" },
+  "guides":          { "en": "Travel Guides", "id": "Panduan Wisata", "zh": "旅行指南" },
+  "contact":         { "en": "Contact", "id": "Kontak", "zh": "联系我们" },
+  "f_private_driver":{ "en": "Private Driver Tours", "id": "Tur Sopir Pribadi", "zh": "专属司机包车" },
+  "f_airport":       { "en": "Airport Transfers", "id": "Antar-Jemput Bandara", "zh": "机场接送" },
+  "f_local_partners":{ "en": "Local Partners", "id": "Mitra Lokal", "zh": "本地合作伙伴" },
+  "f_penida_guide":  { "en": "Nusa Penida Guide", "id": "Panduan Nusa Penida", "zh": "努沙佩尼达指南" },
+  "f_bali_guide":    { "en": "Bali Area Guide", "id": "Panduan Wilayah Bali", "zh": "巴厘岛地区指南" },
+  "f_privacy":       { "en": "Privacy Policy", "id": "Kebijakan Privasi", "zh": "隐私政策" },
+  "f_terms":         { "en": "Terms of Service", "id": "Ketentuan Layanan", "zh": "服务条款" },
+  "tagline":         { "en": "Your trusted travel partner in Bali & Nusa Penida.", "id": "Mitra perjalanan tepercaya Anda di Bali & Nusa Penida.", "zh": "您在巴厘岛和努沙佩尼达值得信赖的旅行伙伴。" },
+  "rights":          { "en": "All Rights Reserved.", "id": "Hak Cipta Dilindungi.", "zh": "版权所有。" },
+  "plan_trip":       { "en": "Plan your trip", "id": "Rencanakan perjalanan", "zh": "规划您的行程" },
+  "chat_local":      { "en": "Chat with a local", "id": "Hubungi tim lokal", "zh": "联系当地团队" },
+  "book":            { "en": "Book", "id": "Pesan", "zh": "预订" }
+}

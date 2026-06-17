@@ -1,15 +1,18 @@
 <footer id="contact">
     <h2>Bali Real Vacation</h2>
-    <p>{{ site.tagline }}</p>
+    <p>{{ ui.tagline[lang] or ui.tagline.en }}</p>
     <div class="social-links">
         <a href="{{ site.instagram }}" target="_blank" rel="noopener" aria-label="Follow us on Instagram"><i class="fa-brands fa-instagram"></i></a>
     </div>
     <div class="footer-legal">
         {% for link in site.footerLinks %}
-        <a href="{{ link.href }}">{{ link.label }}</a>{% if not loop.last %}<span class="divider">|</span>{% endif %}
+        {%- set tkey = (link.href | replace('/', '') | replace('.html', '')) or 'index' -%}
+        {%- set localized = collections.i18nUrl[tkey + '_' + lang] -%}
+        {%- set href = localized if localized else link.href -%}
+        <a href="{{ href }}">{{ ui[link.key][lang] or ui[link.key].en }}</a>{% if not loop.last %}<span class="divider">|</span>{% endif %}
         {% endfor %}
     </div>
-    <p>&copy; 2026 Bali Real Vacation. All Rights Reserved.</p>
+    <p>&copy; 2026 Bali Real Vacation. {{ ui.rights[lang] or ui.rights.en }}</p>
 </footer>
 
 <div class="floating-buttons">
@@ -21,6 +24,6 @@
 
 <!-- Mobile sticky booking bar -->
 <div class="mobile-book-bar">
-    <div class="mbb-label">Plan your trip<b>Chat with a local</b></div>
-    <a href="https://wa.me/{{ site.whatsapp }}" class="mbb-btn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Book</a>
+    <div class="mbb-label">{{ ui.plan_trip[lang] or ui.plan_trip.en }}<b>{{ ui.chat_local[lang] or ui.chat_local.en }}</b></div>
+    <a href="https://wa.me/{{ site.whatsapp }}" class="mbb-btn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> {{ ui.book[lang] or ui.book.en }}</a>
 </div>

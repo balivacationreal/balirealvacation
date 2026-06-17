@@ -1,0 +1,247 @@
+---
+permalink: "/zh/uluwatu-full-day-tour.html"
+title: "乌鲁瓦图全日游 – 神鹰广场, 火舞与金巴兰晚餐 | Bali Real Vacation"
+description: "巴厘岛南部的乌鲁瓦图全日游（全包）。参观神鹰广场 (GWK)、巴东巴东海滩、情人崖 (Uluwatu Temple)，在日落时分观看卡恰火舞，并享用金巴兰海鲜晚餐。全包价 $59/人起。"
+canonical: "https://balirealvacation.com/zh/uluwatu-full-day-tour.html"
+robots: "index, follow"
+ogTitle: "乌鲁瓦图全日游 – 神鹰广场, 火舞与金巴兰晚餐 | Bali Real Vacation"
+ogDescription: "巴厘岛南部的乌鲁瓦图全日游（全包）。参观神鹰广场、巴东巴东海滩、情人崖，在日落时观看卡恰火舞，并享用金巴兰海鲜晚餐。全包价 $59/人起。"
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/uluwatu/kecak-dance-uluwatu-sunset.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "乌鲁瓦图全日游",
+  "description": "南巴厘岛全包一日游。参观神鹰广场文化公园、巴东巴东海滩、情人崖，在日落时分观看卡恰火舞，并在金巴兰湾享用海鲜晚餐。",
+  "image": "https://balirealvacation.com/src/assets/uluwatu/kecak-dance-uluwatu-sunset.webp",
+  "tourType": "文化旅游",
+  "provider": {
+    "@type": "TravelAgency",
+    "name": "Bali Real Vacation",
+    "url": "https://balirealvacation.com/zh/",
+    "telephone": "+62-812-3915-6586"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "59.00",
+    "availability": "https://schema.org/InStock",
+    "url": "https://balirealvacation.com/zh/uluwatu-full-day-tour.html",
+    "priceValidUntil": "2027-12-31"
+  }
+}
+</script>{% endraw %}{% endblock %}
+
+{% block headstyle %}
+{% raw %}{% block headstyle %}{% raw %}<style>
+    :root{--primary-color:#005B96;--secondary-color:#FF7F50;--text-dark:#2C3E50;--text-light:#FFFFFF;--bg-light:#F8F9FA;--font-heading:'Montserrat',sans-serif;--font-body:'Open Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background-color:var(--bg-light);color:var(--text-dark);line-height:1.7;font-family:var(--font-body)}
+    h1,h2,h3,h4,.logo-text,.btn{font-family:var(--font-heading)}
+    header{background-color:#fff;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
+    .logo{display:flex;align-items:center;text-decoration:none;gap:12px}
+    .logo img{height:50px;width:auto;object-fit:contain;transition:transform .3s}
+    .logo-text{font-size:24px;font-weight:700;color:var(--primary-color);transition:color .3s}
+    .logo:hover .logo-text{color:var(--secondary-color)}
+    nav ul{list-style:none;display:flex;gap:20px}
+    nav ul li a{text-decoration:none;color:var(--text-dark);font-weight:600;transition:color .3s}
+    nav ul li a:hover{color:var(--secondary-color)}
+    .mobile-menu-btn{display:none;background:none;border:none;font-size:28px;color:var(--primary-color);cursor:pointer;transition:color .3s}
+    .tour-hero{height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--text-light);padding:0 20px}
+    .tour-hero h1{font-size:3.5rem;margin-bottom:15px;text-shadow:2px 2px 8px rgba(0,0,0,.5)}
+    .tour-container{max-width:1000px;margin:-50px auto 60px;background:#fff;padding:50px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.03);position:relative;z-index:10}
+    .tour-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;margin-top:30px}
+    h2.section-heading{color:var(--primary-color);font-size:2rem;margin-bottom:20px;border-bottom:2px solid var(--bg-light);padding-bottom:10px}
+    .itinerary-list{list-style:none;margin-bottom:30px}
+    .itinerary-item{display:flex;margin-bottom:25px;background:var(--bg-light);padding:20px;border-radius:10px;border-left:4px solid var(--secondary-color)}
+    .itinerary-icon{font-size:24px;color:var(--primary-color);margin-right:20px;margin-top:5px;width:30px;text-align:center}
+    .itinerary-details h3{font-size:1.3rem;margin-bottom:8px;color:var(--text-dark)}
+    .itinerary-details p{color:#555;font-size:1rem}
+    .pricing-card{background:var(--bg-light);padding:30px;border-radius:12px;text-align:center;border:1px solid rgba(0,0,0,.03);box-shadow:0 5px 15px rgba(0,0,0,.05);position:sticky;top:100px}
+    .price-tier{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #ddd}
+    .price-tier:last-of-type{border-bottom:none;margin-bottom:20px}
+    .price-tier span{font-weight:600}
+    .price-amount{color:var(--secondary-color);font-size:1.2rem;font-weight:700;display:flex;flex-direction:column;align-items:flex-end}
+    .idr-price{color:#666;font-size:.85rem;font-weight:600;margin-top:2px}
+    .btn{padding:15px 30px;background-color:var(--secondary-color);color:#fff;text-decoration:none;border-radius:30px;font-weight:700;font-size:1.1rem;transition:transform .3s,background .3s;display:block;width:100%;text-align:center;border:none;cursor:pointer}
+    .btn:hover{background-color:#e66b3b;transform:translateY(-2px)}
+    .inclusions-list{list-style:none;margin-top:20px;text-align:left}
+    .inclusions-list li{margin-bottom:10px;font-size:.95rem;color:#444}
+    .inclusions-list li i{color:#25D366;margin-right:10px}
+    .tour-gallery{margin-top:50px;padding-top:30px;border-top:2px solid var(--bg-light)}
+    .tour-gallery h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:20px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+    .gallery-item{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.05);aspect-ratio:4/3}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .gallery-item:hover img{transform:scale(1.1)}
+    footer{background-color:#1a1a1a;color:#ccc;text-align:center;padding:50px 20px}
+    footer h2{color:#fff;margin-bottom:10px}
+    .social-links{margin:20px 0}
+    .social-links a{color:#fff;font-size:24px;margin:0 12px;transition:color .3s}
+    .social-links a:hover{color:var(--secondary-color)}
+    .footer-legal{margin:20px 0;font-size:.95rem}
+    .footer-legal a{color:#ccc;text-decoration:none;transition:color .3s}
+    .footer-legal a:hover{color:var(--secondary-color)}
+    .footer-legal .divider{margin:0 10px;color:#555}
+    .floating-buttons{position:fixed;bottom:30px;left:30px;display:flex;flex-direction:column;gap:15px;z-index:1000}
+    .float-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;text-decoration:none;box-shadow:0 10px 25px rgba(0,0,0,.15);transition:transform .3s}
+    .float-btn:hover{transform:scale(1.1)}
+    .wa-btn{background-color:#25D366}
+    .tg-btn{background-color:#0088cc}
+    #scrollTopBtn{display:none;position:fixed;bottom:100px;right:30px;z-index:1000;background-color:var(--primary-color);color:#fff;border:none;border-radius:50%;width:55px;height:55px;font-size:22px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.3);transition:transform .3s,background-color .3s}
+    #scrollTopBtn:hover{background-color:var(--secondary-color);transform:scale(1.1)}
+    @media(max-width:768px){
+        .tour-grid{grid-template-columns:1fr}
+        .tour-hero h1{font-size:2.2rem}
+        .tour-container{margin:-30px 15px 40px;padding:25px 20px}
+        header{padding:15px 20px;flex-direction:row;position:relative}
+        .mobile-menu-btn{display:block}
+        #navMenu{display:none;position:absolute;top:100%;left:0;width:100%;background-color:#fff;box-shadow:0 10px 15px rgba(0,0,0,.1);padding:20px 0;z-index:99}
+        #navMenu.active{display:block}
+        nav ul{flex-direction:column;align-items:center;gap:20px;margin:0}
+        .floating-buttons{bottom:20px;left:20px;gap:10px}
+        .float-btn{width:40px;height:40px;font-size:20px}
+        #scrollTopBtn{width:45px;height:45px;font-size:18px;bottom:90px;right:20px}
+    }
+    .tour-hero{background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.6)),url('/src/assets/uluwatu/kecak-dance-uluwatu-sunset.webp') center/cover}
+    
+    /* ── FAQ Accordion ── */
+    .faq-section{padding:50px 0;border-top:2px solid var(--bg-light);margin-top:40px}
+    .faq-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;font-family:var(--font-heading)}
+    .faq-item{border:1px solid #e9ecef;border-radius:10px;margin-bottom:12px;overflow:hidden;background:#fff}
+    .faq-question{width:100%;background:none;border:none;padding:18px 20px;text-align:left;font-family:var(--font-heading);font-size:1rem;font-weight:600;color:var(--text-dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;line-height:1.4}
+    .faq-question:hover,.faq-question.active{background:var(--bg-light)}
+    .faq-question.active{color:var(--primary-color)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-answer.open{max-height:500px}
+    .faq-answer p{padding:0 20px 18px;color:#555;font-size:.95rem;line-height:1.7;margin:0}
+    .faq-chevron{transition:transform .3s;font-size:.85rem;color:var(--primary-color);flex-shrink:0;margin-left:10px}
+    .faq-question.active .faq-chevron{transform:rotate(180deg)}
+    /* ── Related Tours ── */
+    .related-section{padding:50px;background:var(--bg-light)}
+    .related-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;text-align:center;font-family:var(--font-heading)}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+    .related-card{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.06);text-decoration:none;background:#fff;transition:transform .3s,box-shadow .3s;display:block}
+    .related-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.1)}
+    .related-card img{width:100%;height:150px;object-fit:cover}
+    .related-card-info{padding:15px}
+    .related-card-info h3{font-size:1rem;color:var(--text-dark);margin-bottom:4px;font-family:var(--font-heading)}
+    .related-card-info p{font-size:.82rem;color:#888;margin:0}
+    @media(max-width:768px){.related-section{padding:30px 20px}}
+    </style>{% endraw %}{% endblock %}{% endraw %}
+{% endblock %}
+
+{% block content %}{% raw %}
+<section class="tour-hero">
+    <h1>乌鲁瓦图全日游</h1>
+    <p style="font-size:1.2rem;margin-top:10px;">日落、文化与壮丽的海岸风光</p>
+</section>
+
+<main class="tour-container">
+    <div class="tour-grid">
+        <div class="tour-description">
+            <p style="font-size:1.1rem;margin-bottom:30px;color:#444;">通过我们独家的乌鲁瓦图全日游，发现南巴厘岛的魔力。这个精心设计的行程结合了迷人的海岸风光、丰富的文化遗产和令人着迷的日落体验。从高耸的神鹰雕像到悬崖边寺庙的传统表演，再到浪漫的海滩晚餐，本次旅行展示了布吉半岛 (Bukit Peninsula) 最好的一面。</p>
+            
+            <h2 class="section-heading">行程安排</h2>
+            <ul class="itinerary-list">
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-gopuram"></i></div>
+                    <div class="itinerary-details"><h3>1. 神鹰广场文化公园 (GWK)</h3><p>惊叹于高达 122 米的毗湿奴神 (Lord Vishnu) 雕像——这是印度尼西亚文化遗产的壮丽象征。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <div class="itinerary-details"><h3>2. 巴东巴东海滩 (Padang Padang)</h3><p>在这个隐藏在引人注目的石灰岩悬崖下的世界著名冲浪海滩的原始白沙上放松身心。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-place-of-worship"></i></div>
+                    <div class="itinerary-details"><h3>3. 情人崖神庙 (Uluwatu Temple)</h3><p>探索巴厘岛最壮观的寺庙之一，它高耸在印度洋上方 70 米的悬崖上。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-fire"></i></div>
+                    <div class="itinerary-details"><h3>4. 卡恰火舞表演 (Kecak Fire Dance)</h3><p>夕阳西下时，观看数十名男子在熊熊燃烧的火焰旁吟唱《罗摩衍那》(Ramayana)。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="itinerary-details"><h3>5. 金巴兰湾海鲜晚餐 (Jimbaran Dinner)</h3><p>在沙滩上伴着烛光和海浪声用餐，享用新鲜烧烤的海鲜。</p></div>
+                </li>
+            </ul>
+
+            <!-- Gallery -->
+            <div class="tour-gallery">
+                <h2>旅游图集</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/gwk-statue-closeup.webp" alt="GWK Garuda Wisnu Kencana" fetchpriority="high" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/labuansait-beach.webp" alt="Padang Padang Beach" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/uluwatu-temple.webp" alt="Uluwatu Temple" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/watchout-the-monkey.webp" alt="Macaque monkeys at Uluwatu" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/kecak-performance-uluwatu.webp" alt="Kecak fire dance" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/kecak-dance-uluwatu-sunset.webp" alt="Kecak fire dance at sunset" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/sunset-view-uluwatu.webp" alt="Sunset view from Uluwatu" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/uluwatu/sunset-uluwatu.webp" alt="Golden sunset at Uluwatu" loading="lazy" width="300" height="225"></div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>常见问题解答 (FAQ)</h2>
+                <div class="faq-item">
+                    <button class="faq-question">乌鲁瓦图全日游包括哪些项目？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>全包旅游涵盖私人空调车交通、神鹰广场文化公园门票、巴东巴东海滩门票、乌鲁瓦图寺（情人崖）门票及纱笼租赁、卡恰火舞表演门票以及金巴兰湾海鲜晚餐。不包括个人饮料和购物。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">乌鲁瓦图之旅什么时间开始和结束？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>酒店接客时间约为上午 09:00–10:00。白天参观文化遗址，卡恰火舞在日落时分（约下午 6:00）开始，金巴兰海鲜晚餐在晚上 9:00–9:30 左右结束，之后送您回酒店。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">乌鲁瓦图寺有着装要求吗？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>进入乌鲁瓦图寺时必须遮盖肩膀和膝盖。要求穿戴纱笼 (Sarong) 和腰带——这些已包含在旅游门票中。我们建议穿着舒适的衣服。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">乌鲁瓦图的猴子危险吗？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>寺庙里的猕猴因抢夺眼镜、帽子和松散物品而臭名昭著。您的导游会在进入前为您提供简报。我们强烈建议您在进入寺庙区域之前摘下太阳镜和帽子，并收好所有包包和配件。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">金巴兰湾海鲜晚餐真的是在沙滩上吗？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>是的！金巴兰湾的餐桌直接布置在沙滩上。您可以在烛光和海浪声中用餐，享用新鲜的烧烤海鲜——这是全巴厘岛最令人难忘的用餐体验之一。</p></div>
+                </div>
+            </div>
+        </div>
+
+        <aside>
+            <div class="pricing-card">
+                <h3 style="color:var(--primary-color);font-size:1.5rem;margin-bottom:10px;">套餐价格</h3>
+                <p style="color:#666;font-size:.9rem;margin-bottom:20px;">全包私人行程</p>
+                <div class="price-tier">
+                    <span>2 人团</span>
+                    <div class="price-amount">$75 <span class="idr-price" data-usd="75">| Rp 1.250.000</span></div>
+                </div>
+                <div class="price-tier">
+                    <span>3 人团</span>
+                    <div class="price-amount">$65 <span class="idr-price" data-usd="65">| Rp 1.090.000</span></div>
+                </div>
+                <div class="price-tier">
+                    <span>4+ 人团</span>
+                    <div class="price-amount">$59 <span class="idr-price" data-usd="59">| Rp 990.000</span></div>
+                </div>
+
+                <a href="https://wa.me/6282317794462?text=Hello%20Bali%20Real%20Vacation!%20我想预订乌鲁瓦图全日游%20(Uluwatu%20Full%20Day%20Tour)." class="btn" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-whatsapp" style="margin-right:8px;"></i> 通过 WhatsApp 预订
+                </a>
+                <ul class="inclusions-list">
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 私人空调车接送</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 英文司机</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 神鹰广场 (GWK) 门票</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 情人崖门票及纱笼</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 卡恰火舞 (Kecak Dance) 门票</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 金巴兰海鲜晚餐</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 瓶装矿泉水</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 停车费与过路费</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</main>
+{% endraw %}{% endblock %}

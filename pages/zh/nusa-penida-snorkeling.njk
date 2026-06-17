@@ -1,0 +1,260 @@
+---
+permalink: "/zh/nusa-penida-snorkeling.html"
+title: "佩尼达岛浮潜之旅 – 与魔鬼鱼同游 | Bali Real Vacation"
+description: "高级佩尼达岛浮潜之旅。在魔鬼鱼湾 (Manta Bay) 与魔鬼鱼同游，探索天神浴池和精灵坠崖。全包服务含装备和午餐。全包价 $69/人起。"
+canonical: "https://balirealvacation.com/zh/nusa-penida-snorkeling.html"
+robots: "index, follow"
+ogTitle: "佩尼达岛浮潜之旅 – 与魔鬼鱼同游 | Bali Real Vacation"
+ogDescription: "高级佩尼达岛浮潜之旅。在魔鬼鱼湾与魔鬼鱼同游，探索天神浴池和精灵坠崖。全包服务含装备和午餐。全包价 $69/人起。"
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/snorkeling/swim-along-the-turtle-penida.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TouristTrip",
+  "name": "佩尼达岛浮潜与陆地之旅",
+  "description": "高级佩尼达岛浮潜之旅。在魔鬼鱼湾和加马特湾与魔鬼鱼同游，探索天神浴池、破碎沙滩和精灵坠崖。包含所有装备和午餐。",
+  "image": "https://balirealvacation.com/src/assets/snorkeling/swim-along-the-turtle-penida.webp",
+  "tourType": "水上运动与观光旅游",
+  "provider": {
+    "@type": "TravelAgency",
+    "name": "Bali Real Vacation",
+    "url": "https://balirealvacation.com/zh/",
+    "telephone": "+62-812-3915-6586"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "69.00",
+    "availability": "https://schema.org/InStock",
+    "url": "https://balirealvacation.com/zh/nusa-penida-snorkeling.html",
+    "priceValidUntil": "2027-12-31"
+  }
+}
+</script>{% endraw %}{% endblock %}
+
+{% block headstyle %}
+{% raw %}{% block headstyle %}{% raw %}<style>
+    :root{--primary-color:#005B96;--secondary-color:#FF7F50;--text-dark:#2C3E50;--text-light:#FFFFFF;--bg-light:#F8F9FA;--font-heading:'Montserrat',sans-serif;--font-body:'Open Sans',sans-serif}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background-color:var(--bg-light);color:var(--text-dark);line-height:1.7;font-family:var(--font-body)}
+    h1,h2,h3,h4,.logo-text,.btn{font-family:var(--font-heading)}
+    header{background-color:#fff;padding:20px 50px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.1);position:sticky;top:0;z-index:100}
+    .logo{display:flex;align-items:center;text-decoration:none;gap:12px}
+    .logo img{height:50px;width:auto;object-fit:contain;transition:transform .3s}
+    .logo-text{font-size:24px;font-weight:700;color:var(--primary-color);transition:color .3s}
+    .logo:hover .logo-text{color:var(--secondary-color)}
+    nav ul{list-style:none;display:flex;gap:20px}
+    nav ul li a{text-decoration:none;color:var(--text-dark);font-weight:600;transition:color .3s}
+    nav ul li a:hover{color:var(--secondary-color)}
+    .mobile-menu-btn{display:none;background:none;border:none;font-size:28px;color:var(--primary-color);cursor:pointer;transition:color .3s}
+    .tour-hero{height:60vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:var(--text-light);padding:0 20px}
+    .tour-hero h1{font-size:3.5rem;margin-bottom:15px;text-shadow:2px 2px 8px rgba(0,0,0,.5)}
+    .tour-container{max-width:1000px;margin:-50px auto 60px;background:#fff;padding:50px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.03);position:relative;z-index:10}
+    .tour-grid{display:grid;grid-template-columns:2fr 1fr;gap:40px;margin-top:30px}
+    h2.section-heading{color:var(--primary-color);font-size:2rem;margin-bottom:20px;border-bottom:2px solid var(--bg-light);padding-bottom:10px}
+    .itinerary-list{list-style:none;margin-bottom:30px}
+    .itinerary-item{display:flex;margin-bottom:25px;background:var(--bg-light);padding:20px;border-radius:10px;border-left:4px solid var(--secondary-color)}
+    .itinerary-icon{font-size:24px;color:var(--primary-color);margin-right:20px;margin-top:5px;width:30px;text-align:center}
+    .itinerary-details h3{font-size:1.3rem;margin-bottom:8px;color:var(--text-dark)}
+    .itinerary-details p{color:#555;font-size:1rem}
+    .pricing-card{background:var(--bg-light);padding:30px;border-radius:12px;text-align:center;border:1px solid rgba(0,0,0,.03);box-shadow:0 5px 15px rgba(0,0,0,.05);position:sticky;top:100px}
+    .price-tier{display:flex;justify-content:space-between;align-items:center;padding:15px 0;border-bottom:1px solid #ddd}
+    .price-tier:last-of-type{border-bottom:none;margin-bottom:20px}
+    .price-tier span{font-weight:600}
+    .price-amount{color:var(--secondary-color);font-size:1.2rem;font-weight:700;display:flex;flex-direction:column;align-items:flex-end}
+    .idr-price{color:#666;font-size:.85rem;font-weight:600;margin-top:2px}
+    .btn{padding:15px 30px;background-color:var(--secondary-color);color:#fff;text-decoration:none;border-radius:30px;font-weight:700;font-size:1.1rem;transition:transform .3s,background .3s;display:block;width:100%;text-align:center;border:none;cursor:pointer}
+    .btn:hover{background-color:#e66b3b;transform:translateY(-2px)}
+    .inclusions-list{list-style:none;margin-top:20px;text-align:left}
+    .inclusions-list li{margin-bottom:10px;font-size:.95rem;color:#444}
+    .inclusions-list li i{color:#25D366;margin-right:10px}
+    .tour-gallery{margin-top:50px;padding-top:30px;border-top:2px solid var(--bg-light)}
+    .tour-gallery h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:20px}
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+    .gallery-item{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.05);aspect-ratio:4/3}
+    .gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+    .gallery-item:hover img{transform:scale(1.1)}
+    footer{background-color:#1a1a1a;color:#ccc;text-align:center;padding:50px 20px}
+    footer h2{color:#fff;margin-bottom:10px}
+    .social-links{margin:20px 0}
+    .social-links a{color:#fff;font-size:24px;margin:0 12px;transition:color .3s}
+    .social-links a:hover{color:var(--secondary-color)}
+    .footer-legal{margin:20px 0;font-size:.95rem}
+    .footer-legal a{color:#ccc;text-decoration:none;transition:color .3s}
+    .footer-legal a:hover{color:var(--secondary-color)}
+    .footer-legal .divider{margin:0 10px;color:#555}
+    .floating-buttons{position:fixed;bottom:30px;left:30px;display:flex;flex-direction:column;gap:15px;z-index:1000}
+    .float-btn{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;color:#fff;text-decoration:none;box-shadow:0 10px 25px rgba(0,0,0,.15);transition:transform .3s}
+    .float-btn:hover{transform:scale(1.1)}
+    .wa-btn{background-color:#25D366}
+    .tg-btn{background-color:#0088cc}
+    #scrollTopBtn{display:none;position:fixed;bottom:100px;right:30px;z-index:1000;background-color:var(--primary-color);color:#fff;border:none;border-radius:50%;width:55px;height:55px;font-size:22px;cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.3);transition:transform .3s,background-color .3s}
+    #scrollTopBtn:hover{background-color:var(--secondary-color);transform:scale(1.1)}
+    @media(max-width:768px){
+        .tour-grid{grid-template-columns:1fr}
+        .tour-hero h1{font-size:2.2rem}
+        .tour-container{margin:-30px 15px 40px;padding:25px 20px}
+        header{padding:15px 20px;flex-direction:row;position:relative}
+        .mobile-menu-btn{display:block}
+        #navMenu{display:none;position:absolute;top:100%;left:0;width:100%;background-color:#fff;box-shadow:0 10px 15px rgba(0,0,0,.1);padding:20px 0;z-index:99}
+        #navMenu.active{display:block}
+        nav ul{flex-direction:column;align-items:center;gap:20px;margin:0}
+        .floating-buttons{bottom:20px;left:20px;gap:10px}
+        .float-btn{width:40px;height:40px;font-size:20px}
+        #scrollTopBtn{width:45px;height:45px;font-size:18px;bottom:90px;right:20px}
+    }
+    .tour-hero{background:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.6)),url('/src/assets/snorkeling/swim-along-the-turtle-penida.webp') center/cover}
+    
+    /* ── FAQ Accordion ── */
+    .faq-section{padding:50px 0;border-top:2px solid var(--bg-light);margin-top:40px}
+    .faq-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;font-family:var(--font-heading)}
+    .faq-item{border:1px solid #e9ecef;border-radius:10px;margin-bottom:12px;overflow:hidden;background:#fff}
+    .faq-question{width:100%;background:none;border:none;padding:18px 20px;text-align:left;font-family:var(--font-heading);font-size:1rem;font-weight:600;color:var(--text-dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s;line-height:1.4}
+    .faq-question:hover,.faq-question.active{background:var(--bg-light)}
+    .faq-question.active{color:var(--primary-color)}
+    .faq-answer{max-height:0;overflow:hidden;transition:max-height .35s ease}
+    .faq-answer.open{max-height:500px}
+    .faq-answer p{padding:0 20px 18px;color:#555;font-size:.95rem;line-height:1.7;margin:0}
+    .faq-chevron{transition:transform .3s;font-size:.85rem;color:var(--primary-color);flex-shrink:0;margin-left:10px}
+    .faq-question.active .faq-chevron{transform:rotate(180deg)}
+    /* ── Related Tours ── */
+    .related-section{padding:50px;background:var(--bg-light)}
+    .related-section h2{color:var(--primary-color);font-size:1.8rem;margin-bottom:25px;text-align:center;font-family:var(--font-heading)}
+    .related-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;max-width:1000px;margin:0 auto}
+    .related-card{border-radius:10px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,.06);text-decoration:none;background:#fff;transition:transform .3s,box-shadow .3s;display:block}
+    .related-card:hover{transform:translateY(-5px);box-shadow:0 12px 25px rgba(0,0,0,.1)}
+    .related-card img{width:100%;height:150px;object-fit:cover}
+    .related-card-info{padding:15px}
+    .related-card-info h3{font-size:1rem;color:var(--text-dark);margin-bottom:4px;font-family:var(--font-heading)}
+    .related-card-info p{font-size:.82rem;color:#888;margin:0}
+    @media(max-width:768px){.related-section{padding:30px 20px}}
+    </style>{% endraw %}{% endblock %}{% endraw %}
+{% endblock %}
+
+{% block content %}{% raw %}
+<section class="tour-hero">
+    <h1>佩尼达岛浮潜与陆地之旅</h1>
+    <p style="font-size:1.2rem;margin-top:10px;">与魔鬼鱼共游 & 探索标志性悬崖</p>
+</section>
+
+<main class="tour-container">
+    <div class="tour-grid">
+        <div class="tour-description">
+            <p style="font-size:1.1rem;margin-bottom:30px;color:#444;">通过我们提供的高级全包一日游，体验终极的佩尼达岛冒险。潜入清澈见底的水中，与雄伟的魔鬼鱼 (Manta Rays) 一起游泳，然后探索岛上最著名的陆地景点。这个综合套餐将三个世界级浮潜点与西海岸令人叹为观止的悬崖结合在一起——让您在难忘的一天中尽享海洋和岛屿的最佳风光。</p>
+            
+            <h2 class="section-heading">出行准备清单</h2>
+            <ul class="inclusions-list" style="margin-bottom:30px;">
+                <li><i class="fa-solid fa-suitcase-rolling" style="color:#005B96;"></i> 适合悬崖行走的舒适鞋履</li>
+                <li><i class="fa-solid fa-suitcase-rolling" style="color:#005B96;"></i> 泳衣和换洗衣服</li>
+                <li><i class="fa-solid fa-suitcase-rolling" style="color:#005B96;"></i> 对珊瑚礁安全的矿物防晒霜（强烈建议）</li>
+                <li><i class="fa-solid fa-suitcase-rolling" style="color:#005B96;"></i> 晕船药（如需要）</li>
+            </ul>
+
+            <h2 class="section-heading">行程安排</h2>
+            <ul class="itinerary-list">
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-car"></i></div>
+                    <div class="itinerary-details"><h3>06:00 AM – 酒店接送</h3><p>在您的巴厘岛酒店接您，乘坐私人专车前往萨努尔 (Sanur) 港口。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-mask-snorkel"></i></div>
+                    <div class="itinerary-details"><h3>09:00 AM – 浮潜探险</h3><p>在魔鬼鱼湾 (Manta Bay)、加马特湾 (Gamat Bay) 和水晶湾 (Crystal Bay) 与魔鬼鱼一起游泳。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="itinerary-details"><h3>12:00 PM – 午餐</h3><p>享用美味的当地午餐，在浮潜后补充能量。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-water"></i></div>
+                    <div class="itinerary-details"><h3>01:30 PM – 天神浴池 (Angel's Billabong)</h3><p>参观刻在岩壁上的令人惊叹的天然无边泳池。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-camera"></i></div>
+                    <div class="itinerary-details"><h3>02:00 PM – 破碎沙滩 (Broken Beach)</h3><p>惊叹于壮观的圆形海湾及其天然的岩石拱门。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+                    <div class="itinerary-details"><h3>03:00 PM – 精灵坠崖 (Kelingking Beach)</h3><p>体验令人叹为观止的霸王龙悬崖观景台和全景海景。</p></div>
+                </li>
+                <li class="itinerary-item">
+                    <div class="itinerary-icon"><i class="fa-solid fa-ship"></i></div>
+                    <div class="itinerary-details"><h3>04:45 PM – 返回巴厘岛</h3><p>乘坐快艇返回萨努尔港口，然后私人专车送您回酒店。</p></div>
+                </li>
+            </ul>
+
+            <div class="tour-gallery">
+                <h2>旅游图集</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/snorkeling-boats.webp" alt="Snorkeling boats heading to Manta Bay" fetchpriority="high" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/coral-reef-penida.webp" alt="Vibrant coral reefs" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/living-corals-penida.webp" alt="Colorful living corals underwater" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/penida-snorkeling-gopro.webp" alt="Snorkeling underwater photography" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/surrounded-with-fish-penida.webp" alt="Diver surrounded by tropical fish" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/green-turtle-penida.webp" alt="Green sea turtle swimming" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/feeding-fishes-in-penida.webp" alt="Feeding tropical fish" loading="lazy" width="300" height="225"></div>
+                    <div class="gallery-item"><img src="/src/assets/snorkeling/swim-along-the-turtle-penida.webp" alt="Swimming alongside a sea turtle" loading="lazy" width="300" height="225"></div>
+                </div>
+            </div>
+
+            <div class="faq-section">
+                <h2>常见问题解答 (FAQ)</h2>
+                <div class="faq-item">
+                    <button class="faq-question">不会游泳的人可以参加佩尼达岛浮潜游吗？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>需要具备基本的游泳能力。我们为所有客人提供救生衣，经验丰富的向导会在整个过程中协助初学者。如果您完全不会游泳，我们建议您选择纯陆地观光行程。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">这次旅行保证能看到魔鬼鱼吗？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>在魔鬼鱼湾 (Manta Bay) 和加马特湾 (Gamat Bay)，这些生物经常出没觅食，因此看到的几率非常高。由于它们是野生动物，我们无法 100% 保证，但在我们大约 90% 的行程中都能看到。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">提供哪些浮潜装备？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>我们为所有客人提供顶级的面罩、脚蹼、呼吸管、防晒服 (rash guards) 和救生衣。您只需带上泳衣和对珊瑚礁安全的防晒霜——所有装备均包含在您的价格中。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">在佩尼达岛浮潜的最佳时间是什么时候？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>旱季（5 月至 10 月）提供最佳的水下能见度和最平静的海况。5 月至 10 月期间，当洋流带来丰富的食物时，看到魔鬼鱼的频率最高。</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">为什么早上 6:00 这么早就接客？ <i class="fa-solid fa-chevron-down faq-chevron"></i></button>
+                    <div class="faq-answer"><p>我们在早上 06:00 接客人，以便在最佳的清晨时段到达浮潜点，避开下午的起风和拥挤的船只。清晨提供最佳的水质清晰度，以及发现魔鬼鱼和海龟的最高几率。</p></div>
+                </div>
+            </div>
+        </div>
+
+        <aside>
+            <div class="pricing-card">
+                <h3 style="color:var(--primary-color);font-size:1.5rem;margin-bottom:10px;">套餐价格</h3>
+                <p style="color:#666;font-size:.9rem;margin-bottom:20px;">全包私人行程</p>
+                <div class="price-tier">
+                    <span>2 人团</span>
+                    <div class="price-amount">$79 <span class="idr-price" data-usd="79">| Rp 1.320.000</span></div>
+                </div>
+                <div class="price-tier">
+                    <span>3 人团</span>
+                    <div class="price-amount">$75 <span class="idr-price" data-usd="75">| Rp 1.250.000</span></div>
+                </div>
+                <div class="price-tier">
+                    <span>4+ 人团</span>
+                    <div class="price-amount">$69 <span class="idr-price" data-usd="69">| Rp 1.150.000</span></div>
+                </div>
+
+                <a href="https://wa.me/6282317794462?text=Hello%20Bali%20Real%20Vacation!%20我想预订佩尼达岛浮潜之旅%20(Nusa%20Penida%20Snorkeling%20Tour)." class="btn" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-whatsapp" style="margin-right:8px;"></i> 通过 WhatsApp 预订
+                </a>
+                <ul class="inclusions-list">
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 私人空调车接送</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 往返快艇票</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 顶级浮潜装备</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 包含救生衣</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 包含所有门票与向导</li>
+                    <li><i class="fa-solid fa-circle-check" style="color:#25D366"></i> 包含当地午餐</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</main>
+{% endraw %}{% endblock %}

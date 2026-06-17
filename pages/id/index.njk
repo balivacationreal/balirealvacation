@@ -1,0 +1,779 @@
+---
+permalink: "/id/index.html"
+title: "Bali Real Vacation | Tur Pribadi Bali & Nusa Penida – All-Inclusive"
+description: "Temukan keajaiban Bali dan Nusa Penida dengan itinerary perjalanan tanpa repot dan peduli lingkungan. Cocok untuk keluarga, rombongan, dan petualang solo."
+canonical: "https://balirealvacation.com/id/"
+robots: "index, follow"
+ogTitle: "Bali Real Vacation | Tur Premium Bali & Nusa Penida"
+ogDescription: "Temukan keajaiban Bali dan Nusa Penida dengan itinerary perjalanan tanpa repot dan peduli lingkungan. Cocok untuk keluarga, rombongan, dan petualang solo."
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beautiful.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}{% raw %}<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TravelAgency",
+      "name": "Bali Real Vacation",
+      "url": "https://balirealvacation.com/",
+      "logo": "https://balirealvacation.com/src/assets/bali-real-vacation-logo.webp",
+      "image": "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beautiful.webp",
+      "description": "Itinerary perjalanan pribadi premium, tanpa repot, dan peduli lingkungan di seluruh Bali dan Nusa Penida.",
+      "telephone": "+62-812-3915-6586",
+      "priceRange": "$$",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Bali, Indonesia"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Bali",
+        "addressCountry": "ID"
+      }
+    }
+    </script>{% endraw %}{% endblock %}
+
+{% block headstyle %}{% raw %}<style>
+/* Modernized Color Palette & Typography */
+        :root {
+            --primary-color: #005B96;
+            --secondary-color: #FF7F50;
+            --text-dark: #2C3E50;
+            --text-light: #FFFFFF;
+            --bg-light: #F8F9FA;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-light); color: var(--text-dark); line-height: 1.7; font-family: var(--font-body); }
+        h1, h2, h3, h4, .logo-text, .btn { font-family: var(--font-heading); }
+        /* Navbar */
+        header { background-color: #fff; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .logo { display: flex; align-items: center; text-decoration: none; gap: 12px; }
+        .logo img { height: 50px; width: auto; object-fit: contain; transition: transform 0.3s ease; }
+        .logo img:hover { transform: scale(1.05); }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary-color); transition: color 0.3s ease; }
+        .logo:hover .logo-text { color: var(--secondary-color); }
+        nav ul { list-style: none; display: flex; gap: 20px; }
+        nav ul li a { text-decoration: none; color: var(--text-dark); font-weight: 600; transition: color 0.3s; }
+        nav ul li a:hover { color: var(--secondary-color); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; color: var(--primary-color); cursor: pointer; transition: color 0.3s ease; }
+        .mobile-menu-btn:hover { color: var(--secondary-color); }
+        /* Hero Section */
+        .hero{height: 80vh;background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/src/assets/ulun-danu-beratan-temple-stunning-view.webp'); background-size: cover; background-position: center 15%; display: flex;flex-direction: column; justify-content: center; align-items: center; text-align: center;color: var(--text-light);padding: 0 20px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; max-width: 600px; }
+        .btn { padding: 12px 30px; background-color: var(--secondary-color); color: #fff; text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s; border: none; cursor: pointer; }
+        .btn:hover { background-color: #e68a00; }
+        /* Section Titles */
+        .section-title { text-align: center; margin: 60px 0 40px; font-size: 2.5rem; color: var(--primary-color); }
+        /* Packages Section */
+        .packages-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; padding: 0 50px 60px; }
+        .package-card { background: #fff; width: 350px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.03); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .package-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
+        .package-img { width: 100%; height: 220px; object-fit: cover; }
+        .package-content { padding: 20px; }
+        .package-title { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-dark); }
+        .package-details { list-style: none; margin-bottom: 20px; }
+        .package-details li { margin-bottom: 8px; font-size: 0.95rem; }
+        .package-details li i { color: var(--primary-color); margin-right: 10px; }
+        .tour-pricing { margin: 15px 0; padding: 15px; background-color: var(--bg-light); border-radius: 8px; text-align: left; }
+        .price-list { list-style: none; padding: 0; margin: 0; }
+        .price-list li { padding: 10px 0; border-bottom: 1px dashed #ccc; display: flex; justify-content: space-between; align-items: center; margin: 0; }
+        .price-list li:last-child { border-bottom: none; padding-bottom: 0; }
+        .tier-label { font-size: 0.95rem; font-weight: 600; color: var(--text-dark); }
+        .price-group { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+        .usd-price { color: var(--primary-color); font-size: 1.15rem; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+        .idr-price { color: #555; font-size: 0.8rem; font-weight: 600; line-height: 1; }
+        .per-pax-note { font-size: 0.8rem; color: #888; margin-top: 10px; text-align: center; font-style: italic; }
+        /* About Us Section - Fixed Layout */
+        .about-section { padding: 80px 50px; background-color: #fff; }
+        .about-container { display: flex; align-items: center; max-width: 1200px; margin: 0 auto; gap: 50px; }
+        .about-image { flex: 1; position: relative; }
+        .about-image img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); object-fit: cover; min-height: 400px; }
+        .experience-badge { position: absolute; bottom: -20px; right: -20px; background-color: var(--secondary-color); color: #fff; padding: 20px; border-radius: 50%; width: 120px; height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center; font-weight: bold; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); line-height: 1.2; z-index: 5; }
+        .about-content { flex: 1; }
+        .about-content h3 { font-size: 1.8rem; color: var(--text-dark); margin-bottom: 20px; }
+        .about-content p { margin-bottom: 15px; color: #555; font-size: 1.05rem; }
+        .about-features { list-style: none; margin-top: 25px; }
+        .about-features li { margin-bottom: 10px; font-size: 1.1rem; font-weight: 600; color: var(--text-dark); }
+        .about-features li i { color: #25D366; margin-right: 10px; }
+        /* Crew Section */
+        .crew-section { padding: 60px 50px 80px; background-color: var(--bg-light); text-align: center; }
+        .crew-intro { max-width: 600px; margin: 0 auto 40px; color: #555; font-size: 1.1rem; }
+        .crew-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .crew-card { background: #fff; width: 320px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; text-align: left; }
+        .crew-card:hover { transform: translateY(-8px); }
+        .crew-img { width: 100%; height: 250px; object-fit: cover; }
+        .crew-info { padding: 25px; }
+        .crew-info h3 { font-size: 1.4rem; color: var(--text-dark); margin-bottom: 5px; }
+        .crew-role { display: block; color: var(--secondary-color); font-weight: 600; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .crew-info p { font-size: 0.95rem; color: #666; line-height: 1.6; }
+        /* Guides Section */
+        .guides-section { background-color: var(--bg-light); padding: 40px 50px 0; }
+        .guides-intro { text-align: center; margin-bottom: 40px; }
+        .guides-intro p { color: #555; font-size: 1.1rem; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+        /* Testimonials Section - Upgraded to Grid */
+        .testimonials { padding: 40px 50px 80px; background-color: #fff; }
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background: var(--bg-light);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        .quote-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            opacity: 0.15;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+        .stars { color: #FFD700; margin-bottom: 15px; font-size: 1.2rem; position: relative; z-index: 2; }
+        .review-text { font-style: italic; color: #666; margin-bottom: 25px; font-size: 0.95rem; line-height: 1.7; position: relative; z-index: 2; }
+        .reviewer h4 { color: var(--text-dark); margin-bottom: 5px; }
+        .reviewer span { font-size: 0.85rem; color: var(--primary-color); font-weight: 600; }
+        /* Booking Form Section */
+        .booking-section { padding: 60px 50px 80px; background-color: var(--bg-light); }
+        .booking-container { max-width: 800px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .booking-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-row { display: flex; gap: 20px; }
+        .form-group { flex: 1; display: flex; flex-direction: column; }
+        .form-group label { font-weight: 600; margin-bottom: 8px; color: var(--text-dark); font-size: 0.95rem; }
+        .form-group input, .form-group select, .form-group textarea { padding: 12px 15px; border: 1px solid #ccc; border-radius: 8px; font-family: 'Open Sans', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary-color); }
+        .submit-btn { width: 100%; margin-top: 10px; font-size: 1.2rem; padding: 15px; }
+        /* Footer & Social */
+        footer { background-color: #222; color: #ccc; text-align: center; padding: 40px 20px; }
+        .social-links { margin: 20px 0; }
+        .social-links a { color: #fff; font-size: 24px; margin: 0 10px; transition: color 0.3s; }
+        .social-links a:hover { color: var(--secondary-color); }
+        .footer-legal { margin-bottom: 20px; font-size: 0.9rem; }
+        .footer-legal a { color: #ccc; text-decoration: none; transition: color 0.3s ease; }
+        .footer-legal a:hover { color: var(--secondary-color); }
+        .footer-legal .divider { color: #666; margin: 0 10px; }
+        /* Floating Buttons */
+        .floating-buttons { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .float-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #fff; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s; }
+        .float-btn:hover { transform: scale(1.1); }
+        .wa-btn { background-color: #25D366; }
+        .tg-btn { background-color: #0088cc; }
+        /* Bridge Banner Section */
+        .bridge-banner {
+            background: linear-gradient(135deg, var(--primary-color), #00365a);
+            color: #fff;
+            text-align: center;
+            padding: 60px 40px;
+            margin: 0 auto 80px;
+            max-width: 1100px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 91, 150, 0.2);
+        }
+        .bridge-banner h2 {
+            color: #fff;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        .bridge-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #e0f0ff;
+        }
+        .bridge-banner .btn-custom {
+            background-color: #fff;
+            color: var(--primary-color);
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .bridge-banner .btn-custom:hover {
+            background-color: var(--secondary-color);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 127, 80, 0.4);
+        }
+    /* Universal Responsive Rules */
+    @media(max-width: 992px) {
+    .about-container { flex-direction: column; }
+    .experience-badge { right: 20px; }
+    }
+    @media(max-width: 768px) {
+    /* 1. Fix the Header and Logo sizes */
+    header { padding: 15px 20px; flex-direction: row; position: relative; justify-content: space-between; align-items: center; }
+    .logo img { height: 50px; }
+    .logo-text { font-size: 24px; }
+    /* Mobile Menu Logic (Keep your existing) */
+    .mobile-menu-btn { display: block; }
+    #navMenu { display: none; position: absolute; top: 100%; left: 0; width: 100%; background-color: #fff; box-shadow: 0 10px 15px rgba(0,0,0,0.1); padding: 20px 0; z-index: 99; }
+    #navMenu.active { display: block; }
+    nav ul { flex-direction: column; align-items: center; gap: 20px; margin: 0; }
+    /* Typography Adjustments */
+    .hero h1 { font-size: 2rem; line-height: 1.3; }
+    .section-title { font-size: 1.8rem; }
+    /* Adjust Container Paddings */
+    .about-section, .crew-section, .testimonials, .booking-section { padding: 40px 20px; }
+    .packages-container { padding: 0 20px 40px; gap: 20px; }
+    .package-card, .crew-card { width: 100%; max-width: 380px; }
+    /* 2. Fix the Overlapping Badge */
+    .about-image { margin-bottom: 30px; } /* Adds space so the badge doesn't hit the text */
+    .experience-badge { right: 10px; bottom: -15px; width: 90px; height: 90px; font-size: 0.8rem; padding: 10px; }
+    .about-content h3 { font-size: 1.5rem; margin-top: 15px; }
+    /* Form Adjustments */
+    .form-row { flex-direction: column; gap: 20px; }
+    .booking-container { padding: 25px; }
+    /* 3. Clean up the Floating Buttons */
+    /* Move them to a horizontal row, make them smaller, and push them up slightly to avoid OS navigation bars */
+    .floating-buttons { bottom: 20px; left: 20px; gap: 10px; flex-direction: row; }
+    .float-btn { width: 45px; height: 45px; font-size: 22px; }
+    /* Guides section adjustments on mobile */
+    .guides-section { padding: 20px 20px 0; }
+    .guides-intro { margin-bottom: 30px; }
+    .guides-intro p { font-size: 1rem; padding: 0 10px; } /* The padding here prevents text from hitting the screen edge */
+    .guides-section > div[style*="grid"] { padding: 0 20px !important; }
+    /* Hero Section Mobile Optimization */
+    .hero {
+        height: 65vh; /* Reduces the height slightly to reveal the next section */
+        min-height: 400px; /* Ensures it never gets too squished on very short screens */
+        background-position: center 30%; /* Shifts the focal point up slightly so the temple isn't cut off */
+        padding: 0 15px;
+        }
+    .hero p {
+        font-size: 1.05rem;
+        margin-bottom: 25px;
+        padding: 0 10px; /* Prevents the text from touching the screen edges */
+            }
+    /* Bridge Banner Mobile Fix */
+    .bridge-banner { margin: 0 20px 60px; padding: 40px 20px; }
+    .bridge-banner h2 { font-size: 1.8rem; }
+            }
+    /* Scroll to Top Button */
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 55px;
+            height: 55px;
+            font-size: 22px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        #scrollTopBtn:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+        @media(max-width: 768px) {
+            #scrollTopBtn { width: 45px; height: 45px; font-size: 18px; bottom: 90px; right: 20px; }
+        }
+    /* Top Destinations Grid */
+        .destinations-section { padding: 80px 50px; background-color: #fff; text-align: center; }
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .destination-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-decoration: none; /* In case we wrap them in links */
+        }
+        .destination-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .destination-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            text-align: left;
+            color: #fff;
+        }
+        .destination-card:hover .destination-img { transform: scale(1.1); }
+        .destination-overlay h3 { font-size: 1.6rem; margin-bottom: 5px; font-family: var(--font-heading); }
+        .destination-overlay p { font-size: 0.95rem; opacity: 0.9; }
+        @media(max-width: 768px) { .destinations-section { padding: 50px 20px; } }
+    /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px); /* Starts slightly lower */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform; /* Hardware acceleration for smooth performance */
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0); /* Glides into place */
+        }
+        /* Optional: Staggered delays for items in a grid */
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+		.delay-4 { transition-delay: 0.4s; }
+        .delay-5 { transition-delay: 0.5s; }
+        .delay-6 { transition-delay: 0.6s; }
+    </style>{% endraw %}{% endblock %}
+
+{% block content %}{% raw %}
+<section class="hero" id="home">
+        <span class="eyebrow"><i class="fa-solid fa-location-dot"></i> Bali &middot; Nusa Penida</span>
+        <h1>Temukan Keajaiban Bali &amp; Nusa Penida</h1>
+        <p>Itinerary perjalanan premium dan pengalaman tak terlupakan untuk wisatawan domestik dan mancanegara.</p>
+        <div class="hero-cta">
+          <a href="#packages" class="btn">Jelajahi Paket</a>
+          <a href="https://wa.me/6282317794462" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-whatsapp"></i> Chat dengan warga lokal</a>
+        </div>
+        <div class="hero-wave"><svg viewBox="0 0 1440 110" width="100%" height="110" preserveAspectRatio="none"><path fill="#FBF8F3" d="M0,64L60,58.7C120,53,240,43,360,48C480,53,600,75,720,80C840,85,960,75,1080,64C1200,53,1320,43,1380,37.3L1440,32L1440,110L0,110Z"></path></svg></div>
+    </section>
+    <div class="trust-bar">
+      <div class="ti"><i class="fa-solid fa-star"></i><div><b>4.9 / 5</b><span>300+ wisatawan puas</span></div></div>
+      <div class="ti"><i class="fa-brands fa-whatsapp"></i><div><b>Balasan instan</b><span>Dilayani manusia di WhatsApp</span></div></div>
+      <div class="ti"><i class="fa-solid fa-hand-holding-dollar"></i><div><b>Tanpa biaya tersembunyi</b><span>Harga transparan</span></div></div>
+      <div class="ti"><i class="fa-solid fa-leaf"></i><div><b>Peduli lingkungan</b><span>Menjaga kelestarian pulau</span></div></div>
+    </div>
+    <section class="about-section" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="/src/assets/tanah-lot-temple.webp" alt="Pura Tanah Lot yang terkenal di Bali" loading="lazy">
+                <div class="experience-badge">
+                    <span>Pengalaman</span>
+                    <span>Autentik</span>
+                </div>
+            </div>
+            <div class="about-content">
+                <h2 class="section-title" style="text-align: left; margin-top: 0;">Siapa Kami</h2>
+                <h3>Lebih dari Sekadar Tur – Ini Liburan Sungguhan</h3>
+                <p>Selamat datang di <strong>Bali Real Vacation</strong>. Kami mengkhususkan diri menyusun itinerary perjalanan premium tanpa repot di seluruh Bali dan Nusa Penida untuk pengunjung domestik maupun internasional.</p>
+                <p>Kami tahu betul bahwa merencanakan perjalanan untuk rombongan besar—menyeimbangkan energi remaja dengan kenyamanan yang dibutuhkan orang tua, paman, dan bibi—bisa terasa melelahkan. Karena itulah tim kami menangani setiap detail, dari tiket speedboat hingga sopir lokal berpengalaman, memastikan perjalanan mulus baik Anda bepergian bersama keluarga besar, pasangan, maupun sendiri.</p>
+                <p>Selain memberikan petualangan tak terlupakan, kami sangat berkomitmen pada pulau-pulau yang kami tampilkan. Kami mendukung pariwisata berkelanjutan dan peduli lingkungan untuk melindungi kehidupan laut yang indah serta meningkatkan kesadaran akan lingkungan lokal yang kritis, seperti terumbu karang rapuh di Bali Utara. Saat Anda menjelajah bersama kami, Anda mendukung visi yang menghormati dan melestarikan keindahan sejati Indonesia.</p>
+                <ul class="about-features">
+                    <li><i class="fa-solid fa-check-circle"></i> Koordinasi Keluarga &amp; Rombongan yang Mulus</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Praktik Perjalanan Peduli Lingkungan</li>
+                    <li><i class="fa-solid fa-check-circle"></i> Harga Transparan &amp; Tanpa Biaya Tersembunyi</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="crew-section reveal" id="crew">
+        <h2 class="section-title">Kenali Pemandu Lokal Anda</h2>
+        <p class="crew-intro">Sopir kami yang berpengalaman dan ramah siap memastikan perjalanan Anda aman, seru, dan tak terlupakan.</p>
+        <div class="crew-container">
+            <div class="crew-card reveal delay-1">
+                <img src="/src/assets/crew/ketut-widiasa.webp" alt="Ketut Widiasa" class="crew-img" loading="lazy">
+                <div class="crew-info">
+                    <h3>Ketut Widiasa</h3>
+                    <span class="crew-role">Sopir Senior &amp; Pemandu</span>
+                    <p>Berasal dari Buleleng, Bali Utara, Ketut adalah sopir yang sangat berpengalaman. Ia fasih berbicara, humoris, dan menjaga kendaraannya tetap bersih sempurna. Selalu responsif dan bertanggung jawab di jalan.</p>
+                </div>
+            </div>
+            <div class="crew-card reveal delay-2">
+                <img src="/src/assets/crew/gede-jahendra.webp" alt="Gede Jahendra" class="crew-img" loading="lazy">
+                <div class="crew-info">
+                    <h3>Gede Jahendra</h3>
+                    <span class="crew-role">Pakar Lokal</span>
+                    <p>Lahir dan besar di Nusa Penida, Gede memiliki pengetahuan mendalam tentang permata tersembunyi Bali. Ia dikenal para tamu kami karena sangat jujur, andal, dan bertanggung jawab.</p>
+                </div>
+            </div>
+            <div class="crew-card reveal delay-3">
+                <img src="/src/assets/crew/putu-ardi.webp" alt="Putu Ardi" class="crew-img" loading="lazy">
+                <div class="crew-info">
+                    <h3>Putu Ardi</h3>
+                    <span class="crew-role">Pemandu &amp; Fotografer</span>
+                    <p>Warga asli Nusa Penida, Putu ramah dan jujur. Selain memandu, ia fotografer ulung yang akan memastikan Anda mengabadikan momen sempurna dalam setiap petualangan.</p>
+                </div>
+            </div>
+            <div class="crew-card reveal delay-4">
+                <img src="/src/assets/crew/kadek-tresna.webp" alt="Kadek Tresna" class="crew-img" loading="lazy">
+                <div class="crew-info">
+                    <h3>Kadek Tresna</h3>
+                    <span class="crew-role">Sopir Senior &amp; Pemandu</span>
+                    <p>Membawa pengalaman puluhan tahun ke tim, Kadek adalah sopir senior berdedikasi dan warga asli Bali. Tekun, jujur, dan sangat memahami pulau ini, ia menjamin petualangan yang aman dan nyaman bagi tamu kami, baik hujan maupun cerah.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="destinations-section" id="destinations">
+        <h2 class="section-title reveal" style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 10px;">Jelajahi Bali &amp; Sekitarnya</h2>
+        <p class="reveal delay-1" style="color: #666; font-size: 1.1rem; margin-bottom: 40px;">Temukan surga sempurna Anda sebelum memilih itinerary.</p>
+        <div class="destinations-grid">
+            <a href="/id/nusa-penida-guide.html" class="destination-card reveal delay-1" style="display: block;">
+                <img src="/src/assets/diamond-beach-nusa-penida.webp" alt="Nusa Penida" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3>Nusa Penida</h3>
+                    <p>Tebing dramatis &amp; pari manta</p>
+                </div>
+            </a>
+            <a href="/id/uluwatu-full-day-tour.html" class="destination-card reveal delay-2" style="display: block;">
+                <img src="/src/assets/uluwatu-temple-cliffview.webp" alt="Uluwatu" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3>Uluwatu</h3>
+                    <p>Ombak selancar &amp; tari api</p>
+                </div>
+            </a>
+            <a href="/id/mount-batur-sunrise-trek.html" class="destination-card reveal delay-3" style="display: block;">
+                <img src="/src/assets/batur/mount-batur-trekking.webp" alt="Gunung Batur" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3>Gunung Batur</h3>
+                    <p>Matahari terbit gunung berapi &amp; pemandian air panas</p>
+                </div>
+            </a>
+            <a href="/id/sekumpul-waterfall-tour.html" class="destination-card reveal delay-1" style="display: block;">
+                <img src="/src/assets/sekumpul/sekumpul-waterfalls-top-view.webp" alt="Bali Utara" class="destination-img" loading="lazy">
+                <div class="destination-overlay">
+                    <h3>Bali Utara</h3>
+                    <p>Air terjun tersembunyi &amp; hutan</p>
+                </div>
+            </a>
+        </div>
+        <div class="reveal delay-2" style="margin-top: 40px;">
+            <a href="/id/bali-destinations-guide.html" class="btn" style="display: inline-block; padding: 12px 30px; border-radius: 30px;">Baca Panduan Wilayah Lengkap</a>
+        </div>
+    </section>
+    <div class="bridge-banner">
+        <h2>Rancang Petualangan Pulau Anda Sendiri</h2>
+        <p>Tidak ingin paket all-inclusive? Sewa salah satu sopir berpengalaman kami untuk tur khusus transportasi-saja dan jelajahi Bali sepenuhnya sesuai ritme Anda.</p>
+        <a href="/id/private-driver-tours.html" class="btn-custom">Lihat Pilihan Sopir Pribadi</a>
+    </div>
+    <h2 class="section-title reveal" id="packages">Paket Tur Populer Kami</h2>
+   <div class="packages-container" id="packages-list">
+  <div class="package-card reveal">
+    <span class="card-tag"><i class="fa-solid fa-mountain-sun"></i> Nusa Penida</span>
+    <img src="/src/assets/perfect-view-kelingking-beach.webp" alt="Tebing ikonik T-Rex di Kelingking Beach, Nusa Penida Barat" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Tur Nusa Penida Barat</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$65</strong><span class="idr-price" data-usd="65">Rp 1.090.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$55</strong><span class="idr-price" data-usd="55">Rp 920.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$49</strong><span class="idr-price" data-usd="49">Rp 820.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> Kelingking Beach</li>
+        <li><i class="fa-solid fa-location-dot"></i> Broken Beach</li>
+        <li><i class="fa-solid fa-location-dot"></i> Angel's Billabong</li>
+        <li><i class="fa-solid fa-location-dot"></i> Crystal Bay</li>
+      </ul>
+      <a href="/id/west-nusa-penida.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-1">
+    <span class="card-tag"><i class="fa-solid fa-mountain-sun"></i> Nusa Penida</span>
+    <img src="/src/assets/diamond-beach-nusa-penida.webp" alt="Diamond Beach dengan formasi batu karst, Nusa Penida Timur" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Tur Nusa Penida Timur</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$69</strong><span class="idr-price" data-usd="69">Rp 1.150.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$59</strong><span class="idr-price" data-usd="59">Rp 990.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$55</strong><span class="idr-price" data-usd="55">Rp 920.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> Diamond Beach</li>
+        <li><i class="fa-solid fa-location-dot"></i> Atuh Beach</li>
+        <li><i class="fa-solid fa-location-dot"></i> Rumah Pohon (Molenteng)</li>
+        <li><i class="fa-solid fa-location-dot"></i> Thousand Islands Viewpoint</li>
+      </ul>
+      <a href="/id/east-nusa-penida.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-2">
+    <span class="card-tag"><i class="fa-solid fa-water"></i> Snorkeling</span>
+    <img src="/src/assets/snorkeling/swim-along-the-turtle-penida.webp" alt="Snorkeling bersama penyu dan pari manta di Nusa Penida" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Snorkeling Nusa Penida</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$79</strong><span class="idr-price" data-usd="79">Rp 1.320.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$75</strong><span class="idr-price" data-usd="75">Rp 1.250.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$69</strong><span class="idr-price" data-usd="69">Rp 1.150.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-water"></i> Manta Bay</li>
+        <li><i class="fa-solid fa-water"></i> Gamat Bay</li>
+        <li><i class="fa-solid fa-water"></i> Wall Point</li>
+        <li><i class="fa-solid fa-water"></i> Crystal Bay</li>
+      </ul>
+      <a href="/id/nusa-penida-snorkeling.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-3">
+    <span class="card-tag"><i class="fa-solid fa-place-of-worship"></i> Budaya</span>
+    <img src="/src/assets/uluwatu-temple-cliffview.webp" alt="Pura Uluwatu bertengger di tebing dramatis di atas Samudra Hindia saat matahari terbenam" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Tur Sehari Penuh Uluwatu</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$75</strong><span class="idr-price" data-usd="75">Rp 1.250.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$65</strong><span class="idr-price" data-usd="65">Rp 1.090.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$59</strong><span class="idr-price" data-usd="59">Rp 990.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> Taman Budaya GWK</li>
+        <li><i class="fa-solid fa-location-dot"></i> Pantai Padang Padang</li>
+        <li><i class="fa-solid fa-location-dot"></i> Pura Luhur Uluwatu</li>
+        <li><i class="fa-solid fa-location-dot"></i> Pertunjukan Tari Kecak &amp; Api</li>
+      </ul>
+      <a href="/id/uluwatu-full-day-tour.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-4">
+    <span class="card-tag"><i class="fa-solid fa-water"></i> Air Terjun</span>
+    <img src="/src/assets/sekumpul/sekumpul-waterfalls-top-view.webp" alt="Pemandangan udara Air Terjun Sekumpul yang megah di hutan Bali Utara" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Air Terjun Sekumpul</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$55</strong><span class="idr-price" data-usd="55">Rp 920.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$49</strong><span class="idr-price" data-usd="49">Rp 820.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$45</strong><span class="idr-price" data-usd="45">Rp 750.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-location-dot"></i> Trekking Hutan Sekumpul</li>
+        <li><i class="fa-solid fa-location-dot"></i> Air Terjun Sekumpul &amp; Fiji</li>
+        <li><i class="fa-solid fa-location-dot"></i> Makan Siang Berpemandangan</li>
+        <li><i class="fa-solid fa-location-dot"></i> Titik Pandang Twin Lakes</li>
+      </ul>
+      <a href="/id/sekumpul-waterfall-tour.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-5">
+    <span class="card-tag"><i class="fa-solid fa-person-hiking"></i> Petualangan</span>
+    <img src="/src/assets/canyoning/anahata-canyoning.webp" alt="Petualangan canyoning menuruni air terjun aktif di Bali Utara" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Canyoning Bali Utara</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$85</strong><span class="idr-price" data-usd="85">Rp 1.400.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$75</strong><span class="idr-price" data-usd="75">Rp 1.250.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$69</strong><span class="idr-price" data-usd="69">Rp 1.150.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-person-falling"></i> Pemandu Bersertifikat &amp; Peralatan Lengkap</li>
+        <li><i class="fa-solid fa-person-falling"></i> Rappel Air Terjun</li>
+        <li><i class="fa-solid fa-person-falling"></i> Perosotan Air Alami</li>
+        <li><i class="fa-solid fa-person-falling"></i> Lompat Tebing &amp; Berenang</li>
+      </ul>
+      <a href="/id/canyoning-north-bali-tour.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+  <div class="package-card reveal delay-6">
+    <span class="card-tag"><i class="fa-solid fa-mountain-sun"></i> Trek Matahari Terbit</span>
+    <img src="/src/assets/batur/mount-batur-trekking.webp" alt="Pendaki mendaki gunung berapi Batur saat matahari terbit di Bali" class="package-img" loading="lazy" width="350" height="220">
+    <div class="package-content">
+      <h3 class="package-title">Trekking Matahari Terbit Gunung Batur</h3>
+      <div class="tour-pricing"><ul class="price-list">
+          <li><span class="tier-label">Grup 2 orang</span><div class="price-group"><strong class="usd-price">$49</strong><span class="idr-price" data-usd="49">Rp 820.000</span></div></li>
+          <li><span class="tier-label">Grup 3 orang</span><div class="price-group"><strong class="usd-price">$45</strong><span class="idr-price" data-usd="45">Rp 750.000</span></div></li>
+          <li><span class="tier-label">Grup 4+ orang</span><div class="price-group"><strong class="usd-price">$39</strong><span class="idr-price" data-usd="39">Rp 650.000</span></div></li>
+        </ul><p class="per-pax-note">* Harga per orang</p></div>
+      <ul class="package-details">
+        <li><i class="fa-solid fa-mountain-sun"></i> Penjemputan Hotel Dini Hari</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> Pemandu Trekking Lokal Bersertifikat</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> Sarapan Uap Vulkanik</li>
+        <li><i class="fa-solid fa-mountain-sun"></i> Pemandangan Danau &amp; Kawah</li>
+      </ul>
+      <a href="/id/mount-batur-sunrise-trek.html" class="btn" style="display:block;text-align:center;margin-top:15px;">Lihat Detail Lengkap</a>
+    </div>
+  </div>
+</div>
+    <section class="guides-section" id="guides">
+        <div class="guides-intro">
+            <h2 class="section-title reveal">Panduan &amp; Tips Wisata</h2>
+            <p>Rencanakan petualangan pulau sempurna Anda dengan pengetahuan orang dalam dan wawasan lokal dari tim ahli kami.</p>
+        </div>
+        <div class="packages-container">
+            <div class="package-card">
+                <img src="/src/assets/perfect-view-kelingking-beach.webp" alt="Panduan Wisata Nusa Penida" class="package-img" loading="lazy">
+                <div class="package-content">
+                    <h3 class="package-title" style="font-size: 1.3rem;">Panduan Lengkap Nusa Penida</h3>
+                    <p style="margin-bottom: 20px; color: #555; font-size: 0.95rem; line-height: 1.6;">Temukan pantai murni, tebing kapur ikonik, dan keajaiban bawah laut. Semua yang perlu Anda ketahui sebelum mengunjungi tetangga Bali yang memukau.</p>
+                    <a href="/id/nusa-penida-guide.html" class="btn" style="display: block; text-align: center; background-color: var(--primary-color);">Baca Panduan</a>
+                </div>
+            </div>
+            <div class="package-card">
+                <img src="/src/assets/ulun-danu-beratan-temple-beautiful.webp" alt="Panduan Destinasi Bali" class="package-img" loading="lazy">
+                <div class="package-content">
+                    <h3 class="package-title" style="font-size: 1.3rem;">Panduan Lengkap Wilayah Bali</h3>
+                    <p style="margin-bottom: 20px; color: #555; font-size: 0.95rem; line-height: 1.6;">Dari kota pesisir Bali Selatan yang semarak hingga jantung budaya Ubud yang tenang, temukan destinasi sempurna untuk liburan tropis Anda.</p>
+                    <a href="/id/bali-destinations-guide.html" class="btn" style="display: block; text-align: center; background-color: var(--primary-color);">Baca Panduan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+<section class="guides-section" style="background-color: #fff; padding-top: 60px; padding-bottom: 60px;">
+        <h2 class="section-title reveal">Hal Penting Perjalanan Bali</h2>
+        <p style="text-align: center; color: #555; max-width: 600px; margin: -20px auto 40px;">Semua yang perlu Anda ketahui sebelum mendarat di Pulau Dewata.</p>
+        <div class="packages-container" style="gap: 20px;">
+            <div class="package-card" style="padding: 30px; background: var(--primary-color); color: #fff; width: 100%; max-width: 500px;">
+                <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--secondary-color); font-weight: bold;">☀️ Musim Puncak</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: #fff;">Musim Kemarau</h3>
+                <p style="font-size: 0.95rem; line-height: 1.7; color: rgba(255,255,255,0.85); margin-bottom: 20px;">Langit cerah, hari cerah, dan kondisi selancar ideal. Sempurna untuk island hopping ke Nusa Penida dan mendaki Gunung Batur.</p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">Apr</span>
+                    <span style="background: var(--secondary-color); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Mei - Sep</span>
+                    <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem;">Okt</span>
+                </div>
+            </div>
+            <div class="package-card" style="padding: 30px; background: var(--bg-light); width: 100%; max-width: 500px;">
+                <span style="font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary-color); font-weight: bold;">🌧️ Musim Sepi</span>
+                <h3 style="font-size: 2rem; margin: 10px 0; color: var(--text-dark);">Musim Hujan</h3>
+                <p style="font-size: 0.95rem; line-height: 1.7; color: #555; margin-bottom: 20px;">Rimbun, hijau, dan magis. Lebih sedikit keramaian, harga lebih murah, dan air terjun seperti Sekumpul dalam kondisi paling deras. Hujan biasanya hanya berlangsung beberapa jam.</p>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span style="background: var(--primary-color); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">Nov - Mar</span>
+                </div>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1020px; margin: 40px auto 0; padding: 0 50px;">
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-passport" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Visa on Arrival</h4>
+                <p style="font-size: 0.9rem; color: #666;">Sebagian besar kewarganegaraan bisa mendapatkan VOA 30 hari di bandara atau mengajukan online sebelumnya.</p>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-plug" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Colokan Listrik</h4>
+                <p style="font-size: 0.9rem; color: #666;">Bali menggunakan colokan dua-pin Tipe C dan F gaya Eropa (230V).</p>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <i class="fa-solid fa-hands-praying" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Menghormati Budaya</h4>
+                <p style="font-size: 0.9rem; color: #666;">Tutupi bahu dan lutut di pura. Sarung biasanya wajib dan disediakan.</p>
+            </div>
+        </div>
+    </section>
+    <section class="testimonials" id="reviews">
+        <h2 class="section-title reveal">Apa Kata Wisatawan Kami</h2>
+        <div class="testimonials-container">
+            <div class="testimonial-card reveal delay-1">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <div>
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">"Pengalaman yang benar-benar luar biasa! Tim mengurus segalanya dari speedboat hingga peralatan snorkeling. Berenang bersama pari manta adalah mimpi yang menjadi nyata."</p>
+                </div>
+                <div class="reviewer">
+                    <h4>Sarah Jenkins</h4>
+                    <span>Australia</span>
+                </div>
+            </div>
+            <div class="testimonial-card reveal delay-2">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <div>
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="review-text">"Perjalanan keluarga kami berjalan sempurna. Sopirnya sangat ramah dan tahu semua spot foto terbaik di Kelingking Beach sebelum keramaian besar datang. Sangat direkomendasikan!"</p>
+                </div>
+                <div class="reviewer">
+                    <h4>Budi Santoso</h4>
+                    <span>Jakarta, Indonesia</span>
+                </div>
+            </div>
+            <div class="testimonial-card reveal delay-3">
+                <i class="fa-solid fa-quote-left quote-icon"></i>
+                <div>
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <p class="review-text">"Agensi yang sangat profesional. Komunikasi via WhatsApp instan, dan tur Nusa Penida Timur sungguh memukau. Sangat sepadan dengan harganya!"</p>
+                </div>
+                <div class="reviewer">
+                    <h4>Liam O'Connor</h4>
+                    <span>Inggris Raya</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="booking-section" id="book-now">
+        <h2 class="section-title">Pesan Petualangan Anda</h2>
+        <div class="booking-container reveal">
+            <form class="booking-form" action="#" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" placeholder="Masukkan nama lengkap Anda" autocomplete="name" autocapitalize="words" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="whatsapp">Nomor WhatsApp</label>
+                        <input type="tel" id="whatsapp" placeholder="+62..." autocomplete="tel" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="package">Pilih Paket Tur</label>
+                        <select id="package" required>
+                            <option value="" disabled selected>Pilih tur...</option>
+                            <option value="West Nusa Penida">Tur Nusa Penida Barat</option>
+                            <option value="East Nusa Penida">Tur Nusa Penida Timur</option>
+                            <option value="Nusa Penida Snorkeling">Snorkeling Nusa Penida</option>
+                            <option value="Uluwatu Full Day">Tur Sehari Penuh Uluwatu</option>
+                            <option value="Sekumpul Waterfall">Tur Air Terjun Sekumpul</option>
+                            <option value="North Bali Canyoning">Canyoning Bali Utara</option>
+                            <option value="Mount Batur Sunrise Trekking">Trekking Matahari Terbit Gunung Batur</option>
+                            <option value="Private Transport (Custom Tour)">Transportasi Pribadi (Tur Khusus)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Tanggal Perjalanan</label>
+                        <input type="date" id="date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pax">Jumlah Orang</label>
+                        <input type="number" id="pax" min="1" placeholder="Berapa orang?" inputmode="numeric" pattern="[0-9]*" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="message">Permintaan Khusus / Catatan</label>
+                    <textarea id="message" rows="4" placeholder="Ada kebutuhan diet atau lokasi penjemputan tertentu?" autocapitalize="sentences"></textarea>
+                </div>
+                <button type="submit" class="btn submit-btn">Minta Pemesanan</button>
+                <div class="payment-trust-badge" style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd;">
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 12px; font-weight: 600;">Pembayaran Aman Diterima</p>
+                    <div style="font-size: 2.5rem; display: flex; justify-content: center; gap: 20px;">
+                        <i class="fa-brands fa-cc-mastercard" title="Mastercard" style="color: #eb001b; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <i class="fa-brands fa-cc-paypal" title="PayPal" style="color: #00457c; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <i class="fa-solid fa-building-columns" title="Wire Transfer" style="color: #4CAF50; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endraw %}{% endblock %}
