@@ -1,19 +1,24 @@
 # Bali Real Vacation
 
-> Premium, hassle-free travel itineraries across **Bali & Nusa Penida** for both international and domestic visitors.
+> Premium, hassle-free travel itineraries across **Bali & Nusa Penida** for international and domestic visitors.
 
 🌐 **Live site:** [balirealvacation.com](https://balirealvacation.com)
 
-A fast static site, now built with **Eleventy (11ty)** so the nav, footer, `<head>`, and design system live in **one place** each — edit once, every page updates.
+A fast static site built with **Eleventy (11ty)** — shared layout, multilingual, and zero duplication. Edit the nav once, every page and every language updates.
 
 ---
 
-## What changed in v2
+## Languages
 
-- **Shared layout** — nav, footer, floating buttons, and `<head>` are now partials. No more editing 16 files to change one link.
-- **External CSS/JS** — all styling in `css/styles.css`, all behavior in `js/main.js`, cached across the whole site.
-- **Modernized design** — refreshed ocean-blue + coral palette with a new aqua accent and warm sand background; headings in **Plus Jakarta Sans**; blurred sticky nav; trust bar; image-led cards; and a mobile "Book on WhatsApp" bar.
-- **Same content & SEO** — every tour, price, review, guide, JSON-LD block, canonical, and `robots` rule is preserved. URLs stay `…/<page>.html`.
+The site serves three languages from a single build, with no changes to existing English URLs:
+
+| Language | URL prefix | Status |
+|---|---|---|
+| English | `/` (root) | Complete |
+| Bahasa Indonesia | `/id/` | Complete |
+| 中文 (Mandarin) | `/zh/` | Homepage complete; tour pages translated |
+
+A language switcher (`EN | ID | 中文`) appears in the nav. `hreflang` alternate tags are wired automatically via the `i18n` collection in `.eleventy.js`.
 
 ---
 
@@ -21,33 +26,50 @@ A fast static site, now built with **Eleventy (11ty)** so the nav, footer, `<hea
 
 ```
 balirealvacation/
-├── .eleventy.js            # Build config (passthrough, output paths)
-├── package.json            # Eleventy dependency + scripts
-├── netlify.toml            # Build command + redirects + headers
-├── robots.txt  sitemap.xml # SEO (passed through to output)
+├── .eleventy.js              # Build config — passthrough copies + i18n collections
+├── package.json              # Eleventy dependency + scripts
+├── netlify.toml              # Build command + redirects + headers
+├── robots.txt  sitemap.xml   # SEO (passed through to output)
 │
 ├── _data/
-│   └── site.js             # Nav links, footer links, contact info (EDIT HERE)
+│   ├── site.js               # Nav links, footer links, contact info
+│   ├── languages.js          # The 3 languages: en / id / zh
+│   └── ui.json               # UI string dictionary (nav, buttons, footer) in all 3 languages
 │
 ├── _includes/
-│   ├── layouts/base.njk    # The page shell: <head>, nav, content, footer, scripts
+│   ├── layouts/base.njk      # Page shell: <head>, hreflang, nav, content, footer, scripts
 │   └── partials/
-│       ├── nav.njk         # Shared navigation
-│       └── footer.njk      # Shared footer + floating buttons + mobile book bar
+│       ├── nav.njk           # Shared navigation
+│       ├── lang-switcher.njk # EN | ID | 中文 pill switcher
+│       └── footer.njk        # Footer + floating buttons + mobile book bar
 │
-├── pages/                  # One template per page (content + front matter)
+├── pages/                    # English templates (default language)
+│   ├── pages.11tydata.js     # Sets lang=en and auto-generates transKey per page
 │   ├── index.njk
 │   ├── west-nusa-penida.njk
-│   ├── … (all tours, guides, legal)
-│   └── 404.njk
+│   ├── east-nusa-penida.njk
+│   ├── nusa-penida-snorkeling.njk
+│   ├── uluwatu-full-day-tour.njk
+│   ├── mount-batur-sunrise-trek.njk
+│   ├── sekumpul-waterfall-tour.njk
+│   ├── canyoning-north-bali-tour.njk
+│   ├── private-driver-tours.njk
+│   ├── airport-transfers.njk
+│   ├── local-partners.njk
+│   ├── nusa-penida-guide.njk
+│   ├── bali-destinations-guide.njk
+│   ├── privacy.njk  term.njk  404.njk
+│   ├── id/                   # Indonesian translations (mirrors English structure)
+│   │   ├── id.11tydata.json  # Sets lang=id for all files in this folder
+│   │   └── *.njk
+│   └── zh/                   # Mandarin translations
+│       ├── zh.11tydata.json  # Sets lang=zh for all files in this folder
+│       └── *.njk
 │
-├── css/styles.css          # Global stylesheet (design system)
-├── js/main.js              # Menu, currency converter, reveal, booking, scroll-top
-│
-└── src/assets/             # YOUR IMAGES go here (see note below)
+├── css/styles.css            # Global stylesheet — design tokens + lang-switcher styles
+├── js/main.js                # Menu, live currency converter, FAQ accordion, reveal, scroll-top
+└── src/assets/               # Images (.webp / .jpg) — passed through untouched
 ```
-
-> ⚠️ **Add your images:** copy your existing `src/assets/` folder (all the `.webp`/`.jpg` tour photos) into this project, replacing the placeholder. The build passes `src/` straight through to the output untouched.
 
 ---
 
@@ -57,17 +79,17 @@ Requires Node.js 18+.
 
 ```bash
 npm install        # one time — installs Eleventy
-npm start          # local dev server with live reload at http://localhost:8080
-npm run build      # production build → outputs to /_site
+npm start          # dev server with live reload → http://localhost:8080
+npm run build      # production build → _site/
 ```
 
-The build writes finished HTML to `_site/`. Don't edit `_site` directly — it's regenerated every build (and git-ignored).
+`_site/` is regenerated on every build and is git-ignored. Never edit it directly.
 
 ---
 
 ## Deploy (GitHub → Netlify)
 
-Netlify now **builds** the site instead of serving raw files. `netlify.toml` already sets:
+Netlify builds the site. `netlify.toml` already sets:
 
 ```toml
 [build]
@@ -75,50 +97,57 @@ Netlify now **builds** the site instead of serving raw files. `netlify.toml` alr
   publish = "_site"
 ```
 
-So the workflow is unchanged for you:
-
+Workflow:
 1. Commit and push to GitHub.
-2. Netlify runs `npm install && npm run build` and publishes `_site`.
+2. Netlify runs `npm install && npm run build` and publishes `_site/`.
 
-DNS/redirects are unchanged: apex `balirealvacation.com` (non-www) is canonical, www 301s to it, `Full (strict)` SSL in Cloudflare.
+DNS/SSL: apex `balirealvacation.com` is canonical (non-www), www 301s to it, `Full (strict)` SSL in Cloudflare.
 
 ---
 
 ## Common edits
 
 ### Add or change a nav / footer link
-Edit **`_data/site.js`** only. The `nav` and `footerLinks` arrays drive every page.
+Edit **`_data/site.js`** — the `nav` and `footerLinks` arrays drive every page in every language. Also add the translated label to **`_data/ui.json`**.
 
 ### Add a new tour page
-1. Copy an existing template, e.g. `pages/uluwatu-full-day-tour.njk` → `pages/my-new-tour.njk`.
-2. Update the front matter (between the `---` lines): `permalink`, `title`, `description`, `canonical`, `ogImage`, and the `jsonld` block.
-3. Replace the content inside `{% block content %}`.
-4. Add a `<url>` entry to `sitemap.xml`, and (if it's a package) a card on `index.njk` + an `<option>` in the booking form.
+1. Create `pages/my-new-tour.njk` from an existing template.
+2. Update front matter: `permalink`, `title`, `description`, `canonical`, `ogImage`, `transKey`, and `jsonld`.
+3. Duplicate into `pages/id/my-new-tour.njk` and `pages/zh/my-new-tour.njk` and translate.
+4. Add a `<url>` to `sitemap.xml`, a card on `index.njk`, and an `<option>` in the booking form.
 5. Resubmit the sitemap in Google Search Console.
 
+### Translate a page into a new language
+1. Copy the English file into `pages/id/` or `pages/zh/` keeping the **same filename** — that's how hreflang linking works.
+2. Set `permalink` and `canonical` to the `/id/` or `/zh/` URL.
+3. Translate visible text; pull shared UI strings from the `ui` dictionary, e.g. `{{ ui.book_now[lang] }}`.
+4. The switcher and hreflang tags update automatically.
+
 ### Change a price
-Edit the `data-usd="…"` attribute on the relevant `.idr-price` span in that tour's template. The converter recomputes IDR/AUD automatically.
+Edit the `data-usd="…"` attribute on the `.idr-price` span in the tour template. The live currency converter in `main.js` recomputes IDR/AUD automatically using cached exchange rates.
 
 ### Restyle the whole site
-Everything visual lives in `css/styles.css`. The design tokens are at the top:
+Design tokens at the top of `css/styles.css`:
 
 ```css
---primary-color:#00557F;   /* ocean blue  */
---secondary-color:#FF6B4A; /* coral CTA   */
---aqua:#13B5A6;            /* fresh accent */
---bg-light:#FBF8F3;        /* warm sand   */
---font-heading:'Plus Jakarta Sans';
---font-body:'Inter';
+--primary-color: #00557F;   /* ocean blue  */
+--secondary-color: #FF6B4A; /* coral CTA   */
+--aqua: #13B5A6;            /* fresh accent */
+--bg-light: #FBF8F3;        /* warm sand   */
+--font-heading: 'Plus Jakarta Sans';
+--font-body: 'Inter';
 ```
 
 ---
 
-## SEO conventions (unchanged — keep these intact)
+## SEO conventions — keep these intact
 
-- One canonical form per page: `https://balirealvacation.com/<page>.html` (non-www, `.html`).
-- `_data/site.js` + each page's `canonical` front matter must stay non-www.
-- Legal pages (`privacy`, `term`) and `404` carry `noindex` and are kept out of `sitemap.xml`.
+- Canonical form: `https://balirealvacation.com/<page>.html` (non-www, `.html`). Indonesian: `/id/<page>.html`. Mandarin: `/zh/<page>.html`.
+- Each page's `canonical` front matter and `_data/site.js` must stay non-www.
+- `hreflang` alternate tags are generated automatically for every page that has a `transKey`.
+- Legal pages (`privacy`, `term`) and `404` carry `noindex` and are excluded from `sitemap.xml`.
 - Keep Netlify "Pretty URLs" **off** so `.html` URLs don't redirect.
+- Do **not** add browser-language auto-redirects — they hide pages from crawlers. `hreflang` + the language switcher is the correct strategy.
 
 ---
 
