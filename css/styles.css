@@ -1377,3 +1377,43 @@ textarea:focus-visible {
 .faq-item.active .faq-answer {
   max-height: 200px; /* Adjust based on answer length */
 }
+/* ===== Language Switcher (segmented pill) ===== */
+.lang-switcher {
+  display: flex;
+  width: fit-content;
+  margin: 8px 0 0 auto;
+  padding: 4px;
+  gap: 4px;
+  background: var(--bg-light);
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+}
+.lang-switcher a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-dark);
+  text-decoration: none;
+  border-radius: 999px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+.lang-switcher a:hover {
+  background: rgba(0, 91, 150, 0.1);
+  color: var(--primary-color);
+}
+.lang-switcher a.active {
+  background: var(--primary-color);
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .lang-switcher {
+    margin: 16px auto 0;
+  }
+}
