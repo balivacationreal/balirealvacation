@@ -103,7 +103,7 @@ function starIcons(rating) {
 }
 
 function reviewCard(r) {
-  const card = el("div", { class: "testimonial-card reveal" });
+  const card = el("div", { class: "testimonial-card" });
   card.appendChild(el("i", { attrs: { class: "fa-solid fa-quote-left quote-icon", "aria-hidden": "true" } }));
 
   const body = el("div");
