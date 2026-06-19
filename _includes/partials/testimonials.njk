@@ -1,0 +1,68 @@
+{# =====================================================================
+   Testimonials / reviews section — replaces the old hardcoded cards.
+   Drop-in: replace the existing <section class="testimonials" ...>...</section>
+   on each homepage with:  {% include "partials/testimonials.njk" %}
+   The text is localized at runtime by /js/reviews.js using <html lang>.
+   ===================================================================== #}
+<section class="testimonials" id="reviews">
+  <h2 class="section-title reveal" data-rv="heading">What Our Travelers Say</h2>
+
+  {# Live, approved reviews are rendered here by /js/reviews.js #}
+  <div class="testimonials-container" id="rv-list" aria-live="polite">
+    <p class="rv-state" id="rv-loading">Loading reviews…</p>
+  </div>
+
+  {# Submission form #}
+  <div class="rv-form-wrap reveal">
+    <h3 data-rv="formHeading">Share your experience</h3>
+    <form id="rv-form" novalidate>
+      <div class="form-group">
+        <label data-rv="ratingLabel">Your rating</label>
+        <div class="rv-stars" id="rv-stars" role="radiogroup" aria-label="Rating"></div>
+        <input type="hidden" id="rv-rating" name="rating" value="">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="rv-name" data-rv="nameLabel">Your name</label>
+          <input type="text" id="rv-name" name="name" maxlength="80" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label for="rv-location" data-rv="locationLabel">Country (optional)</label>
+          <input type="text" id="rv-location" name="location" maxlength="80" autocomplete="country-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="rv-tour" data-rv="tourLabel">Which tour? (optional)</label>
+        <select id="rv-tour" name="tour"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="rv-comment" data-rv="commentLabel">Your experience</label>
+        <textarea id="rv-comment" name="comment" rows="4" maxlength="1000" required></textarea>
+      </div>
+
+      {# Honeypot — hidden from people, catches bots. Do not remove. #}
+      <input type="text" id="rv-website" name="website" tabindex="-1" autocomplete="off"
+             aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">
+
+      <button type="submit" class="btn submit-btn" id="rv-submit" data-rv="submit">Submit Review</button>
+      <p id="rv-msg" class="rv-msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .rv-form-wrap{max-width:760px;margin:48px auto 0;background:#fff;border:1px solid #eee;border-radius:14px;padding:28px;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+  .rv-form-wrap h3{margin-bottom:18px;color:var(--primary-color,#005B96)}
+  .rv-stars{display:flex;gap:6px}
+  .rv-star{background:none;border:none;cursor:pointer;font-size:1.7rem;color:#d9d9d9;padding:2px;line-height:1;transition:color .15s ease,transform .1s ease}
+  .rv-star:hover{transform:scale(1.12)}
+  .rv-star.on{color:#FFB400}
+  .rv-star:focus-visible{outline:2px solid var(--primary-color,#005B96);outline-offset:2px;border-radius:4px}
+  .rv-msg{margin-top:14px;font-size:.95rem;min-height:1.2em}
+  .rv-msg.ok{color:#1d9e75}
+  .rv-msg.err{color:#e24b4a}
+  .rv-state{grid-column:1/-1;text-align:center;color:#888;padding:20px 0}
+</style>
