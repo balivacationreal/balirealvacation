@@ -26,7 +26,9 @@ export const submit = mutation({
 
     if (!name) throw new Error("Please enter your name.");
     if (comment.length < 10) {
-      throw new Error("Please write at least a few words about your experience.");
+      throw new Error(
+        "Please write at least a few words about your experience.",
+      );
     }
     if (rating < 1 || rating > 5) {
       throw new Error("Please choose a rating from 1 to 5 stars.");
@@ -94,7 +96,8 @@ export const stats = query({
 export const pending = query({
   args: { adminKey: v.string() },
   handler: async (ctx, args) => {
-    if (args.adminKey !== process.env.ADMIN_KEY) throw new Error("Unauthorized");
+    if (args.adminKey !== process.env.ADMIN_KEY)
+      throw new Error("Unauthorized");
     return await ctx.db
       .query("reviews")
       .withIndex("by_approved", (q) => q.eq("approved", false))
@@ -106,7 +109,8 @@ export const pending = query({
 export const setApproved = mutation({
   args: { adminKey: v.string(), id: v.id("reviews"), approved: v.boolean() },
   handler: async (ctx, args) => {
-    if (args.adminKey !== process.env.ADMIN_KEY) throw new Error("Unauthorized");
+    if (args.adminKey !== process.env.ADMIN_KEY)
+      throw new Error("Unauthorized");
     await ctx.db.patch(args.id, { approved: args.approved });
     return { ok: true };
   },
