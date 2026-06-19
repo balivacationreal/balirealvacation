@@ -700,21 +700,23 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
     <section class="booking-section" id="book-now">
         <h2 class="section-title">预订您的冒险之旅</h2>
         <div class="booking-container reveal">
-            <form class="booking-form" action="#" method="POST">
+            <form class="booking-form" name="booking" action="/" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                <input type="hidden" name="form-name" value="booking">
+                <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="name">全名</label>
-                        <input type="text" id="name" placeholder="请输入您的全名" autocomplete="name" autocapitalize="words" required>
+                        <input type="text" id="name" name="name" placeholder="请输入您的全名" autocomplete="name" autocapitalize="words" required>
                     </div>
                     <div class="form-group">
                         <label for="whatsapp">WhatsApp 号码</label>
-                        <input type="tel" id="whatsapp" placeholder="+62..." autocomplete="tel" required>
+                        <input type="tel" id="whatsapp" name="whatsapp" placeholder="+62..." autocomplete="tel" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="package">选择旅游套餐</label>
-                        <select id="package" required>
+                        <select id="package" name="package" required>
                             <option value="" disabled selected>选择行程...</option>
                             <option value="West Nusa Penida">西佩尼达岛之旅</option>
                             <option value="East Nusa Penida">东佩尼达岛之旅</option>
@@ -728,26 +730,26 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     </div>
                     <div class="form-group">
                         <label for="date">旅行日期</label>
-                        <input type="date" id="date" required>
+                        <input type="date" id="date" name="date" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="pax">人数</label>
-                        <input type="number" id="pax" min="1" placeholder="多少人？" inputmode="numeric" pattern="[0-9]*" required>
+                        <input type="number" id="pax" name="pax" min="1" placeholder="多少人？" inputmode="numeric" pattern="[0-9]*" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="message">特殊要求 / 备注</label>
-                    <textarea id="message" rows="4" placeholder="有任何饮食要求或特定接送地点吗？" autocapitalize="sentences"></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="有任何饮食要求或特定接送地点吗？" autocapitalize="sentences"></textarea>
                 </div>
                 <button type="submit" class="btn submit-btn">提交预订请求</button>
+                <div id="booking-confirmation" style="display:none; margin-top:16px; padding:14px 18px; background:#e8f5e9; border:1px solid #4CAF50; border-radius:8px; color:#2e7d32; font-size:0.95rem; line-height:1.5;"></div>
                 <div class="payment-trust-badge" style="text-align: center; margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd;">
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 12px; font-weight: 600;">接受安全支付</p>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 12px; font-weight: 600;">提交后，我们将通过 WhatsApp 确认空位并发送付款方式 — 国际卡可用安全的 PayPal 链接，本地客人可用银行转账。</p>
                     <div style="font-size: 2.5rem; display: flex; justify-content: center; gap: 20px;">
-                        <i class="fa-brands fa-cc-mastercard" title="Mastercard" style="color: #eb001b; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
                         <i class="fa-brands fa-cc-paypal" title="PayPal" style="color: #00457c; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
-                        <i class="fa-solid fa-building-columns" title="Wire Transfer" style="color: #4CAF50; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
+                        <i class="fa-solid fa-building-columns" title="Bank Transfer" style="color: #4CAF50; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"></i>
                     </div>
                 </div>
             </form>

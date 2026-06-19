@@ -52,23 +52,74 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. Handle WhatsApp Booking Form Submission
   const bookingForm = document.querySelector(".booking-form");
   if (bookingForm) {
+    // Pre-select tour from URL query param ?tour=west-nusa-penida etc.
+    const tourParam = new URLSearchParams(window.location.search).get("tour");
+    if (tourParam) {
+      const packageSelect = document.getElementById("package");
+      if (packageSelect) {
+        const normalized = tourParam.toLowerCase().replace(/-/g, " ");
+        Array.from(packageSelect.options).forEach((opt) => {
+          if (opt.value.toLowerCase() === normalized) packageSelect.value = opt.value;
+        });
+      }
+    }
+
+    // Language detection via <html lang>
+    const htmlLang = (document.documentElement.lang || "en").split("-")[0];
+    const confirmMessages = {
+      en: (n) => `Thanks ${n}! Opening WhatsApp to confirm your booking — we'll reply with availability and your payment options (PayPal or bank transfer) shortly.`,
+      id: (n) => `Terima kasih ${n}! Membuka WhatsApp untuk mengonfirmasi pemesanan Anda — kami akan membalas dengan ketersediaan dan opsi pembayaran (PayPal atau transfer bank) sesegera mungkin.`,
+      zh: (n) => `谢谢 ${n}！正在打开 WhatsApp 确认您的预订 — 我们会尽快回复您的空位情况和付款方式（PayPal 或银行转账）。`,
+    };
+
     bookingForm.addEventListener("submit", function (event) {
       event.preventDefault();
-      const name = document.getElementById("name").value;
-      const whatsapp = document.getElementById("whatsapp").value;
+      const name = document.getElementById("name").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
       const tourPackage = document.getElementById("package").value;
       const date = document.getElementById("date").value;
       const pax = document.getElementById("pax").value;
-      const message = document.getElementById("message").value;
-      let waMessage = `*New Booking Request - Bali Real Vacation* 🌴\n\n`;
-      waMessage += `*Name:* ${name}\n*WhatsApp:* ${whatsapp}\n*Package:* ${tourPackage}\n*Date:* ${date}\n*Number of Pax:* ${pax}\n`;
-      if (message) waMessage += `*Special Notes:* ${message}\n`;
-      const targetNumber = "6282317794462";
-      const encodedMessage = encodeURIComponent(waMessage);
+      const notes = (document.getElementById("message").value || "").trim();
+
+      // Structured operator message (always English)
+      const waText = [
+        "New booking request — Bali Real Vacation",
+        `Tour: ${tourPackage}`,
+        `Name: ${name}`,
+        `Guest WhatsApp: ${whatsapp}`,
+        `Preferred date: ${date}`,
+        `Guests: ${pax}`,
+        `Notes: ${notes || "—"}`,
+      ].join("\n");
+
+      // POST to Netlify Forms — fire-and-forget, never block the user
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "booking",
+          name,
+          whatsapp,
+          package: tourPackage,
+          date,
+          pax,
+          message: notes,
+        }).toString(),
+      }).catch(() => {});
+
+      // Open WhatsApp in a new tab
       window.open(
-        `https://wa.me/${targetNumber}?text=${encodedMessage}`,
+        "https://wa.me/6282317794462?text=" + encodeURIComponent(waText),
         "_blank",
       );
+
+      // Show language-correct inline confirmation
+      const confirmDiv = document.getElementById("booking-confirmation");
+      if (confirmDiv) {
+        const msgFn = confirmMessages[htmlLang] || confirmMessages.en;
+        confirmDiv.textContent = msgFn(name);
+        confirmDiv.style.display = "block";
+      }
     });
   }
   // 4. Mobile Menu Navigation
