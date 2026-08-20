@@ -16,4 +16,16 @@ export default defineSchema({
   })
     // lets us fetch approved reviews newest-first efficiently
     .index("by_approved", ["approved", "createdAt"]),
+
+  // Booking receipts issued from /booking-receipt.html. `data` is the rendered
+  // document's own JSON; Convex just holds it against a short id so guest links
+  // stay short. See convex/receipts.ts.
+  receipts: defineTable({
+    rid: v.string(),                  // short public id used in the guest link
+    data: v.string(),                 // packed booking JSON
+    no: v.optional(v.string()),       // document number, e.g. BRV-20260820-001
+    guest: v.optional(v.string()),    // guest name, for listing past bookings
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  }).index("by_rid", ["rid"]),
 });

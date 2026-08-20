@@ -132,7 +132,7 @@ table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px
 .totals tr.grand td{border-top:2px solid var(--primary-color);padding-top:10px;font-size:1.08rem;font-weight:800;color:var(--primary-color)}
 .totals tr.bal td{color:var(--secondary-color);font-weight:800}
 
-.paybox{position:relative;margin-top:16px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 165px 12px 14px;font-size:.82rem}
+.paybox{position:relative;margin-top:16px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 210px 12px 14px;font-size:.82rem}
 .paybox h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:6px}
 .paybox .pay-line{line-height:1.7}
 .paybox .pay-line .k{min-width:132px}
@@ -143,7 +143,7 @@ table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px
 
 /* The stamp sits in the payment box's own empty right-hand side, so it can
    never land on top of the service details the way a page-absolute stamp did. */
-.stamp{position:absolute;top:50%;right:22px;transform:translateY(-50%) rotate(-11deg);border:3px double #1b7a43;color:#1b7a43;font-family:var(--font-heading);font-weight:800;font-size:1.45rem;letter-spacing:.14em;padding:7px 18px;border-radius:8px;opacity:.5;pointer-events:none;text-transform:uppercase;white-space:nowrap}
+.stamp{position:absolute;top:50%;right:18px;transform:translateY(-50%) rotate(-11deg);border:3px double #1b7a43;color:#1b7a43;font-family:var(--font-heading);font-weight:800;font-size:1.12rem;letter-spacing:.1em;padding:6px 14px;border-radius:8px;opacity:.5;pointer-events:none;text-transform:uppercase;white-space:nowrap}
 .stamp.unpaid{border-color:#b3261e;color:#b3261e}
 .stamp.deposit{border-color:#a35c00;color:#a35c00}
 @media (max-width:560px){.stamp{display:none}.paybox{padding-right:14px}}
@@ -165,10 +165,18 @@ body:not(.guest-view) .guest-bar{display:none}
   html{font-size:14px}
   body{background:#fff;font-size:12px}
   .topbar,.editor,.guest-bar,.no-print{display:none!important}
-  .layout{display:block;padding:0;max-width:none}
+  /* .doc-wrap is a centering flexbox on screen. Left as flex for print, .doc
+     becomes a flex item that shrink-wraps to its content and floats in the
+     middle of the sheet, so the margins drift with whatever is on the page.
+     Block layout plus a full-width doc pins it to the @page margin exactly. */
+  /* body.guest-view .layout sets its own padding and outranks a bare .layout
+     selector, so printing from a guest link inset the whole sheet by a further
+     18px. Both selectors are matched here so the page margin is the only inset. */
+  .layout,body.guest-view .layout{display:block;padding:0;max-width:none}
+  .doc-wrap{display:block}
   /* overflow must go visible: the screen rule clips, and a long booking has to
      be allowed to fragment onto a second sheet rather than be cut off. */
-  .doc{width:auto;min-height:0;padding:0;box-shadow:none;overflow:visible}
+  .doc{width:100%;min-height:0;margin:0;padding:0;box-shadow:none;overflow:visible}
   .doc,.doc *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .stamp{display:block}
   /* A one-service booking has to land on a single sheet, so the whole
@@ -188,7 +196,7 @@ body:not(.guest-view) .guest-bar{display:none}
   .totals{margin-top:6px}
   .totals td{padding:3px 8px}
   .totals tr.grand td{padding-top:7px}
-  .paybox{margin-top:10px;padding:8px 145px 8px 11px}
+  .paybox{margin-top:10px;padding:8px 200px 8px 11px}
   .paybox .pay-line{line-height:1.5}
   .notes{margin-top:9px;line-height:1.5}
   .doc-foot{margin-top:11px;padding-top:8px;line-height:1.5}
@@ -324,6 +332,7 @@ body:not(.guest-view) .guest-bar{display:none}
       </div>
       <div class="row">
         <div class="fg"><label for="f-pay-paid">Amount received</label><input type="number" id="f-pay-paid" min="0" step="any"></div>
+        <div class="fg"><label for="f-pay-date">Payment date</label><input type="date" id="f-pay-date"></div>
         <div class="fg"><label for="f-pay-received-by">Received by / to be paid to</label><input type="text" id="f-pay-received-by" placeholder="Ketut (driver)"></div>
       </div>
       <div class="fg"><label for="f-pay-cash-idr">Cash amount in IDR <span style="font-weight:400">— optional, for guests paying cash</span></label><input type="number" id="f-pay-cash-idr" min="0" step="1000" placeholder="e.g. 300000"></div>
@@ -335,7 +344,12 @@ body:not(.guest-view) .guest-bar{display:none}
     <fieldset>
       <legend>Saved bookings <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)">(this device only)</span></legend>
       <ul class="saved-list" id="saved-list"></ul>
+      <button class="mini-btn" id="btn-sync" style="margin-top:8px"><i class="fa-solid fa-cloud-arrow-down"></i> Fetch bookings issued on other devices</button>
       <div class="status-msg" id="status-msg"></div>
+      <div class="fg" style="margin-top:12px">
+        <label for="f-key">Issuer key <span style="font-weight:400">— only needed if you set RECEIPT_KEY in Convex</span></label>
+        <input type="password" id="f-key" autocomplete="off" placeholder="leave blank if unused">
+      </div>
     </fieldset>
   </aside>
 
@@ -596,14 +610,14 @@ async function decodeState(kind, payload) {
 // ---------- state ----------
 function blankState() {
   return {
-    v: 1, type: "receipt", lang: "en", cur: "IDR",
+    v: 1, type: "receipt", lang: "en", cur: "IDR", rid: "",
     no: nextDocNo(), issued: todayISO(),
     guest: { name:"", wa:"", email:"", country:"", pax:2 },
     svc: { title:"", date:"", time:"", pickup:"", dropoff:"", flight:"", vehicle:"", driver:"Ketut", driverWa:"+62 823-1779-4462" },
     itin: [],
     incl: "",
     items: [{ desc:"", qty:1, price:0 }],
-    pay: { status:"paid", method:"cash_driver", paid:0, receivedBy:"Ketut (driver)", cashIdr:"" },
+    pay: { status:"paid", method:"cash_driver", paid:0, receivedBy:"Ketut (driver)", cashIdr:"", date:"" },
     notes: T.en.defaultNotes,
   };
 }
@@ -626,7 +640,7 @@ const FIELD_MAP = {
   "f-svc-vehicle":["svc","vehicle"], "f-svc-driver":["svc","driver"], "f-svc-driver-wa":["svc","driverWa"],
   "f-incl":["incl"],
   "f-pay-status":["pay","status"], "f-pay-method":["pay","method"],
-  "f-pay-paid":["pay","paid"], "f-pay-received-by":["pay","receivedBy"],
+  "f-pay-paid":["pay","paid"], "f-pay-received-by":["pay","receivedBy"], "f-pay-date":["pay","date"],
   "f-pay-cash-idr":["pay","cashIdr"],
   "f-notes":["notes"],
 };
@@ -788,8 +802,14 @@ function render() {
   p.push(line(t.method, (settled ? t.m : t.mDue)[S.pay.method] || "—"));
   if (settled) p.push(line(t.received, money(paid, cur)));
   if (S.pay.receivedBy) p.push(line(settled ? t.receivedBy : t.payTo, esc(S.pay.receivedBy)));
-  if (settled && S.issued) p.push(line(t.paidOn, longDate(S.issued, S.lang)));
-  if (balance > 0) p.push(line(t.dueWhen, t.dueOnDay));
+  // Cash is handed over on the day of travel, which is rarely the day the
+  // document was issued — so this follows the payment date, never the issue date.
+  if (settled) p.push(line(t.paidOn, longDate(S.pay.date || S.issued, S.lang)));
+  if (balance > 0) {
+    p.push(line(t.dueWhen, S.svc.date
+      ? longDate(S.svc.date, S.lang) + " — " + t.dueOnDay
+      : t.dueOnDay));
+  }
   // A guest paying cash in Bali needs the rupiah figure, whatever currency we quoted in.
   if (balance > 0 && Number(S.pay.cashIdr) > 0) {
     p.push(line(t.cashIdr, money(S.pay.cashIdr, "IDR") + ' <span style="font-weight:400;color:var(--muted)">— ' + t.cashIdrNote + "</span>"));
@@ -812,6 +832,10 @@ function checkMissing(total, paid, balance) {
   if (!S.svc.pickup) miss.push("Pickup point");
   if (!total) miss.push("A line item with a price");
   if (!S.guest.wa) miss.push("Guest WhatsApp number — needed for the Send on WhatsApp button");
+  if (paid > 0 && !S.pay.date && S.svc.date && S.svc.date !== S.issued) {
+    miss.push("Payment date — without it the document says the money changed hands on " +
+              "the issue date, not on the day of travel");
+  }
   if (balance > 0 && S.cur !== "IDR" && !(Number(S.pay.cashIdr) > 0)) {
     miss.push("Cash amount in IDR — this guest pays cash in Bali but the total is in " + S.cur);
   }
@@ -836,8 +860,9 @@ function saveBooking() {
   readFields();
   if (!S.guest.name) { flash("Add a guest name before saving."); return; }
   const list = loadList();
-  const i = list.findIndex((b) => b.no === S.no);
-  const entry = { no: S.no, name: S.guest.name, svc: S.svc.title, date: S.svc.date || S.issued, saved: Date.now(), data: S };
+  const i = list.findIndex((b) => (S.rid && b.rid === S.rid) || b.no === S.no);
+  const entry = { no: S.no, name: S.guest.name, svc: S.svc.title, date: S.svc.date || S.issued,
+                  saved: Date.now(), rid: S.rid || undefined, data: S };
   if (i >= 0) list[i] = entry; else list.unshift(entry);
   writeList(list.slice(0, 60));
   renderList();
@@ -851,17 +876,63 @@ function renderList() {
     const li = document.createElement("li");
     li.innerHTML =
       '<span class="s-main"><span class="s-name">' + esc(b.name) + '</span>' +
-      '<span class="s-meta">' + esc(b.no) + (b.svc ? " · " + esc(b.svc) : "") + "</span></span>" +
+      '<span class="s-meta">' + esc(b.no) + (b.svc ? " · " + esc(b.svc) : "") +
+      (b.remote ? ' <i class="fa-solid fa-cloud" title="issued on another device"></i>' : "") + "</span></span>" +
       '<button class="mini-btn" data-a="load" title="Open">Open</button>' +
       '<button class="mini-btn danger" data-a="del" title="Delete"><i class="fa-solid fa-trash"></i></button>';
     li.querySelector('[data-a="load"]').addEventListener("click", () => {
-      S = b.data; writeFields(); render(); saveDraft(); flash("Loaded " + b.no + ".");
+      if (b.remote || !b.data) { openRemote(b.rid); return; }
+      S = b.data; writeFields(); render(); saveDraft(); refreshLink();
+      flash("Loaded " + b.no + ".");
     });
     li.querySelector('[data-a="del"]').addEventListener("click", () => {
       const l = loadList(); l.splice(idx, 1); writeList(l); renderList();
     });
     ul.appendChild(li);
   });
+}
+
+// Bookings issued from any device, straight out of Convex. The local list is
+// still the fast path; this is for "I made it on the laptop, I am on my phone".
+async function syncFromServer() {
+  flash("Fetching…");
+  try {
+    const rows = await convexCall("query", "receipts:recent", {
+      limit: 40, key: issuerKey() || undefined,
+    });
+    if (!rows || !rows.length) { flash("Nothing issued from any device yet."); return; }
+    const list = loadList();
+    let added = 0;
+    rows.forEach((r) => {
+      if (list.some((b) => b.rid === r.rid)) return;
+      list.push({
+        no: r.no || r.rid, name: r.guest || "(no name)", svc: "",
+        date: "", saved: r.updatedAt, rid: r.rid, remote: true,
+      });
+      added++;
+    });
+    list.sort((a, b) => (b.saved || 0) - (a.saved || 0));
+    writeList(list.slice(0, 80));
+    renderList();
+    flash(added ? "Added " + added + " booking(s) from other devices." : "Already up to date.");
+  } catch (e) {
+    flash("Could not reach the server.");
+  }
+}
+
+// Remote entries hold only a summary, so opening one fetches the document.
+async function openRemote(rid) {
+  flash("Opening…");
+  try {
+    const rec = await convexCall("query", "receipts:get", { rid });
+    if (!rec) { flash("That booking is no longer on the server."); return; }
+    S = unpackState(JSON.parse(rec.data));
+    S.rid = rid;
+    writeFields(); render(); saveDraft(); refreshLink();
+    flash("Opened " + (S.no || rid) + ".");
+  } catch (e) {
+    flash("Could not open that booking.");
+  }
 }
 
 // ---------- sharing ----------
@@ -892,6 +963,62 @@ function unpackState(o) {
   if (o.notes === undefined) s.notes = (T[s.lang] || T.en).defaultNotes;
   return s;
 }
+// ---------- short links, stored in Convex ----------
+// The booking is kept server-side against a short id, so a guest link is a
+// dozen characters rather than a kilobyte of encoded booking. If Convex cannot
+// be reached the page falls back to the self-contained #z= link, which still
+// works with no backend at all.
+const CONVEX_URL = (typeof window !== "undefined" && window.CONVEX_URL) ||
+  "https://colorless-gnu-950.convex.cloud";
+const KEY_STORE = "brv_receipt_key";
+function issuerKey() { try { return localStorage.getItem(KEY_STORE) || ""; } catch (e) { return ""; } }
+
+async function convexCall(kind, path, args) {
+  const res = await fetch(CONVEX_URL + "/api/" + kind, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ path, args, format: "json" }),
+  });
+  if (!res.ok) throw new Error("Convex HTTP " + res.status);
+  const out = await res.json();
+  if (out.status !== "success") throw new Error(out.errorMessage || "Convex rejected the call");
+  return out.value;
+}
+
+// Publishing is debounced and only fires once the document is a real booking,
+// so half-typed drafts never reach the database. Re-publishing reuses the same
+// rid, so a booking keeps one stable link however often it is edited.
+let publishTimer = null;
+function schedulePublish() {
+  clearTimeout(publishTimer);
+  publishTimer = setTimeout(publishNow, 1200);
+}
+function looksReal() {
+  const total = S.items.reduce((t, i) => t + (Number(i.qty) || 0) * (Number(i.price) || 0), 0);
+  return Boolean(S.guest.name) && total > 0;
+}
+async function publishNow() {
+  if (!looksReal()) return;
+  const seq = linkSeq;
+  try {
+    const out = await convexCall("mutation", "receipts:save", {
+      rid: S.rid || undefined,
+      data: JSON.stringify(packState()),
+      no: S.no || undefined,
+      guest: S.guest.name || undefined,
+      key: issuerKey() || undefined,
+    });
+    if (out && out.rid && seq === linkSeq) {
+      S.rid = out.rid;
+      linkCache = location.origin + location.pathname + "?r=" + out.rid;
+      saveDraft();
+    }
+  } catch (e) {
+    // Long link stays in place; nothing to tell the operator.
+    console.warn("Short link unavailable, using the self-contained link.", e);
+  }
+}
+
 async function guestLink() {
   readFields();
   return location.origin + location.pathname + "#" + (await encodeState(packState()));
@@ -906,6 +1033,7 @@ let linkCache = "", linkSeq = 0;
 function refreshLink() {
   const seq = ++linkSeq;
   linkCache = "";
+  schedulePublish();   // a short link for this edit follows once typing settles
   encodeState(packState())
     .then((p) => { if (seq === linkSeq) linkCache = location.origin + location.pathname + "#" + p; })
     .catch(() => {});
@@ -1011,6 +1139,15 @@ function initEditor() {
     const el = $(id); if (!el) return;
     el.addEventListener("input", () => {
       if (id === "f-lang") { readFields(); applyLangDefaults(); }
+      // Marking a booking paid almost always means "paid on the day of travel",
+      // so seed the date from the service date instead of silently using today.
+      if (id === "f-pay-status") {
+        readFields();
+        if (S.pay.status !== "unpaid" && !S.pay.date) {
+          S.pay.date = S.svc.date || S.issued;
+          $("f-pay-date").value = S.pay.date;
+        }
+      }
       sync();
     });
     el.addEventListener("change", sync);
@@ -1022,7 +1159,14 @@ function initEditor() {
   $("btn-print").addEventListener("click", () => { readFields(); render(); window.print(); });
   $("btn-copy").addEventListener("click", copyLink);
   $("btn-wa").addEventListener("click", sendWhatsApp);
-  $("btn-save").addEventListener("click", saveBooking);
+  $("btn-save").addEventListener("click", () => { saveBooking(); publishNow(); });
+  $("btn-sync").addEventListener("click", syncFromServer);
+  const keyField = $("f-key");
+  keyField.value = issuerKey();
+  keyField.addEventListener("change", () => {
+    try { localStorage.setItem(KEY_STORE, keyField.value.trim()); } catch (e) {}
+    flash(keyField.value.trim() ? "Issuer key saved on this device." : "Issuer key cleared.");
+  });
   $("btn-new").addEventListener("click", () => {
     if (!window.confirm("Start a new blank document? Unsaved changes are lost.")) return;
     S = blankState();
@@ -1031,6 +1175,24 @@ function initEditor() {
     writeFields(); render(); saveDraft();
   });
   renderList();
+}
+
+// A guest opening a dead or unreachable link needs to be told, not shown a
+// blank receipt they might mistake for their booking.
+function showLoadError(detail) {
+  document.body.classList.add("guest-view");
+  const doc = $("doc");
+  doc.innerHTML =
+    '<div style="padding:40px 10px;text-align:center">' +
+    '<h2 style="color:var(--primary-color);font-size:1.2rem;margin-bottom:10px">' +
+    "We could not open this booking</h2>" +
+    '<p style="color:var(--muted);font-size:.9rem;line-height:1.7;max-width:440px;margin:0 auto">' +
+    "The link may be incomplete, or the booking may have been removed. " +
+    "Please message us on WhatsApp +62 823-1779-4462 and we will send it again." +
+    '</p><p style="color:#b0b8bd;font-size:.72rem;margin-top:18px">' + esc(detail) + "</p></div>";
+  $("guest-bar-text").textContent = "Booking not available";
+  const btn = document.querySelector(".guest-bar .tb-btn");
+  if (btn) btn.style.display = "none";
 }
 
 function startEditor() {
@@ -1043,6 +1205,22 @@ function startEditor() {
 }
 
 (async function boot() {
+  // Short link: the booking lives in Convex under ?r=<id>.
+  const rid = new URLSearchParams(location.search).get("r");
+  if (rid) {
+    try {
+      const rec = await convexCall("query", "receipts:get", { rid });
+      if (!rec) throw new Error("That receipt link is no longer available.");
+      S = unpackState(JSON.parse(rec.data));
+      S.rid = rid;
+      document.body.classList.add("guest-view");
+      writeFields(); render();
+      return;
+    } catch (e) {
+      showLoadError(e && e.message ? e.message : String(e));
+      return;
+    }
+  }
   // "z" is deflated, "d" is the plain form older links use — both still open.
   const m = (location.hash || "").match(/^#([dz])=(.+)$/);
   if (m) {

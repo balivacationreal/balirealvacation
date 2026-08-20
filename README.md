@@ -67,6 +67,11 @@ balirealvacation/
 │       ├── zh.11tydata.json  # Sets lang=zh for all files in this folder
 │       └── *.njk
 │
+├── convex/
+│   ├── schema.ts             # reviews + receipts tables
+│   ├── reviews.ts            # testimonial submit / list / approve
+│   └── receipts.ts           # booking receipts: save, get, recent, purge (admin)
+│
 ├── css/styles.css            # Global stylesheet — design tokens + lang-switcher styles
 ├── js/main.js                # Menu, currency converter, FAQ accordion, booking + airport WhatsApp forms
 └── src/assets/               # Images (.webp / .jpg) — passed through untouched
@@ -164,6 +169,9 @@ nav — bookmark the URL. There is no login, so treat the URL as internal.
    so an invoice never claims money it has not taken.
    If the guest pays cash but you quoted in USD or AUD, fill in **Cash amount in
    IDR** — the driver collects rupiah, and the guest should know the figure.
+   **Payment date** is the day the money actually changes hands. Marking a booking
+   paid seeds it from the service date, since cash is usually handed over on the day —
+   change it if that is not what happened.
 5. Watch the amber panel under the form. It lists anything a guest or driver
    would miss — service date, pickup time, pickup point — because empty fields
    are silently left off the document rather than shown blank.
@@ -179,32 +187,55 @@ nav — bookmark the URL. There is no login, so treat the URL as internal.
 
 ### How it works
 
-No backend and no libraries. The whole booking is deflated and encoded into the link's
-`#fragment`, which browsers never send to the server — so guest details stay out of
-Netlify's logs and out of Analytics. Opening such a link shows a read-only guest view
-with its own **Download PDF** button; the editor is hidden.
+The booking is stored in the same Convex deployment that powers the reviews, under a
+short random id, so a guest link looks like:
 
-Links come in two shapes and both keep working: `#z=` is the compressed form every
-current browser produces, `#d=` is the plain fallback and what links issued before
-compression look like. A full booking is around 850 characters — long for a URL, but
-WhatsApp sends it fine. If you want genuinely short links, the fix is to store bookings
-in the Convex deployment already used for reviews and hand out a short `?id=` instead.
+```
+https://balirealvacation.com/booking-receipt.html?r=k7m2pq4xzb
+```
+
+Publishing is automatic: about a second after you stop typing, the booking is upserted
+to Convex and the Copy / Send buttons pick up the short link. Editing an existing
+booking reuses the same id, so a link you already sent a guest keeps working and shows
+the correction. Nothing is published until the booking has a guest name and a priced
+line, so half-started drafts never reach the database.
+
+**If Convex cannot be reached** the tool silently falls back to the old self-contained
+link, which carries the whole booking, deflated, in the URL fragment (`#z=…`, about 850
+characters; `#d=…` is the uncompressed form older links use). Those still open, so no
+link you have ever sent goes dead. That fallback is also why the page keeps working if
+the database is ever unavailable.
+
+Opening either kind of link shows a read-only guest view with its own **Download PDF**
+button; the editor is hidden. A link to a booking that no longer exists shows the guest
+a short explanation and your WhatsApp number, rather than an empty receipt.
 
 The printed sheet is tuned to keep a normal one-service booking on a single A4 page.
 A booking with a long itinerary will run to a second page, which is expected — it breaks
 between sections rather than through them.
 
-Two consequences worth knowing:
+Things worth knowing:
 
-- **Anyone holding a link can open that receipt.** The links are unguessable in practice
-  but not secret — send them to the guest, not to a public channel.
-- **Saved bookings live in one browser** (`localStorage`), not in an account. They are per
-  device: bookings saved on the office laptop will not appear on a phone. Clearing browsing
-  data clears them, so keep the PDFs for anything you need to retain.
+- **Anyone holding a link can open that receipt.** The ids are random and unguessable,
+  but they are not secret — send them to the guest, not to a public channel.
+- **Guest details now live in your Convex database**, where they did not before. The id
+  also travels in the query string, so it appears in Netlify and Analytics logs (the
+  booking itself does not).
+- **Issuing is open by default.** Anyone who knows your Convex URL could in principle
+  write a receipt row. To lock it down, set a `RECEIPT_KEY` environment variable in the
+  Convex dashboard and paste the same value into **Issuer key** at the bottom of the
+  editor. Reading stays public — that is what makes a guest link work.
+- **Saved bookings** still live in this browser (`localStorage`) for speed, but
+  **Fetch bookings issued on other devices** pulls the list out of Convex, so a booking
+  made on the laptop can be reopened and reprinted from a phone.
 
-If you ever want a shared, permanent booking record across devices, the natural next step
-is to store bookings in the Convex deployment already used for reviews and give each
-receipt a short `?id=` link — the document layout would not need to change.
+To delete receipts, use the Convex dashboard, or the admin-only purge — it is an
+`internalMutation`, so it cannot be called from a browser:
+
+```bash
+npx convex run receipts:purge '{"rids":["k7m2pq4xzb"]}' --prod
+npx convex run receipts:purge '{"noPrefix":"BRV-2026"}' --prod
+```
 
 ### Keeping prices in step
 
