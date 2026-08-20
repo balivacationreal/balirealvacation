@@ -242,10 +242,29 @@ Things worth knowing:
 To delete receipts, use the Convex dashboard, or the admin-only purge — it is an
 `internalMutation`, so it cannot be called from a browser:
 
-```bash
-npx convex run receipts:purge '{"rids":["k7m2pq4xzb"]}' --prod
-npx convex run receipts:purge '{"noPrefix":"BRV-2026"}' --prod
+The JSON argument has to survive your shell's quoting, which differs per shell. On this
+machine (Windows) use one of the first two:
+
+```bat
+:: Command Prompt
+npx convex run receipts:purge "{\"rids\":[\"k7m2pq4xzb\"]}"
 ```
+
+```powershell
+# PowerShell
+npx convex run receipts:purge '{\"rids\":[\"k7m2pq4xzb\"]}'
+```
+
+```bash
+# Git Bash / macOS / Linux
+npx convex run receipts:purge '{"rids":["k7m2pq4xzb"]}'
+npx convex run receipts:purge '{"noPrefix":"BRV-2026"}'
+```
+
+In Command Prompt, single quotes are not quote characters at all — they are passed
+through as literal text, the double quotes get stripped, and Convex rejects the result
+as not-an-object. `--prod` is unnecessary: `CONVEX_DEPLOY_KEY` in `.env.local` already
+points at production, and the CLI says so if you pass it.
 
 ### Keeping prices in step
 
