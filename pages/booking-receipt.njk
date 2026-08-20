@@ -71,6 +71,9 @@ legend{font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-s
 .repeat-row .grow{flex:1}
 .repeat-row .num{flex:0 0 58px;text-align:right}
 .repeat-row .amt{flex:0 0 100px;text-align:right}
+.warn{margin:14px 0 0;padding:11px 13px;background:#fff8e6;border:1px solid #f2d99a;border-left:4px solid #e0a020;border-radius:8px;font-size:.79rem;line-height:1.6;color:#7a5300}
+.warn b{display:block;margin-bottom:3px;font-family:var(--font-heading)}
+.warn ul{margin:0;padding-left:18px}
 .status-msg{font-size:.8rem;color:var(--aqua);font-weight:600;min-height:18px;margin-top:6px}
 
 .saved-list{list-style:none;margin:8px 0 0;padding:0;max-height:200px;overflow-y:auto}
@@ -106,9 +109,10 @@ legend{font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-s
 @media (max-width:560px){.grid2{grid-template-columns:1fr;gap:14px}}
 .block h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:7px}
 .kv{font-size:.83rem;line-height:1.75}
-.kv .k{color:var(--muted);display:inline-block;min-width:96px}
+.kv .r{display:block}
+.kv .k{color:var(--muted);display:inline-block;min-width:96px;padding-right:12px}
 .kv .v{font-weight:600}
-.kv .guest-name{font-size:1.02rem;font-weight:700;display:block;margin-bottom:2px}
+.kv .guest-name{font-size:1.02rem;font-weight:700;display:block;margin-bottom:6px}
 
 .sec-title{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin:22px 0 8px}
 table.tbl{width:100%;border-collapse:collapse;font-size:.83rem}
@@ -126,7 +130,7 @@ table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px
 .totals tr.grand td{border-top:2px solid var(--primary-color);padding-top:10px;font-size:1.08rem;font-weight:800;color:var(--primary-color)}
 .totals tr.bal td{color:var(--secondary-color);font-weight:800}
 
-.paybox{margin-top:18px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 14px;font-size:.82rem}
+.paybox{position:relative;margin-top:18px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 14px;font-size:.82rem;min-height:112px}
 .paybox h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:6px}
 .paybox .pay-line{line-height:1.8}
 .paybox .pay-line .k{color:var(--muted);display:inline-block;min-width:130px}
@@ -135,10 +139,12 @@ table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px
 .doc-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:.72rem;color:var(--muted);text-align:center;line-height:1.7}
 .doc-foot b{color:var(--primary-color)}
 
-.stamp{position:absolute;top:200px;right:24mm;transform:rotate(-16deg);border:4px double #1b7a43;color:#1b7a43;font-family:var(--font-heading);font-weight:800;font-size:2rem;letter-spacing:.16em;padding:8px 22px;border-radius:8px;opacity:.22;pointer-events:none;text-transform:uppercase}
+/* The stamp sits in the payment box's own empty right-hand side, so it can
+   never land on top of the service details the way a page-absolute stamp did. */
+.stamp{position:absolute;top:50%;right:22px;transform:translateY(-50%) rotate(-11deg);border:3px double #1b7a43;color:#1b7a43;font-family:var(--font-heading);font-weight:800;font-size:1.45rem;letter-spacing:.14em;padding:7px 18px;border-radius:8px;opacity:.5;pointer-events:none;text-transform:uppercase;white-space:nowrap}
 .stamp.unpaid{border-color:#b3261e;color:#b3261e}
-.stamp.deposit{border-color:#a35c00;color:#a35c00;font-size:1.5rem}
-@media (max-width:1080px){.stamp{display:none}}
+.stamp.deposit{border-color:#a35c00;color:#a35c00}
+@media (max-width:560px){.stamp{display:none}}
 
 /* guest view */
 .guest-bar{background:var(--primary-color);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.88rem}
@@ -289,10 +295,13 @@ body:not(.guest-view) .guest-bar{display:none}
       </div>
       <div class="row">
         <div class="fg"><label for="f-pay-paid">Amount received</label><input type="number" id="f-pay-paid" min="0" step="any"></div>
-        <div class="fg"><label for="f-pay-received-by">Received by</label><input type="text" id="f-pay-received-by" placeholder="Ketut (driver)"></div>
+        <div class="fg"><label for="f-pay-received-by">Received by / to be paid to</label><input type="text" id="f-pay-received-by" placeholder="Ketut (driver)"></div>
       </div>
+      <div class="fg"><label for="f-pay-cash-idr">Cash amount in IDR <span style="font-weight:400">— optional, for guests paying cash</span></label><input type="number" id="f-pay-cash-idr" min="0" step="1000" placeholder="e.g. 300000"></div>
       <div class="fg"><label for="f-notes">Notes / terms shown on the document</label><textarea id="f-notes"></textarea></div>
     </fieldset>
+
+    <div class="warn" id="warn" hidden></div>
 
     <fieldset>
       <legend>Saved bookings <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)">(this device only)</span></legend>
@@ -304,8 +313,6 @@ body:not(.guest-view) .guest-bar{display:none}
   <!-- ============ THE DOCUMENT ============ -->
   <div class="doc-wrap">
     <article class="doc" id="doc">
-      <div class="stamp" id="d-stamp">Paid</div>
-
       <header class="doc-head">
         <div class="co">
           <img src="/src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation">
@@ -373,6 +380,7 @@ body:not(.guest-view) .guest-bar{display:none}
       <div class="paybox">
         <h3 id="d-pay-label">Payment</h3>
         <div class="pay-line" id="d-pay"></div>
+        <div class="stamp" id="d-stamp">Paid</div>
       </div>
 
       <div class="notes" id="d-notes"></div>
@@ -431,6 +439,9 @@ const T = {
     thanks:"Terima kasih — thank you for travelling with us.",
     issued:"This document was issued electronically and is valid without a signature.",
     m:{cash_driver:"Cash paid to driver",cash_office:"Cash",bank:"Bank transfer",paypal:"PayPal",card:"Credit / debit card",pending:"Not yet paid"},
+    mDue:{cash_driver:"Cash, payable to your driver",cash_office:"Cash",bank:"Bank transfer",paypal:"PayPal",card:"Credit / debit card",pending:"To be arranged"},
+    payTo:"To be paid to", dueWhen:"Due", dueOnDay:"On the day of service, before departure",
+    cashIdr:"Cash amount in rupiah", cashIdrNote:"Please have this amount ready in cash",
     defaultNotes:"Prices are agreed at the time of booking and are not affected by later market changes.\nPlease keep this document — your driver may ask to see it on the day.\nAny question about your trip: message us on WhatsApp +62 823-1779-4462.",
     guestBar:"Your booking receipt from Bali Real Vacation.", download:"Download PDF",
     waMsg:(n,t)=>`Hello ${n}, thank you for booking with Bali Real Vacation. Here is your ${t} — you can view it and save it as a PDF from this link:`,
@@ -450,6 +461,9 @@ const T = {
     thanks:"Terima kasih telah bepergian bersama kami.",
     issued:"Dokumen ini diterbitkan secara elektronik dan sah tanpa tanda tangan.",
     m:{cash_driver:"Tunai kepada sopir",cash_office:"Tunai",bank:"Transfer bank",paypal:"PayPal",card:"Kartu kredit / debit",pending:"Belum dibayar"},
+    mDue:{cash_driver:"Tunai, dibayarkan kepada sopir Anda",cash_office:"Tunai",bank:"Transfer bank",paypal:"PayPal",card:"Kartu kredit / debit",pending:"Akan diatur"},
+    payTo:"Dibayarkan kepada", dueWhen:"Jatuh tempo", dueOnDay:"Pada hari layanan, sebelum keberangkatan",
+    cashIdr:"Jumlah tunai dalam rupiah", cashIdrNote:"Mohon siapkan jumlah ini dalam bentuk tunai",
     defaultNotes:"Harga disepakati pada saat pemesanan dan tidak terpengaruh perubahan harga pasar setelahnya.\nSimpan dokumen ini — sopir Anda mungkin memintanya pada hari keberangkatan.\nAda pertanyaan? Hubungi kami di WhatsApp +62 823-1779-4462.",
     guestBar:"Kuitansi pemesanan Anda dari Bali Real Vacation.", download:"Unduh PDF",
     waMsg:(n,t)=>`Halo ${n}, terima kasih telah memesan bersama Bali Real Vacation. Berikut ${t} Anda — dapat dilihat dan disimpan sebagai PDF melalui tautan ini:`,
@@ -469,6 +483,9 @@ const T = {
     thanks:"感谢您选择我们的旅程。",
     issued:"本文件以电子方式出具，无需签字即有效。",
     m:{cash_driver:"现金支付给司机",cash_office:"现金",bank:"银行转账",paypal:"PayPal",card:"信用卡 / 借记卡",pending:"尚未付款"},
+    mDue:{cash_driver:"现金，付予您的司机",cash_office:"现金",bank:"银行转账",paypal:"PayPal",card:"信用卡 / 借记卡",pending:"待安排"},
+    payTo:"付款对象", dueWhen:"付款时间", dueOnDay:"服务当天出发前",
+    cashIdr:"现金金额（印尼盾）", cashIdrNote:"请准备好该金额的现金",
     defaultNotes:"价格以预订当时确认为准，不受此后市场价格变动影响。\n请保留本文件 — 出行当天司机可能会查看。\n如有疑问，请通过 WhatsApp +62 823-1779-4462 联系我们。",
     guestBar:"这是您在 Bali Real Vacation 的预订收据。", download:"下载 PDF",
     waMsg:(n,t)=>`您好 ${n}，感谢您在 Bali Real Vacation 预订。这是您的${t} — 可通过此链接查看并保存为 PDF：`,
@@ -524,7 +541,7 @@ function blankState() {
     itin: [],
     incl: "",
     items: [{ desc:"", qty:1, price:0 }],
-    pay: { status:"paid", method:"cash_driver", paid:0, receivedBy:"Ketut (driver)" },
+    pay: { status:"paid", method:"cash_driver", paid:0, receivedBy:"Ketut (driver)", cashIdr:"" },
     notes: T.en.defaultNotes,
   };
 }
@@ -548,6 +565,7 @@ const FIELD_MAP = {
   "f-incl":["incl"],
   "f-pay-status":["pay","status"], "f-pay-method":["pay","method"],
   "f-pay-paid":["pay","paid"], "f-pay-received-by":["pay","receivedBy"],
+  "f-pay-cash-idr":["pay","cashIdr"],
   "f-notes":["notes"],
 };
 function readFields() {
@@ -647,27 +665,31 @@ function render() {
   stamp.className = "stamp " + S.pay.status;
   stamp.textContent = t[S.pay.status];
 
+  // Each line is its own block, so an empty optional field leaves no gap and a
+  // long label (like "Driver WhatsApp") never collides with its value.
+  const line = (k, v) => '<span class="r"><span class="k">' + k + '</span><span class="v">' + v + "</span></span>";
+
   // guest block
   const g = S.guest, rows = [];
   rows.push('<span class="guest-name">' + esc(g.name || "—") + "</span>");
-  if (g.wa)      rows.push('<span class="k">' + t.phone   + '</span><span class="v">' + esc(g.wa) + "</span>");
-  if (g.email)   rows.push('<span class="k">' + t.email   + '</span><span class="v">' + esc(g.email) + "</span>");
-  if (g.country) rows.push('<span class="k">' + t.country + '</span><span class="v">' + esc(g.country) + "</span>");
-  if (g.pax)     rows.push('<span class="k">' + t.guests  + '</span><span class="v">' + esc(g.pax) + " " + t.pax + "</span>");
-  $("d-guest").innerHTML = rows.join("<br>");
+  if (g.wa)      rows.push(line(t.phone,   esc(g.wa)));
+  if (g.email)   rows.push(line(t.email,   esc(g.email)));
+  if (g.country) rows.push(line(t.country, esc(g.country)));
+  if (g.pax)     rows.push(line(t.guests,  esc(g.pax) + " " + t.pax));
+  $("d-guest").innerHTML = rows.join("");
 
   // service block
   const s = S.svc, sr = [];
   if (s.title)    sr.push('<span class="guest-name">' + esc(s.title) + "</span>");
-  if (s.date)     sr.push('<span class="k">' + t.sdate    + '</span><span class="v">' + longDate(s.date, S.lang) + "</span>");
-  if (s.time)     sr.push('<span class="k">' + t.stime    + '</span><span class="v">' + esc(s.time) + "</span>");
-  if (s.flight)   sr.push('<span class="k">' + t.flight   + '</span><span class="v">' + esc(s.flight) + "</span>");
-  if (s.pickup)   sr.push('<span class="k">' + t.pickup   + '</span><span class="v">' + esc(s.pickup) + "</span>");
-  if (s.dropoff)  sr.push('<span class="k">' + t.dropoff  + '</span><span class="v">' + esc(s.dropoff) + "</span>");
-  if (s.vehicle)  sr.push('<span class="k">' + t.vehicle  + '</span><span class="v">' + esc(s.vehicle) + "</span>");
-  if (s.driver)   sr.push('<span class="k">' + t.driver   + '</span><span class="v">' + esc(s.driver) + "</span>");
-  if (s.driverWa) sr.push('<span class="k">' + t.driverWa + '</span><span class="v">' + esc(s.driverWa) + "</span>");
-  $("d-service").innerHTML = sr.join("<br>") || "—";
+  if (s.date)     sr.push(line(t.sdate,    longDate(s.date, S.lang)));
+  if (s.time)     sr.push(line(t.stime,    esc(s.time)));
+  if (s.flight)   sr.push(line(t.flight,   esc(s.flight)));
+  if (s.pickup)   sr.push(line(t.pickup,   esc(s.pickup)));
+  if (s.dropoff)  sr.push(line(t.dropoff,  esc(s.dropoff)));
+  if (s.vehicle)  sr.push(line(t.vehicle,  esc(s.vehicle)));
+  if (s.driver)   sr.push(line(t.driver,   esc(s.driver)));
+  if (s.driverWa) sr.push(line(t.driverWa, esc(s.driverWa)));
+  $("d-service").innerHTML = sr.join("") || "—";
 
   // itinerary
   const itin = S.itin.filter((r) => r.time || r.act || r.note);
@@ -696,16 +718,46 @@ function render() {
   $("d-paid-row").style.display = paid > 0 ? "" : "none";
   $("d-balance-row").style.display = balance > 0 ? "" : "none";
 
-  // payment box
+  // Payment box. Nothing has been handed over yet on an unpaid document, so it
+  // reads forwards ("to be paid to") rather than backwards ("received by").
+  const settled = paid > 0;
   const p = [];
-  p.push('<span class="k">' + t.status + '</span><span class="v">' + t[S.pay.status] + "</span>");
-  p.push('<span class="k">' + t.method + '</span><span class="v">' + (t.m[S.pay.method] || "—") + "</span>");
-  if (paid > 0) p.push('<span class="k">' + t.received + '</span><span class="v">' + money(paid, cur) + "</span>");
-  if (S.pay.receivedBy) p.push('<span class="k">' + t.receivedBy + '</span><span class="v">' + esc(S.pay.receivedBy) + "</span>");
-  if (paid > 0 && S.issued) p.push('<span class="k">' + t.paidOn + '</span><span class="v">' + longDate(S.issued, S.lang) + "</span>");
-  $("d-pay").innerHTML = p.join("<br>");
+  p.push(line(t.status, t[S.pay.status]));
+  p.push(line(t.method, (settled ? t.m : t.mDue)[S.pay.method] || "—"));
+  if (settled) p.push(line(t.received, money(paid, cur)));
+  if (S.pay.receivedBy) p.push(line(settled ? t.receivedBy : t.payTo, esc(S.pay.receivedBy)));
+  if (settled && S.issued) p.push(line(t.paidOn, longDate(S.issued, S.lang)));
+  if (balance > 0) p.push(line(t.dueWhen, t.dueOnDay));
+  // A guest paying cash in Bali needs the rupiah figure, whatever currency we quoted in.
+  if (balance > 0 && Number(S.pay.cashIdr) > 0) {
+    p.push(line(t.cashIdr, money(S.pay.cashIdr, "IDR") + ' <span style="font-weight:400;color:var(--muted)">— ' + t.cashIdrNote + "</span>"));
+  }
+  $("d-pay").innerHTML = p.join("");
 
   $("d-notes").textContent = S.notes || "";
+  checkMissing(total, paid, balance);
+}
+
+// Empty fields are simply left off the document, which keeps it tidy but also
+// means an omission is invisible. This flags the ones a guest or driver would
+// actually miss. Screen-only — it never prints and never blocks anything.
+function checkMissing(total, paid, balance) {
+  const miss = [];
+  if (!S.guest.name) miss.push("Guest name");
+  if (!S.svc.title) miss.push("Service name — the document says what was charged but not what was booked");
+  if (!S.svc.date) miss.push("Service date — the guest and driver need to know which day this is for");
+  if (!S.svc.time) miss.push("Pickup time");
+  if (!S.svc.pickup) miss.push("Pickup point");
+  if (!total) miss.push("A line item with a price");
+  if (!S.guest.wa) miss.push("Guest WhatsApp number — needed for the Send on WhatsApp button");
+  if (balance > 0 && S.cur !== "IDR" && !(Number(S.pay.cashIdr) > 0)) {
+    miss.push("Cash amount in IDR — this guest pays cash in Bali but the total is in " + S.cur);
+  }
+  const el = $("warn");
+  if (!miss.length) { el.hidden = true; return; }
+  el.hidden = false;
+  el.innerHTML = "<b>Worth adding before you send this</b><ul>" +
+    miss.map((m) => "<li>" + esc(m) + "</li>").join("") + "</ul>";
 }
 
 function sync() { readFields(); render(); saveDraft(); }

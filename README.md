@@ -158,17 +158,24 @@ nav — bookmark the URL. There is no login, so treat the URL as internal.
    is pre-loaded at the price shown on the public pages, so the line items and inclusions
    fill themselves in. Tours price per person and follow the pax count you entered.
 3. Fill in the guest, pickup and payment details. The document on the right updates as you type.
-4. Set **Status** (paid / deposit / due) and **Method** — "Cash to driver" with
-   *Received by: Ketut (driver)* is the default, and stamps the document **PAID**.
-5. Choose the document **Language** — EN, ID or ZH. Only the document changes; the editor
+4. Set **Status** (paid / deposit / due) and **Method**. "Cash to driver" with
+   *Ketut (driver)* is the default. The document adapts: a paid one says
+   "Received by", an unpaid one says "To be paid to" and adds when it falls due,
+   so an invoice never claims money it has not taken.
+   If the guest pays cash but you quoted in USD or AUD, fill in **Cash amount in
+   IDR** — the driver collects rupiah, and the guest should know the figure.
+5. Watch the amber panel under the form. It lists anything a guest or driver
+   would miss — service date, pickup time, pickup point — because empty fields
+   are silently left off the document rather than shown blank.
+6. Choose the document **Language** — EN, ID or ZH. Only the document changes; the editor
    stays in English.
-6. Deliver it:
+7. Deliver it:
    - **Save as PDF** — opens the browser print dialog, already set to A4 with the editor
      hidden. Choose "Save as PDF" as the destination, then attach the file in WhatsApp.
    - **Send on WhatsApp** — opens a chat with the guest's number and a ready message
      containing their receipt link.
    - **Copy guest link** — the same link, to paste anywhere.
-7. **Save** keeps the booking in this browser so you can reopen and reprint it later.
+8. **Save** keeps the booking in this browser so you can reopen and reprint it later.
 
 ### How it works
 
