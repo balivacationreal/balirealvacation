@@ -122,6 +122,65 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  // 3b. Handle Airport Transfer WhatsApp Form Submission
+  const airportForm = document.getElementById("airport-form");
+  if (airportForm) {
+    const lang = (document.documentElement.lang || "en").split("-")[0];
+    const airportConfirm = {
+      en: (n) => `Thanks ${n}! Opening WhatsApp to confirm your airport pickup — we'll reply with your driver details and payment options shortly.`,
+      id: (n) => `Terima kasih ${n}! Membuka WhatsApp untuk mengonfirmasi penjemputan bandara Anda — kami akan membalas dengan detail sopir dan opsi pembayaran sesegera mungkin.`,
+      zh: (n) => `谢谢 ${n}！正在打开 WhatsApp 确认您的机场接机 — 我们会尽快回复司机信息和付款方式。`,
+    };
+
+    airportForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const flight = document.getElementById("flight").value.trim();
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+      const hotel = document.getElementById("hotel").value.trim();
+
+      // Structured operator message (always English)
+      const waText = [
+        "New airport transfer request — Bali Real Vacation",
+        `Name: ${name}`,
+        `Guest WhatsApp: ${whatsapp}`,
+        `Flight number: ${flight}`,
+        `Arrival date: ${date}`,
+        `Arrival time: ${time}`,
+        `Destination / hotel: ${hotel}`,
+      ].join("\n");
+
+      // POST to Netlify Forms — fire-and-forget, never block the user
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          "form-name": "airport-transfer",
+          name,
+          whatsapp,
+          flight,
+          date,
+          time,
+          hotel,
+        }).toString(),
+      }).catch(() => {});
+
+      // Open WhatsApp in a new tab
+      window.open(
+        "https://wa.me/6282317794462?text=" + encodeURIComponent(waText),
+        "_blank",
+      );
+
+      const confirmDiv = document.getElementById("booking-confirmation");
+      if (confirmDiv) {
+        const msgFn = airportConfirm[lang] || airportConfirm.en;
+        confirmDiv.textContent = msgFn(name);
+        confirmDiv.style.display = "block";
+      }
+    });
+  }
   // 4. Mobile Menu Navigation
   const mobileMenuBtn = document.getElementById("mobileMenuBtn");
   const navMenu = document.getElementById("navMenu");

@@ -278,39 +278,43 @@ ogImage: "https://balirealvacation.com/src/assets/ketut-waiting.webp"
                 </tbody>
             </table>
             <p style="font-size:.85rem;color:#777;margin-top:15px;font-style:italic;">* Harga per mobil (maksimal 4 penumpang dengan bagasi standar). Untuk grup lebih besar, hubungi kami untuk tarif minivan.</p>
+            <p class="price-note" style="max-width:820px;margin:16px auto 0;"><i class="fa-solid fa-circle-info"></i><span>{% endraw %}{{ ui.price_note[lang] or ui.price_note.en }}{% raw %}</span></p>
         </div>
 
         <div>
             <div class="booking-card">
                 <h3>Pesan Penjemputan Bandara Anda</h3>
-                <form id="airport-form" novalidate>
+                <form id="airport-form" name="airport-transfer" action="/" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="airport-transfer">
+                    <p style="display:none;"><label>Don&#39;t fill this out: <input name="bot-field"></label></p>
                     <div class="form-group">
                         <label for="name">Nama Tamu Utama</label>
                         <input type="text" id="name" name="name" autocomplete="name" placeholder="Nama pada papan kedatangan" required>
                     </div>
                     <div class="form-group">
                         <label for="whatsapp">Nomor WhatsApp</label>
-                        <input type="tel" id="whatsapp" name="tel" autocomplete="tel" placeholder="+62..." required>
+                        <input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" placeholder="+62..." required>
                     </div>
                     <div class="form-group">
                         <label for="flight">Nomor Penerbangan</label>
-                        <input type="text" id="flight" placeholder="mis. JQ 43" required>
+                        <input type="text" id="flight" name="flight" placeholder="mis. JQ 43" required>
                     </div>
                     <div style="display:flex;gap:15px;">
                         <div class="form-group" style="flex:1;">
                             <label for="date">Tanggal Kedatangan</label>
-                            <input type="date" id="date" required>
+                            <input type="date" id="date" name="date" required>
                         </div>
                         <div class="form-group" style="flex:1;">
                             <label for="time">Jam Kedatangan</label>
-                            <input type="time" id="time" required>
+                            <input type="time" id="time" name="time" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="hotel">Tujuan / Nama Hotel</label>
-                        <input type="text" id="hotel" placeholder="Nama lengkap hotel & area" required>
+                        <input type="text" id="hotel" name="hotel" placeholder="Nama lengkap hotel & area" required>
                     </div>
                     <button type="submit" class="btn"><i class="fa-brands fa-whatsapp" style="margin-right:8px;"></i> Minta Penjemputan via WhatsApp</button>
+                    <div id="booking-confirmation" style="display:none; margin-top:16px; padding:14px 18px; background:#e8f5e9; border:1px solid #4CAF50; border-radius:8px; color:#2e7d32; font-size:0.95rem; line-height:1.5;"></div>
                     <div style="text-align:center;margin-top:25px;padding-top:20px;border-top:1px solid #ddd;">
                         <p style="font-size:.9rem;color:#666;margin-bottom:12px;font-weight:600;">Pembayaran Aman Diterima</p>
                         <div style="font-size:2.5rem;display:flex;justify-content:center;gap:20px;">
