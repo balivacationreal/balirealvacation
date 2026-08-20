@@ -1,0 +1,923 @@
+---
+permalink: "/booking-receipt.html"
+title: "Booking Receipt & Itinerary — Bali Real Vacation"
+description: "Internal tool: generate a PDF booking receipt and day itinerary for a confirmed Bali Real Vacation booking."
+canonical: "https://balirealvacation.com/booking-receipt.html"
+robots: "noindex, nofollow"
+eleventyExcludeFromCollections: true
+---
+{% raw %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Booking Receipt &amp; Itinerary — Bali Real Vacation</title>
+<link rel="icon" type="image/webp" href="/src/assets/bali-real-vacation-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --primary-color:#00557f; --secondary-color:#ff6b4a; --aqua:#13b5a6;
+  --ocean-deep:#04293e; --text-dark:#1f2a30; --bg-light:#fbf8f3; --sand-2:#f3ece0;
+  --line:#e3e8ec; --muted:#6b7780;
+  --font-heading:"Plus Jakarta Sans",sans-serif; --font-body:"Inter",sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);color:var(--text-dark);background:#eef2f5;font-size:15px;line-height:1.55}
+h1,h2,h3,h4{font-family:var(--font-heading);margin:0}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+
+/* ---------- app shell ---------- */
+.topbar{position:sticky;top:0;z-index:20;background:var(--ocean-deep);color:#fff;padding:10px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-weight:800;letter-spacing:.2px;font-size:.95rem}
+.topbar .brand img{width:30px;height:30px;object-fit:contain;background:#fff;border-radius:6px;padding:2px}
+.topbar .spacer{flex:1}
+.tb-btn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);padding:8px 14px;border-radius:8px;font-weight:600;font-size:.85rem;display:inline-flex;align-items:center;gap:7px}
+.tb-btn:hover{background:rgba(255,255,255,.22)}
+.tb-btn.primary{background:var(--secondary-color);border-color:var(--secondary-color)}
+.tb-btn.primary:hover{background:#ff8265}
+.tb-btn.wa{background:#25D366;border-color:#25D366;color:#07341a}
+.tb-btn.wa:hover{background:#3ade7a}
+
+.layout{display:grid;grid-template-columns:minmax(340px,420px) 1fr;gap:24px;padding:24px;align-items:start;max-width:1500px;margin:0 auto}
+@media (max-width:1080px){.layout{grid-template-columns:1fr}}
+
+/* ---------- editor ---------- */
+.editor{background:#fff;border-radius:14px;box-shadow:0 4px 18px rgba(4,41,62,.08);padding:20px;position:sticky;top:70px;max-height:calc(100vh - 94px);overflow-y:auto}
+@media (max-width:1080px){.editor{position:static;max-height:none}}
+.editor h2{font-size:1.05rem;color:var(--primary-color);margin-bottom:4px}
+.editor .hint{font-size:.8rem;color:var(--muted);margin:0 0 16px}
+fieldset{border:none;border-top:1px solid var(--line);padding:16px 0 4px;margin:0}
+fieldset:first-of-type{border-top:none;padding-top:4px}
+legend{font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--aqua);padding:0}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:.76rem;font-weight:600;color:var(--muted);margin-bottom:4px;letter-spacing:.02em}
+.fg input,.fg select,.fg textarea{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:2px solid rgba(19,181,166,.35);outline-offset:1px;border-color:var(--aqua)}
+.fg textarea{resize:vertical;min-height:64px}
+.row{display:flex;gap:10px}
+.row>*{flex:1;min-width:0}
+.mini-btn{background:var(--sand-2);border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:.8rem;font-weight:600;color:var(--primary-color);display:inline-flex;align-items:center;gap:6px}
+.mini-btn:hover{background:#e8dfcd}
+.mini-btn.danger{color:#c62828;background:#fff;border-color:#f0d3d3;padding:7px 9px}
+.mini-btn.danger:hover{background:#fdecea}
+.repeat-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:8px}
+.repeat-row input{padding:8px 10px;border:1px solid var(--line);border-radius:8px;min-width:0;width:100%}
+.repeat-row .t{flex:0 0 76px}
+.repeat-row .grow{flex:1}
+.repeat-row .num{flex:0 0 58px;text-align:right}
+.repeat-row .amt{flex:0 0 100px;text-align:right}
+.status-msg{font-size:.8rem;color:var(--aqua);font-weight:600;min-height:18px;margin-top:6px}
+
+.saved-list{list-style:none;margin:8px 0 0;padding:0;max-height:200px;overflow-y:auto}
+.saved-list li{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:.8rem}
+.saved-list .s-main{flex:1;min-width:0}
+.saved-list .s-name{font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saved-list .s-meta{color:var(--muted);font-size:.72rem}
+.saved-empty{font-size:.8rem;color:var(--muted);font-style:italic}
+
+/* ---------- the printable document ---------- */
+.doc-wrap{display:flex;justify-content:center}
+.doc{background:#fff;width:210mm;min-height:297mm;padding:16mm 15mm;box-shadow:0 6px 28px rgba(4,41,62,.14);position:relative;overflow:hidden}
+@media (max-width:1080px){.doc{width:100%;min-height:0;padding:22px 18px}}
+
+.doc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-bottom:3px solid var(--primary-color);padding-bottom:14px}
+.doc-head .co{display:flex;gap:12px;align-items:flex-start}
+.doc-head .co img{width:56px;height:56px;object-fit:contain;flex-shrink:0}
+.doc-head .co h1{font-size:1.3rem;color:var(--primary-color);line-height:1.2}
+.doc-head .co p{margin:2px 0 0;font-size:.74rem;color:var(--muted)}
+.co-contact{margin-top:5px;font-size:.72rem;color:var(--muted);line-height:1.55}
+.co-contact span{display:block}
+.doc-title{text-align:right;flex-shrink:0}
+.doc-title h2{font-size:1.5rem;letter-spacing:.06em;color:var(--ocean-deep);text-transform:uppercase}
+.doc-title .no{margin-top:6px;font-size:.78rem;color:var(--muted);line-height:1.7}
+.doc-title .no b{color:var(--text-dark);font-weight:600}
+
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:8px}
+.pill.paid{background:#e6f7ec;color:#1b7a43;border:1px solid #9fdcb8}
+.pill.deposit{background:#fff5e0;color:#a35c00;border:1px solid #f2cf8f}
+.pill.unpaid{background:#fdecea;color:#b3261e;border:1px solid #f2b8b3}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
+@media (max-width:560px){.grid2{grid-template-columns:1fr;gap:14px}}
+.block h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:7px}
+.kv{font-size:.83rem;line-height:1.75}
+.kv .k{color:var(--muted);display:inline-block;min-width:96px}
+.kv .v{font-weight:600}
+.kv .guest-name{font-size:1.02rem;font-weight:700;display:block;margin-bottom:2px}
+
+.sec-title{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin:22px 0 8px}
+table.tbl{width:100%;border-collapse:collapse;font-size:.83rem}
+table.tbl th{text-align:left;background:var(--sand-2);color:var(--ocean-deep);font-family:var(--font-heading);font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line)}
+table.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl td.r,table.tbl th.r{text-align:right}
+table.tbl .time-col{white-space:nowrap;font-weight:700;color:var(--primary-color);width:76px}
+table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px}
+
+.totals{margin-top:12px;display:flex;justify-content:flex-end}
+.totals table{font-size:.86rem;min-width:290px}
+.totals td{padding:6px 10px}
+.totals td.lbl{color:var(--muted);text-align:right}
+.totals td.val{text-align:right;font-weight:600;white-space:nowrap}
+.totals tr.grand td{border-top:2px solid var(--primary-color);padding-top:10px;font-size:1.08rem;font-weight:800;color:var(--primary-color)}
+.totals tr.bal td{color:var(--secondary-color);font-weight:800}
+
+.paybox{margin-top:18px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 14px;font-size:.82rem}
+.paybox h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:6px}
+.paybox .pay-line{line-height:1.8}
+.paybox .pay-line .k{color:var(--muted);display:inline-block;min-width:130px}
+
+.notes{margin-top:16px;font-size:.78rem;color:var(--muted);line-height:1.7;white-space:pre-line}
+.doc-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:.72rem;color:var(--muted);text-align:center;line-height:1.7}
+.doc-foot b{color:var(--primary-color)}
+
+.stamp{position:absolute;top:200px;right:24mm;transform:rotate(-16deg);border:4px double #1b7a43;color:#1b7a43;font-family:var(--font-heading);font-weight:800;font-size:2rem;letter-spacing:.16em;padding:8px 22px;border-radius:8px;opacity:.22;pointer-events:none;text-transform:uppercase}
+.stamp.unpaid{border-color:#b3261e;color:#b3261e}
+.stamp.deposit{border-color:#a35c00;color:#a35c00;font-size:1.5rem}
+@media (max-width:1080px){.stamp{display:none}}
+
+/* guest view */
+.guest-bar{background:var(--primary-color);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.88rem}
+.guest-bar .tb-btn{background:#fff;color:var(--primary-color);border-color:#fff}
+.guest-bar .tb-btn:hover{background:#eaf4fa}
+body.guest-view .editor,body.guest-view .topbar{display:none}
+body.guest-view .layout{grid-template-columns:1fr;padding:18px}
+body:not(.guest-view) .guest-bar{display:none}
+
+/* ---------- print ---------- */
+@media print{
+  @page{size:A4;margin:10mm}
+  body{background:#fff;font-size:12px}
+  .topbar,.editor,.guest-bar,.no-print{display:none!important}
+  .layout{display:block;padding:0;max-width:none}
+  .doc{width:auto;min-height:0;padding:0;box-shadow:none}
+  .doc,.doc *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .stamp{display:block}
+  table.tbl tr{page-break-inside:avoid}
+  .paybox,.totals{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><img src="/src/assets/bali-real-vacation-logo.webp" alt="">Booking Receipt &amp; Itinerary</div>
+  <div class="spacer"></div>
+  <button class="tb-btn" id="btn-new"><i class="fa-solid fa-file-circle-plus"></i> New</button>
+  <button class="tb-btn" id="btn-save"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+  <button class="tb-btn" id="btn-copy"><i class="fa-solid fa-link"></i> Copy guest link</button>
+  <button class="tb-btn wa" id="btn-wa"><i class="fa-brands fa-whatsapp"></i> Send on WhatsApp</button>
+  <button class="tb-btn primary" id="btn-print"><i class="fa-solid fa-file-pdf"></i> Save as PDF</button>
+</header>
+
+<div class="guest-bar">
+  <span id="guest-bar-text">Your booking receipt from Bali Real Vacation.</span>
+  <button class="tb-btn" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i> <span id="guest-bar-btn">Download PDF</span></button>
+</div>
+
+<div class="layout">
+
+  <!-- ============ EDITOR (operator only, never printed) ============ -->
+  <aside class="editor" id="editor">
+    <h2>Booking details</h2>
+    <p class="hint">Fill this in and the document on the right updates live. Nothing is uploaded — the receipt travels inside the link you share.</p>
+
+    <fieldset>
+      <legend>Document</legend>
+      <div class="row">
+        <div class="fg">
+          <label for="f-type">Document type</label>
+          <select id="f-type">
+            <option value="receipt">Receipt (payment received)</option>
+            <option value="confirmation">Booking confirmation</option>
+            <option value="invoice">Invoice (payment due)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="f-lang">Language</label>
+          <select id="f-lang">
+            <option value="en">English</option>
+            <option value="id">Bahasa Indonesia</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fg"><label for="f-no">Document no.</label><input type="text" id="f-no"></div>
+        <div class="fg"><label for="f-issued">Issue date</label><input type="date" id="f-issued"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Guest</legend>
+      <div class="fg"><label for="f-guest-name">Full name</label><input type="text" id="f-guest-name" placeholder="Name as it should appear"></div>
+      <div class="row">
+        <div class="fg"><label for="f-guest-wa">WhatsApp number</label><input type="tel" id="f-guest-wa" placeholder="+61 400 000 000"></div>
+        <div class="fg"><label for="f-guest-pax">Guests (pax)</label><input type="number" id="f-guest-pax" min="1" value="2"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label for="f-guest-email">Email (optional)</label><input type="email" id="f-guest-email"></div>
+        <div class="fg"><label for="f-guest-country">Country (optional)</label><input type="text" id="f-guest-country"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Service</legend>
+      <div class="fg">
+        <label for="f-preset">Quick fill from our price list</label>
+        <select id="f-preset"><option value="">Choose a service…</option></select>
+      </div>
+      <div class="fg"><label for="f-svc-title">Service name</label><input type="text" id="f-svc-title" placeholder="e.g. Airport Transfer — DPS to Ubud"></div>
+      <div class="row">
+        <div class="fg"><label for="f-svc-date">Service date</label><input type="date" id="f-svc-date"></div>
+        <div class="fg"><label for="f-svc-time">Pickup time</label><input type="time" id="f-svc-time"></div>
+      </div>
+      <div class="fg"><label for="f-svc-pickup">Pickup point</label><input type="text" id="f-svc-pickup" placeholder="Ngurah Rai Airport (DPS), Arrivals Hall"></div>
+      <div class="fg"><label for="f-svc-dropoff">Drop-off / destination</label><input type="text" id="f-svc-dropoff" placeholder="Hotel name &amp; area"></div>
+      <div class="row">
+        <div class="fg"><label for="f-svc-flight">Flight no. (optional)</label><input type="text" id="f-svc-flight" placeholder="JQ 43"></div>
+        <div class="fg"><label for="f-svc-vehicle">Vehicle</label><input type="text" id="f-svc-vehicle" placeholder="Toyota Avanza (A/C)"></div>
+      </div>
+      <div class="row">
+        <div class="fg"><label for="f-svc-driver">Driver / guide</label><input type="text" id="f-svc-driver" placeholder="Ketut"></div>
+        <div class="fg"><label for="f-svc-driver-wa">Driver WhatsApp</label><input type="tel" id="f-svc-driver-wa" placeholder="+62 823 1779 4462"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Itinerary</legend>
+      <div id="itin-rows"></div>
+      <button class="mini-btn" id="btn-add-itin"><i class="fa-solid fa-plus"></i> Add itinerary stop</button>
+      <div class="fg" style="margin-top:12px"><label for="f-incl">What is included (one per line)</label><textarea id="f-incl" placeholder="Private A/C transport&#10;English-speaking driver&#10;Cold drinks &amp; bottled water"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Charges</legend>
+      <div class="fg" style="max-width:150px"><label for="f-cur">Currency</label>
+        <select id="f-cur"><option value="IDR">IDR (Rp)</option><option value="USD">USD ($)</option><option value="AUD">AUD (A$)</option></select>
+      </div>
+      <div id="item-rows"></div>
+      <button class="mini-btn" id="btn-add-item"><i class="fa-solid fa-plus"></i> Add line item</button>
+    </fieldset>
+
+    <fieldset>
+      <legend>Payment</legend>
+      <div class="row">
+        <div class="fg">
+          <label for="f-pay-status">Status</label>
+          <select id="f-pay-status">
+            <option value="paid">Paid in full</option>
+            <option value="deposit">Deposit paid</option>
+            <option value="unpaid">Payment due</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label for="f-pay-method">Method</label>
+          <select id="f-pay-method">
+            <option value="cash_driver">Cash to driver</option>
+            <option value="cash_office">Cash</option>
+            <option value="bank">Bank transfer</option>
+            <option value="paypal">PayPal</option>
+            <option value="card">Credit / debit card</option>
+            <option value="pending">Not yet paid</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="fg"><label for="f-pay-paid">Amount received</label><input type="number" id="f-pay-paid" min="0" step="any"></div>
+        <div class="fg"><label for="f-pay-received-by">Received by</label><input type="text" id="f-pay-received-by" placeholder="Ketut (driver)"></div>
+      </div>
+      <div class="fg"><label for="f-notes">Notes / terms shown on the document</label><textarea id="f-notes"></textarea></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Saved bookings <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)">(this device only)</span></legend>
+      <ul class="saved-list" id="saved-list"></ul>
+      <div class="status-msg" id="status-msg"></div>
+    </fieldset>
+  </aside>
+
+  <!-- ============ THE DOCUMENT ============ -->
+  <div class="doc-wrap">
+    <article class="doc" id="doc">
+      <div class="stamp" id="d-stamp">Paid</div>
+
+      <header class="doc-head">
+        <div class="co">
+          <img src="/src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation">
+          <div>
+            <h1>Bali Real Vacation</h1>
+            <p id="d-co-tagline">Your trusted travel partner in Bali &amp; Nusa Penida</p>
+            <div class="co-contact">
+              <span>balirealvacation.com</span>
+              <span>WhatsApp +62 823-1779-4462</span>
+              <span>Bali, Indonesia</span>
+            </div>
+          </div>
+        </div>
+        <div class="doc-title">
+          <h2 id="d-title">Receipt</h2>
+          <div class="no">
+            <span id="d-no-label">No.</span> <b id="d-no">—</b><br>
+            <span id="d-date-label">Date</span> <b id="d-date">—</b>
+          </div>
+          <span class="pill paid" id="d-pill">Paid</span>
+        </div>
+      </header>
+
+      <div class="grid2">
+        <div class="block">
+          <h3 id="d-billed-label">Issued to</h3>
+          <div class="kv" id="d-guest"></div>
+        </div>
+        <div class="block">
+          <h3 id="d-service-label">Service details</h3>
+          <div class="kv" id="d-service"></div>
+        </div>
+      </div>
+
+      <div id="d-itin-wrap">
+        <h3 class="sec-title" id="d-itin-label">Itinerary</h3>
+        <table class="tbl"><tbody id="d-itin"></tbody></table>
+      </div>
+
+      <div id="d-incl-wrap">
+        <h3 class="sec-title" id="d-incl-label">Included in this booking</h3>
+        <div class="kv" id="d-incl"></div>
+      </div>
+
+      <h3 class="sec-title" id="d-charges-label">Charges</h3>
+      <table class="tbl">
+        <thead><tr>
+          <th id="d-th-desc">Description</th>
+          <th class="r" id="d-th-qty">Qty</th>
+          <th class="r" id="d-th-price">Unit price</th>
+          <th class="r" id="d-th-amount">Amount</th>
+        </tr></thead>
+        <tbody id="d-items"></tbody>
+      </table>
+
+      <div class="totals">
+        <table>
+          <tr><td class="lbl" id="d-subtotal-label">Subtotal</td><td class="val" id="d-subtotal">—</td></tr>
+          <tr class="grand"><td class="lbl" id="d-total-label">Total</td><td class="val" id="d-total">—</td></tr>
+          <tr id="d-paid-row"><td class="lbl" id="d-paid-label">Amount received</td><td class="val" id="d-paid">—</td></tr>
+          <tr class="bal" id="d-balance-row"><td class="lbl" id="d-balance-label">Balance due</td><td class="val" id="d-balance">—</td></tr>
+        </table>
+      </div>
+
+      <div class="paybox">
+        <h3 id="d-pay-label">Payment</h3>
+        <div class="pay-line" id="d-pay"></div>
+      </div>
+
+      <div class="notes" id="d-notes"></div>
+
+      <footer class="doc-foot">
+        <b id="d-foot-thanks">Terima kasih — thank you for travelling with us.</b><br>
+        <span id="d-foot-line">Bali Real Vacation · balirealvacation.com · WhatsApp +62 823-1779-4462</span><br>
+        <span id="d-foot-issued">This document was issued electronically and is valid without a signature.</span>
+      </footer>
+    </article>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   Booking receipt & itinerary generator.
+   Everything runs client-side: the booking lives in the page URL fragment
+   (never sent to the server) and in this device's localStorage. The PDF is
+   produced by the browser's own print-to-PDF, so there is no library to load
+   and no backend to keep alive.
+   ========================================================================= */
+
+// ---------- price list, mirrored from the public pages ----------
+const TRANSFERS = [
+  ["Kuta",200000],["Legian",250000],["Jimbaran",250000],["Seminyak",300000],
+  ["Sanur",300000],["Nusa Dua",300000],["Canggu",400000],["Ubud",400000],
+  ["Uluwatu",400000],["Tanah Lot",450000],["Padang Bay",500000],["Candidasa",700000],
+  ["Kintamani",700000],["Lovina",800000],["Amed",900000],["Pemuteran",900000],
+];
+// Tours are priced per person in USD: [name, 2pax, 3pax, 4pax+]
+const TOURS = [
+  ["West Nusa Penida Tour",65,55,49],
+  ["East Nusa Penida Tour",69,59,55],
+  ["Nusa Penida Snorkeling",79,75,69],
+  ["Uluwatu Full Day Tour",75,65,59],
+  ["Sekumpul Waterfall Tour",55,49,45],
+  ["North Bali Canyoning",85,75,69],
+  ["Mount Batur Sunrise Trekking",49,45,39],
+];
+const DRIVER_DAY_RATE = 800000; // private driver, per car per day
+
+// ---------- document copy in the three site languages ----------
+const T = {
+  en: {
+    receipt:"Receipt", confirmation:"Booking Confirmation", invoice:"Invoice",
+    no:"No.", date:"Date", billed:"Issued to", service:"Service details",
+    itinerary:"Itinerary", included:"Included in this booking", charges:"Charges",
+    desc:"Description", qty:"Qty", price:"Unit price", amount:"Amount",
+    subtotal:"Subtotal", total:"Total", received:"Amount received", balance:"Balance due",
+    payment:"Payment", method:"Method", status:"Status", receivedBy:"Received by", paidOn:"Paid on",
+    paid:"Paid", deposit:"Deposit paid", unpaid:"Payment due",
+    guests:"Guests", phone:"WhatsApp", email:"Email", country:"Country",
+    sdate:"Date", stime:"Pickup time", pickup:"Pickup", dropoff:"Drop-off",
+    flight:"Flight", vehicle:"Vehicle", driver:"Driver", driverWa:"Driver WhatsApp",
+    pax:"pax", tagline:"Your trusted travel partner in Bali & Nusa Penida",
+    thanks:"Terima kasih — thank you for travelling with us.",
+    issued:"This document was issued electronically and is valid without a signature.",
+    m:{cash_driver:"Cash paid to driver",cash_office:"Cash",bank:"Bank transfer",paypal:"PayPal",card:"Credit / debit card",pending:"Not yet paid"},
+    defaultNotes:"Prices are agreed at the time of booking and are not affected by later market changes.\nPlease keep this document — your driver may ask to see it on the day.\nAny question about your trip: message us on WhatsApp +62 823-1779-4462.",
+    guestBar:"Your booking receipt from Bali Real Vacation.", download:"Download PDF",
+    waMsg:(n,t)=>`Hello ${n}, thank you for booking with Bali Real Vacation. Here is your ${t} — you can view it and save it as a PDF from this link:`,
+  },
+  id: {
+    receipt:"Kuitansi", confirmation:"Konfirmasi Pemesanan", invoice:"Faktur",
+    no:"No.", date:"Tanggal", billed:"Diterbitkan untuk", service:"Detail Layanan",
+    itinerary:"Itinerary", included:"Termasuk dalam pemesanan", charges:"Rincian Biaya",
+    desc:"Keterangan", qty:"Jml", price:"Harga satuan", amount:"Jumlah",
+    subtotal:"Subtotal", total:"Total", received:"Jumlah diterima", balance:"Sisa pembayaran",
+    payment:"Pembayaran", method:"Metode", status:"Status", receivedBy:"Diterima oleh", paidOn:"Dibayar pada",
+    paid:"Lunas", deposit:"Uang muka dibayar", unpaid:"Belum dibayar",
+    guests:"Tamu", phone:"WhatsApp", email:"Email", country:"Negara",
+    sdate:"Tanggal", stime:"Jam penjemputan", pickup:"Penjemputan", dropoff:"Tujuan",
+    flight:"Penerbangan", vehicle:"Kendaraan", driver:"Sopir", driverWa:"WhatsApp sopir",
+    pax:"orang", tagline:"Mitra perjalanan tepercaya Anda di Bali & Nusa Penida",
+    thanks:"Terima kasih telah bepergian bersama kami.",
+    issued:"Dokumen ini diterbitkan secara elektronik dan sah tanpa tanda tangan.",
+    m:{cash_driver:"Tunai kepada sopir",cash_office:"Tunai",bank:"Transfer bank",paypal:"PayPal",card:"Kartu kredit / debit",pending:"Belum dibayar"},
+    defaultNotes:"Harga disepakati pada saat pemesanan dan tidak terpengaruh perubahan harga pasar setelahnya.\nSimpan dokumen ini — sopir Anda mungkin memintanya pada hari keberangkatan.\nAda pertanyaan? Hubungi kami di WhatsApp +62 823-1779-4462.",
+    guestBar:"Kuitansi pemesanan Anda dari Bali Real Vacation.", download:"Unduh PDF",
+    waMsg:(n,t)=>`Halo ${n}, terima kasih telah memesan bersama Bali Real Vacation. Berikut ${t} Anda — dapat dilihat dan disimpan sebagai PDF melalui tautan ini:`,
+  },
+  zh: {
+    receipt:"收据", confirmation:"预订确认单", invoice:"账单",
+    no:"编号", date:"日期", billed:"客户", service:"服务详情",
+    itinerary:"行程安排", included:"预订包含", charges:"费用明细",
+    desc:"项目", qty:"数量", price:"单价", amount:"金额",
+    subtotal:"小计", total:"合计", received:"已收金额", balance:"应付余额",
+    payment:"付款", method:"付款方式", status:"状态", receivedBy:"收款人", paidOn:"付款日期",
+    paid:"已付清", deposit:"已付定金", unpaid:"待付款",
+    guests:"人数", phone:"WhatsApp", email:"电子邮箱", country:"国家",
+    sdate:"日期", stime:"接送时间", pickup:"接送地点", dropoff:"目的地",
+    flight:"航班", vehicle:"车辆", driver:"司机", driverWa:"司机 WhatsApp",
+    pax:"人", tagline:"您在巴厘岛和努沙佩尼达值得信赖的旅行伙伴",
+    thanks:"感谢您选择我们的旅程。",
+    issued:"本文件以电子方式出具，无需签字即有效。",
+    m:{cash_driver:"现金支付给司机",cash_office:"现金",bank:"银行转账",paypal:"PayPal",card:"信用卡 / 借记卡",pending:"尚未付款"},
+    defaultNotes:"价格以预订当时确认为准，不受此后市场价格变动影响。\n请保留本文件 — 出行当天司机可能会查看。\n如有疑问，请通过 WhatsApp +62 823-1779-4462 联系我们。",
+    guestBar:"这是您在 Bali Real Vacation 的预订收据。", download:"下载 PDF",
+    waMsg:(n,t)=>`您好 ${n}，感谢您在 Bali Real Vacation 预订。这是您的${t} — 可通过此链接查看并保存为 PDF：`,
+  },
+};
+
+// ---------- helpers ----------
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+  ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const todayISO = () => { const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); };
+
+function money(n, cur) {
+  const v = Number(n) || 0;
+  if (cur === "IDR") return "Rp " + new Intl.NumberFormat("id-ID",{maximumFractionDigits:0}).format(Math.round(v));
+  const sym = cur === "AUD" ? "A$" : "$";
+  return sym + new Intl.NumberFormat("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}).format(v);
+}
+function longDate(iso, lang) {
+  if (!iso) return "—";
+  const d = new Date(iso + "T00:00:00");
+  if (isNaN(d)) return iso;
+  const loc = lang === "id" ? "id-ID" : lang === "zh" ? "zh-CN" : "en-GB";
+  return d.toLocaleDateString(loc, { day:"numeric", month:"long", year:"numeric" });
+}
+function nextDocNo() {
+  const day = todayISO().replace(/-/g,"");
+  const key = "brv_docno_" + day;
+  const n = (parseInt(localStorage.getItem(key) || "0", 10) || 0) + 1;
+  try { localStorage.setItem(key, String(n)); } catch (e) {}
+  return "BRV-" + day + "-" + String(n).padStart(3,"0");
+}
+// base64url <-> unicode-safe JSON
+function encodeState(o) {
+  const bytes = new TextEncoder().encode(JSON.stringify(o));
+  let bin = ""; bytes.forEach((b) => { bin += String.fromCharCode(b); });
+  return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+}
+function decodeState(s) {
+  const b64 = s.replace(/-/g,"+").replace(/_/g,"/");
+  const bin = atob(b64 + "=".repeat((4 - (b64.length % 4)) % 4));
+  const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+  return JSON.parse(new TextDecoder().decode(bytes));
+}
+
+// ---------- state ----------
+function blankState() {
+  return {
+    v: 1, type: "receipt", lang: "en", cur: "IDR",
+    no: nextDocNo(), issued: todayISO(),
+    guest: { name:"", wa:"", email:"", country:"", pax:2 },
+    svc: { title:"", date:"", time:"", pickup:"", dropoff:"", flight:"", vehicle:"", driver:"Ketut", driverWa:"+62 823-1779-4462" },
+    itin: [],
+    incl: "",
+    items: [{ desc:"", qty:1, price:0 }],
+    pay: { status:"paid", method:"cash_driver", paid:0, receivedBy:"Ketut (driver)" },
+    notes: T.en.defaultNotes,
+  };
+}
+let S = blankState();
+
+// The notes block is boilerplate until the operator edits it. Comparing against
+// every language's default lets a language switch keep swapping it, while a note
+// the operator actually wrote is never overwritten.
+function notesAreBoilerplate() {
+  return !S.notes || Object.keys(T).some((k) => T[k].defaultNotes === S.notes);
+}
+
+// ---------- editor -> state ----------
+const FIELD_MAP = {
+  "f-type":["type"], "f-lang":["lang"], "f-no":["no"], "f-issued":["issued"], "f-cur":["cur"],
+  "f-guest-name":["guest","name"], "f-guest-wa":["guest","wa"], "f-guest-email":["guest","email"],
+  "f-guest-country":["guest","country"], "f-guest-pax":["guest","pax"],
+  "f-svc-title":["svc","title"], "f-svc-date":["svc","date"], "f-svc-time":["svc","time"],
+  "f-svc-pickup":["svc","pickup"], "f-svc-dropoff":["svc","dropoff"], "f-svc-flight":["svc","flight"],
+  "f-svc-vehicle":["svc","vehicle"], "f-svc-driver":["svc","driver"], "f-svc-driver-wa":["svc","driverWa"],
+  "f-incl":["incl"],
+  "f-pay-status":["pay","status"], "f-pay-method":["pay","method"],
+  "f-pay-paid":["pay","paid"], "f-pay-received-by":["pay","receivedBy"],
+  "f-notes":["notes"],
+};
+function readFields() {
+  Object.entries(FIELD_MAP).forEach(([id, path]) => {
+    const el = $(id); if (!el) return;
+    let val = el.value;
+    if (el.type === "number") val = val === "" ? "" : Number(val);
+    if (path.length === 1) S[path[0]] = val; else S[path[0]][path[1]] = val;
+  });
+  S.itin = [...document.querySelectorAll("#itin-rows .repeat-row")].map((r) => ({
+    time: r.querySelector(".i-time").value,
+    act:  r.querySelector(".i-act").value,
+    note: r.querySelector(".i-note").value,
+  })).filter((r) => r.time || r.act || r.note);
+  S.items = [...document.querySelectorAll("#item-rows .repeat-row")].map((r) => ({
+    desc:  r.querySelector(".it-desc").value,
+    qty:   Number(r.querySelector(".it-qty").value) || 0,
+    price: Number(r.querySelector(".it-price").value) || 0,
+  }));
+}
+function writeFields() {
+  Object.entries(FIELD_MAP).forEach(([id, path]) => {
+    const el = $(id); if (!el) return;
+    el.value = path.length === 1 ? (S[path[0]] ?? "") : (S[path[0]][path[1]] ?? "");
+  });
+  $("itin-rows").innerHTML = "";
+  (S.itin.length ? S.itin : []).forEach(addItinRow);
+  $("item-rows").innerHTML = "";
+  (S.items.length ? S.items : [{ desc:"", qty:1, price:0 }]).forEach(addItemRow);
+}
+
+function addItinRow(v) {
+  v = v || { time:"", act:"", note:"" };
+  const d = document.createElement("div");
+  d.className = "repeat-row";
+  d.innerHTML =
+    '<input class="i-time t" type="text" placeholder="08:00" value="' + esc(v.time) + '">' +
+    '<div class="grow" style="display:flex;flex-direction:column;gap:6px">' +
+      '<input class="i-act" type="text" placeholder="Stop / activity" value="' + esc(v.act) + '">' +
+      '<input class="i-note" type="text" placeholder="Note (optional)" value="' + esc(v.note) + '">' +
+    "</div>" +
+    '<button type="button" class="mini-btn danger" title="Remove"><i class="fa-solid fa-trash"></i></button>';
+  d.querySelector("button").addEventListener("click", () => { d.remove(); sync(); });
+  $("itin-rows").appendChild(d);
+}
+function addItemRow(v) {
+  v = v || { desc:"", qty:1, price:0 };
+  const d = document.createElement("div");
+  d.className = "repeat-row";
+  d.innerHTML =
+    '<input class="it-desc grow" type="text" placeholder="Description" value="' + esc(v.desc) + '">' +
+    '<input class="it-qty num" type="number" min="0" step="any" placeholder="Qty" value="' + esc(v.qty) + '">' +
+    '<input class="it-price amt" type="number" min="0" step="any" placeholder="Price" value="' + esc(v.price) + '">' +
+    '<button type="button" class="mini-btn danger" title="Remove"><i class="fa-solid fa-trash"></i></button>';
+  d.querySelector("button").addEventListener("click", () => { d.remove(); sync(); });
+  $("item-rows").appendChild(d);
+}
+
+// ---------- render the document ----------
+function render() {
+  const t = T[S.lang] || T.en;
+  const cur = S.cur;
+  const total = S.items.reduce((s, i) => s + (Number(i.qty)||0) * (Number(i.price)||0), 0);
+  const paid = S.pay.status === "paid" ? total : (Number(S.pay.paid) || 0);
+  const balance = Math.max(0, total - paid);
+
+  document.documentElement.lang = S.lang;
+  $("d-title").textContent = t[S.type] || t.receipt;
+  $("d-no-label").textContent = t.no;
+  $("d-date-label").textContent = t.date;
+  $("d-no").textContent = S.no || "—";
+  $("d-date").textContent = longDate(S.issued, S.lang);
+  $("d-co-tagline").textContent = t.tagline;
+  $("d-billed-label").textContent = t.billed;
+  $("d-service-label").textContent = t.service;
+  $("d-itin-label").textContent = t.itinerary;
+  $("d-incl-label").textContent = t.included;
+  $("d-charges-label").textContent = t.charges;
+  $("d-th-desc").textContent = t.desc;
+  $("d-th-qty").textContent = t.qty;
+  $("d-th-price").textContent = t.price;
+  $("d-th-amount").textContent = t.amount;
+  $("d-subtotal-label").textContent = t.subtotal;
+  $("d-total-label").textContent = t.total;
+  $("d-paid-label").textContent = t.received;
+  $("d-balance-label").textContent = t.balance;
+  $("d-pay-label").textContent = t.payment;
+  $("d-foot-thanks").textContent = t.thanks;
+  $("d-foot-issued").textContent = t.issued;
+  $("guest-bar-text").textContent = t.guestBar;
+  $("guest-bar-btn").textContent = t.download;
+
+  // status pill + stamp
+  const pill = $("d-pill"), stamp = $("d-stamp");
+  pill.className = "pill " + S.pay.status;
+  pill.textContent = t[S.pay.status];
+  stamp.className = "stamp " + S.pay.status;
+  stamp.textContent = t[S.pay.status];
+
+  // guest block
+  const g = S.guest, rows = [];
+  rows.push('<span class="guest-name">' + esc(g.name || "—") + "</span>");
+  if (g.wa)      rows.push('<span class="k">' + t.phone   + '</span><span class="v">' + esc(g.wa) + "</span>");
+  if (g.email)   rows.push('<span class="k">' + t.email   + '</span><span class="v">' + esc(g.email) + "</span>");
+  if (g.country) rows.push('<span class="k">' + t.country + '</span><span class="v">' + esc(g.country) + "</span>");
+  if (g.pax)     rows.push('<span class="k">' + t.guests  + '</span><span class="v">' + esc(g.pax) + " " + t.pax + "</span>");
+  $("d-guest").innerHTML = rows.join("<br>");
+
+  // service block
+  const s = S.svc, sr = [];
+  if (s.title)    sr.push('<span class="guest-name">' + esc(s.title) + "</span>");
+  if (s.date)     sr.push('<span class="k">' + t.sdate    + '</span><span class="v">' + longDate(s.date, S.lang) + "</span>");
+  if (s.time)     sr.push('<span class="k">' + t.stime    + '</span><span class="v">' + esc(s.time) + "</span>");
+  if (s.flight)   sr.push('<span class="k">' + t.flight   + '</span><span class="v">' + esc(s.flight) + "</span>");
+  if (s.pickup)   sr.push('<span class="k">' + t.pickup   + '</span><span class="v">' + esc(s.pickup) + "</span>");
+  if (s.dropoff)  sr.push('<span class="k">' + t.dropoff  + '</span><span class="v">' + esc(s.dropoff) + "</span>");
+  if (s.vehicle)  sr.push('<span class="k">' + t.vehicle  + '</span><span class="v">' + esc(s.vehicle) + "</span>");
+  if (s.driver)   sr.push('<span class="k">' + t.driver   + '</span><span class="v">' + esc(s.driver) + "</span>");
+  if (s.driverWa) sr.push('<span class="k">' + t.driverWa + '</span><span class="v">' + esc(s.driverWa) + "</span>");
+  $("d-service").innerHTML = sr.join("<br>") || "—";
+
+  // itinerary
+  const itin = S.itin.filter((r) => r.time || r.act || r.note);
+  $("d-itin-wrap").style.display = itin.length ? "" : "none";
+  $("d-itin").innerHTML = itin.map((r) =>
+    '<tr><td class="time-col">' + esc(r.time || "") + "</td><td>" + esc(r.act || "") +
+    (r.note ? '<span class="note">' + esc(r.note) + "</span>" : "") + "</td></tr>").join("");
+
+  // inclusions
+  const incl = (S.incl || "").split("\n").map((l) => l.trim()).filter(Boolean);
+  $("d-incl-wrap").style.display = incl.length ? "" : "none";
+  $("d-incl").innerHTML = incl.map((l) =>
+    '<span style="display:block">✓ &nbsp;' + esc(l) + "</span>").join("");
+
+  // charges
+  $("d-items").innerHTML = S.items.filter((i) => i.desc || i.price).map((i) =>
+    "<tr><td>" + esc(i.desc || "—") + '</td><td class="r">' + (Number(i.qty)||0) +
+    '</td><td class="r">' + money(i.price, cur) + '</td><td class="r">' +
+    money((Number(i.qty)||0) * (Number(i.price)||0), cur) + "</td></tr>").join("")
+    || '<tr><td colspan="4" style="color:#999">—</td></tr>';
+
+  $("d-subtotal").textContent = money(total, cur);
+  $("d-total").textContent = money(total, cur);
+  $("d-paid").textContent = money(paid, cur);
+  $("d-balance").textContent = money(balance, cur);
+  $("d-paid-row").style.display = paid > 0 ? "" : "none";
+  $("d-balance-row").style.display = balance > 0 ? "" : "none";
+
+  // payment box
+  const p = [];
+  p.push('<span class="k">' + t.status + '</span><span class="v">' + t[S.pay.status] + "</span>");
+  p.push('<span class="k">' + t.method + '</span><span class="v">' + (t.m[S.pay.method] || "—") + "</span>");
+  if (paid > 0) p.push('<span class="k">' + t.received + '</span><span class="v">' + money(paid, cur) + "</span>");
+  if (S.pay.receivedBy) p.push('<span class="k">' + t.receivedBy + '</span><span class="v">' + esc(S.pay.receivedBy) + "</span>");
+  if (paid > 0 && S.issued) p.push('<span class="k">' + t.paidOn + '</span><span class="v">' + longDate(S.issued, S.lang) + "</span>");
+  $("d-pay").innerHTML = p.join("<br>");
+
+  $("d-notes").textContent = S.notes || "";
+}
+
+function sync() { readFields(); render(); saveDraft(); }
+
+// ---------- persistence ----------
+const DRAFT_KEY = "brv_receipt_draft";
+const LIST_KEY  = "brv_receipts";
+function saveDraft() { try { localStorage.setItem(DRAFT_KEY, JSON.stringify(S)); } catch (e) {} }
+function loadList()  { try { return JSON.parse(localStorage.getItem(LIST_KEY) || "[]"); } catch (e) { return []; } }
+function writeList(l){ try { localStorage.setItem(LIST_KEY, JSON.stringify(l)); } catch (e) {} }
+function flash(msg)  { const el = $("status-msg"); el.textContent = msg; clearTimeout(flash._t); flash._t = setTimeout(() => { el.textContent = ""; }, 3500); }
+
+function saveBooking() {
+  readFields();
+  if (!S.guest.name) { flash("Add a guest name before saving."); return; }
+  const list = loadList();
+  const i = list.findIndex((b) => b.no === S.no);
+  const entry = { no: S.no, name: S.guest.name, svc: S.svc.title, date: S.svc.date || S.issued, saved: Date.now(), data: S };
+  if (i >= 0) list[i] = entry; else list.unshift(entry);
+  writeList(list.slice(0, 60));
+  renderList();
+  flash("Saved " + S.no + " to this device.");
+}
+function renderList() {
+  const list = loadList(), ul = $("saved-list");
+  if (!list.length) { ul.innerHTML = '<li class="saved-empty">No saved bookings yet.</li>'; return; }
+  ul.innerHTML = "";
+  list.forEach((b, idx) => {
+    const li = document.createElement("li");
+    li.innerHTML =
+      '<span class="s-main"><span class="s-name">' + esc(b.name) + '</span>' +
+      '<span class="s-meta">' + esc(b.no) + (b.svc ? " · " + esc(b.svc) : "") + "</span></span>" +
+      '<button class="mini-btn" data-a="load" title="Open">Open</button>' +
+      '<button class="mini-btn danger" data-a="del" title="Delete"><i class="fa-solid fa-trash"></i></button>';
+    li.querySelector('[data-a="load"]').addEventListener("click", () => {
+      S = b.data; writeFields(); render(); saveDraft(); flash("Loaded " + b.no + ".");
+    });
+    li.querySelector('[data-a="del"]').addEventListener("click", () => {
+      const l = loadList(); l.splice(idx, 1); writeList(l); renderList();
+    });
+    ul.appendChild(li);
+  });
+}
+
+// ---------- sharing ----------
+// The link carries the entire booking, so strip anything the other side can
+// rebuild by itself: empty fields, and boilerplate notes the operator left alone.
+function prune(o) {
+  const out = {};
+  Object.keys(o).forEach((k) => {
+    const v = o[k];
+    if (v === "" || v === null || v === undefined) return;
+    if (Array.isArray(v)) { if (v.length) out[k] = v; return; }
+    if (typeof v === "object") { out[k] = prune(v); return; }
+    out[k] = v;
+  });
+  return out;
+}
+function packState() {
+  const c = JSON.parse(JSON.stringify(S));
+  if (notesAreBoilerplate()) delete c.notes;
+  return prune(c);
+}
+function unpackState(o) {
+  const s = blankState();
+  const nested = ["guest", "svc", "pay"];
+  Object.keys(o).forEach((k) => { if (nested.indexOf(k) < 0) s[k] = o[k]; });
+  nested.forEach((k) => { if (o[k]) Object.assign(s[k], o[k]); });
+  if (!o.itin) s.itin = [];
+  if (o.notes === undefined) s.notes = (T[s.lang] || T.en).defaultNotes;
+  return s;
+}
+function guestLink() {
+  readFields();
+  return location.origin + location.pathname + "#d=" + encodeState(packState());
+}
+async function copyLink() {
+  const url = guestLink();
+  try {
+    await navigator.clipboard.writeText(url);
+    flash("Guest link copied — paste it into WhatsApp.");
+  } catch (e) {
+    window.prompt("Copy this link and send it to your guest:", url);
+  }
+}
+function sendWhatsApp() {
+  readFields();
+  const t = T[S.lang] || T.en;
+  const digits = (S.guest.wa || "").replace(/[^\d]/g, "");
+  const docName = (t[S.type] || t.receipt).toLowerCase();
+  const text = t.waMsg(S.guest.name || "", docName) + "\n" + guestLink();
+  const base = digits ? "https://wa.me/" + digits : "https://wa.me/";
+  window.open(base + "?text=" + encodeURIComponent(text), "_blank");
+}
+
+// ---------- quick-fill presets ----------
+function buildPresets() {
+  const sel = $("f-preset");
+  const gt = document.createElement("optgroup"); gt.label = "Airport transfer (per car, IDR)";
+  TRANSFERS.forEach(([name, idr]) => {
+    const o = document.createElement("option");
+    o.value = "t|" + name + "|" + idr;
+    o.textContent = "DPS → " + name + " — Rp " + new Intl.NumberFormat("id-ID").format(idr);
+    gt.appendChild(o);
+  });
+  sel.appendChild(gt);
+  const gr = document.createElement("optgroup"); gr.label = "Tours (per person, USD)";
+  TOURS.forEach(([name, p2, p3, p4]) => {
+    const o = document.createElement("option");
+    o.value = "u|" + name + "|" + p2 + "|" + p3 + "|" + p4;
+    o.textContent = name + " — from $" + p4 + " pp";
+    gr.appendChild(o);
+  });
+  sel.appendChild(gr);
+  const gd = document.createElement("optgroup"); gd.label = "Private driver";
+  const o = document.createElement("option");
+  o.value = "d|Private Driver Tour (full day)|" + DRIVER_DAY_RATE;
+  o.textContent = "Full-day private driver — Rp " + new Intl.NumberFormat("id-ID").format(DRIVER_DAY_RATE);
+  gd.appendChild(o); sel.appendChild(gd);
+
+  sel.addEventListener("change", () => {
+    if (!sel.value) return;
+    const parts = sel.value.split("|");
+    const kind = parts[0], name = parts[1];
+    readFields();
+    const pax = Number(S.guest.pax) || 2;
+
+    if (kind === "t") {
+      S.cur = "IDR";
+      S.svc.title = "Airport Transfer — DPS to " + name;
+      S.svc.pickup = S.svc.pickup || "Ngurah Rai International Airport (DPS), Arrivals Hall";
+      S.svc.dropoff = S.svc.dropoff || name;
+      S.items = [{ desc: "Private airport transfer, DPS → " + name + " (up to 4 passengers)", qty: 1, price: Number(parts[2]) }];
+      if (!S.incl) S.incl = "Private air-conditioned car\nEnglish-speaking driver\nFlight monitoring & name-sign meet\nComplimentary cold drinks and bottled water";
+      if (!S.itin.length) S.itin = [
+        { time: "", act: "Driver waits in the arrivals hall with your name sign", note: "Your driver tracks your flight — no charge for delays" },
+        { time: "", act: "Direct private transfer to " + name, note: "" },
+      ];
+    } else if (kind === "u") {
+      S.cur = "USD";
+      const pp = pax >= 4 ? Number(parts[4]) : pax === 3 ? Number(parts[3]) : Number(parts[2]);
+      S.svc.title = name;
+      S.items = [{ desc: name + " — all-inclusive private tour (per person)", qty: pax, price: pp }];
+      if (!S.incl) S.incl = "Private air-conditioned transport\nEnglish-speaking driver-guide\nAll entrance fees\nLunch";
+    } else {
+      S.cur = "IDR";
+      S.svc.title = name;
+      S.items = [{ desc: name + " — private car, fuel and English-speaking driver (per day)", qty: 1, price: Number(parts[2]) }];
+      if (!S.incl) S.incl = "Private air-conditioned car\nFuel\nEnglish-speaking driver-guide for the full day";
+    }
+    if (S.pay.status === "paid") S.pay.paid = S.items.reduce((s, i) => s + i.qty * i.price, 0);
+    writeFields(); render(); saveDraft();
+    sel.value = "";
+  });
+}
+
+// ---------- boot ----------
+function applyLangDefaults() {
+  const t = T[S.lang] || T.en;
+  if (notesAreBoilerplate()) { S.notes = t.defaultNotes; $("f-notes").value = S.notes; }
+}
+
+function initEditor() {
+  buildPresets();
+  Object.keys(FIELD_MAP).forEach((id) => {
+    const el = $(id); if (!el) return;
+    el.addEventListener("input", () => {
+      if (id === "f-lang") { readFields(); applyLangDefaults(); }
+      sync();
+    });
+    el.addEventListener("change", sync);
+  });
+  $("itin-rows").addEventListener("input", sync);
+  $("item-rows").addEventListener("input", sync);
+  $("btn-add-itin").addEventListener("click", () => { addItinRow(); sync(); });
+  $("btn-add-item").addEventListener("click", () => { addItemRow(); sync(); });
+  $("btn-print").addEventListener("click", () => { readFields(); render(); window.print(); });
+  $("btn-copy").addEventListener("click", copyLink);
+  $("btn-wa").addEventListener("click", sendWhatsApp);
+  $("btn-save").addEventListener("click", saveBooking);
+  $("btn-new").addEventListener("click", () => {
+    if (!window.confirm("Start a new blank document? Unsaved changes are lost.")) return;
+    S = blankState();
+    history.replaceState(null, "", location.pathname);
+    document.body.classList.remove("guest-view");
+    writeFields(); render(); saveDraft();
+  });
+  renderList();
+}
+
+(function boot() {
+  const hash = location.hash || "";
+  const m = hash.match(/^#d=(.+)$/);
+  if (m) {
+    try {
+      S = unpackState(decodeState(m[1]));
+      document.body.classList.add("guest-view");
+      writeFields(); render();
+      // Read-only for the guest. To amend a booking, open /booking-receipt.html
+      // with no link fragment and re-open it under "Saved bookings".
+      return;
+    } catch (e) {
+      console.error("This receipt link looks damaged.", e);
+    }
+  }
+  try {
+    const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+    if (draft && draft.v === 1) S = unpackState(draft);
+  } catch (e) {}
+  if (!S.issued) S.issued = todayISO();
+  writeFields(); render(); initEditor();
+})();
+</script>
+</body>
+</html>{% endraw %}

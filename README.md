@@ -34,7 +34,7 @@ balirealvacation/
 ├── _data/
 │   ├── site.js               # Nav links, footer links, contact info
 │   ├── languages.js          # The 3 languages: en / id / zh
-│   └── ui.json               # UI string dictionary (nav, buttons, footer) in all 3 languages
+│   └── ui.json               # UI string dictionary (nav, buttons, footer, price note) in all 3 languages
 │
 ├── _includes/
 │   ├── layouts/base.njk      # Page shell: <head>, hreflang, nav, content, footer, scripts
@@ -59,6 +59,7 @@ balirealvacation/
 │   ├── nusa-penida-guide.njk
 │   ├── bali-destinations-guide.njk
 │   ├── privacy.njk  term.njk  404.njk
+│   ├── booking-receipt.njk   # Internal: receipt / itinerary PDF generator (noindex, EN only)
 │   ├── id/                   # Indonesian translations (mirrors English structure)
 │   │   ├── id.11tydata.json  # Sets lang=id for all files in this folder
 │   │   └── *.njk
@@ -67,7 +68,7 @@ balirealvacation/
 │       └── *.njk
 │
 ├── css/styles.css            # Global stylesheet — design tokens + lang-switcher styles
-├── js/main.js                # Menu, live currency converter, FAQ accordion, reveal, scroll-top
+├── js/main.js                # Menu, currency converter, FAQ accordion, booking + airport WhatsApp forms
 └── src/assets/               # Images (.webp / .jpg) — passed through untouched
 ```
 
@@ -137,6 +138,63 @@ Design tokens at the top of `css/styles.css`:
 --font-heading: 'Plus Jakarta Sans';
 --font-body: 'Inter';
 ```
+
+---
+
+## Booking receipts & itineraries (internal tool)
+
+**`/booking-receipt.html`** — an operator-only page that turns a confirmed booking into a
+branded A4 receipt or itinerary the guest can keep. Built for the common case: a booking
+comes in over WhatsApp, the guest pays cash to the driver, and they still want something
+official.
+
+It is `noindex, nofollow` and blocked in `robots.txt`, and it is deliberately not in the
+nav — bookmark the URL. There is no login, so treat the URL as internal.
+
+### Issuing a receipt
+
+1. Open `/booking-receipt.html`.
+2. Pick a service from **Quick fill** — every airport-transfer destination and every tour
+   is pre-loaded at the price shown on the public pages, so the line items and inclusions
+   fill themselves in. Tours price per person and follow the pax count you entered.
+3. Fill in the guest, pickup and payment details. The document on the right updates as you type.
+4. Set **Status** (paid / deposit / due) and **Method** — "Cash to driver" with
+   *Received by: Ketut (driver)* is the default, and stamps the document **PAID**.
+5. Choose the document **Language** — EN, ID or ZH. Only the document changes; the editor
+   stays in English.
+6. Deliver it:
+   - **Save as PDF** — opens the browser print dialog, already set to A4 with the editor
+     hidden. Choose "Save as PDF" as the destination, then attach the file in WhatsApp.
+   - **Send on WhatsApp** — opens a chat with the guest's number and a ready message
+     containing their receipt link.
+   - **Copy guest link** — the same link, to paste anywhere.
+7. **Save** keeps the booking in this browser so you can reopen and reprint it later.
+
+### How it works
+
+No backend and no libraries. The whole booking is encoded into the link's `#fragment`,
+which browsers never send to the server — so guest details stay out of Netlify's logs and
+out of Analytics. Opening such a link shows a read-only guest view with its own
+**Download PDF** button; the editor is hidden.
+
+Two consequences worth knowing:
+
+- **Anyone holding a link can open that receipt.** The links are unguessable in practice
+  but not secret — send them to the guest, not to a public channel.
+- **Saved bookings live in one browser** (`localStorage`), not in an account. They are per
+  device: bookings saved on the office laptop will not appear on a phone. Clearing browsing
+  data clears them, so keep the PDFs for anything you need to retain.
+
+If you ever want a shared, permanent booking record across devices, the natural next step
+is to store bookings in the Convex deployment already used for reviews and give each
+receipt a short `?id=` link — the document layout would not need to change.
+
+### Keeping prices in step
+
+The Quick-fill price list lives in the `TRANSFERS`, `TOURS` and `DRIVER_DAY_RATE` constants
+at the top of the `<script>` in `pages/booking-receipt.njk`. When you change a public
+price, update it there too — nothing breaks if you forget, you just have to retype the
+amount on the receipt.
 
 ---
 
