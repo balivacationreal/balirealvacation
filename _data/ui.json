@@ -18,5 +18,10 @@
   "rights":          { "en": "All Rights Reserved.", "id": "Hak Cipta Dilindungi.", "zh": "版权所有。" },
   "plan_trip":       { "en": "Plan your trip", "id": "Rencanakan perjalanan", "zh": "规划您的行程" },
   "chat_local":      { "en": "Chat with a local", "id": "Hubungi tim lokal", "zh": "联系当地团队" },
-  "book":            { "en": "Book", "id": "Pesan", "zh": "预订" }
+  "book":            { "en": "Book", "id": "Pesan", "zh": "预订" },
+  "price_note":     {
+    "en": "Please note: our prices may change over time in line with market rates, fuel costs and inflation. The price we confirm for you on WhatsApp is the price you pay — it will not change once your booking is confirmed.",
+    "id": "Harap dicatat: harga kami dapat berubah sewaktu-waktu mengikuti harga pasar, biaya bahan bakar, dan inflasi. Harga yang kami konfirmasi melalui WhatsApp adalah harga yang Anda bayar — tidak akan berubah setelah pemesanan dikonfirmasi.",
+    "zh": "请注意：我们的价格可能会随市场行情、燃油成本和通货膨胀而调整。我们在 WhatsApp 上为您确认的价格即为您支付的价格 — 预订确认后不会再变动。"
+  }
 }
