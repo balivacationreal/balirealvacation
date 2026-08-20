@@ -179,10 +179,20 @@ nav — bookmark the URL. There is no login, so treat the URL as internal.
 
 ### How it works
 
-No backend and no libraries. The whole booking is encoded into the link's `#fragment`,
-which browsers never send to the server — so guest details stay out of Netlify's logs and
-out of Analytics. Opening such a link shows a read-only guest view with its own
-**Download PDF** button; the editor is hidden.
+No backend and no libraries. The whole booking is deflated and encoded into the link's
+`#fragment`, which browsers never send to the server — so guest details stay out of
+Netlify's logs and out of Analytics. Opening such a link shows a read-only guest view
+with its own **Download PDF** button; the editor is hidden.
+
+Links come in two shapes and both keep working: `#z=` is the compressed form every
+current browser produces, `#d=` is the plain fallback and what links issued before
+compression look like. A full booking is around 850 characters — long for a URL, but
+WhatsApp sends it fine. If you want genuinely short links, the fix is to store bookings
+in the Convex deployment already used for reviews and hand out a short `?id=` instead.
+
+The printed sheet is tuned to keep a normal one-service booking on a single A4 page.
+A booking with a long itinerary will run to a second page, which is expected — it breaks
+between sections rather than through them.
 
 Two consequences worth knowing:
 

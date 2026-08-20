@@ -108,10 +108,12 @@ legend{font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-s
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:18px}
 @media (max-width:560px){.grid2{grid-template-columns:1fr;gap:14px}}
 .block h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:7px}
-.kv{font-size:.83rem;line-height:1.75}
-.kv .r{display:block}
-.kv .k{color:var(--muted);display:inline-block;min-width:96px;padding-right:12px}
-.kv .v{font-weight:600}
+.kv{font-size:.83rem;line-height:1.7}
+/* Flex rows give each line a hanging indent, so a long value — a full airport
+   address, say — wraps under itself instead of back beneath its own label. */
+.kv .r,.pay-line .r{display:flex;gap:12px;align-items:baseline}
+.kv .k,.pay-line .k{color:var(--muted);flex:0 0 auto;min-width:96px}
+.kv .v,.pay-line .v{font-weight:600;min-width:0}
 .kv .guest-name{font-size:1.02rem;font-weight:700;display:block;margin-bottom:6px}
 
 .sec-title{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin:22px 0 8px}
@@ -130,10 +132,10 @@ table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px
 .totals tr.grand td{border-top:2px solid var(--primary-color);padding-top:10px;font-size:1.08rem;font-weight:800;color:var(--primary-color)}
 .totals tr.bal td{color:var(--secondary-color);font-weight:800}
 
-.paybox{position:relative;margin-top:18px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 14px;font-size:.82rem;min-height:112px}
+.paybox{position:relative;margin-top:16px;background:var(--bg-light);border:1px solid var(--line);border-left:4px solid var(--aqua);border-radius:8px;padding:12px 165px 12px 14px;font-size:.82rem}
 .paybox h3{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--aqua);margin-bottom:6px}
-.paybox .pay-line{line-height:1.8}
-.paybox .pay-line .k{color:var(--muted);display:inline-block;min-width:130px}
+.paybox .pay-line{line-height:1.7}
+.paybox .pay-line .k{min-width:132px}
 
 .notes{margin-top:16px;font-size:.78rem;color:var(--muted);line-height:1.7;white-space:pre-line}
 .doc-foot{margin-top:22px;padding-top:12px;border-top:1px solid var(--line);font-size:.72rem;color:var(--muted);text-align:center;line-height:1.7}
@@ -144,7 +146,7 @@ table.tbl .note{display:block;color:var(--muted);font-size:.76rem;margin-top:2px
 .stamp{position:absolute;top:50%;right:22px;transform:translateY(-50%) rotate(-11deg);border:3px double #1b7a43;color:#1b7a43;font-family:var(--font-heading);font-weight:800;font-size:1.45rem;letter-spacing:.14em;padding:7px 18px;border-radius:8px;opacity:.5;pointer-events:none;text-transform:uppercase;white-space:nowrap}
 .stamp.unpaid{border-color:#b3261e;color:#b3261e}
 .stamp.deposit{border-color:#a35c00;color:#a35c00}
-@media (max-width:560px){.stamp{display:none}}
+@media (max-width:560px){.stamp{display:none}.paybox{padding-right:14px}}
 
 /* guest view */
 .guest-bar{background:var(--primary-color);color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:.88rem}
@@ -157,14 +159,41 @@ body:not(.guest-view) .guest-bar{display:none}
 /* ---------- print ---------- */
 @media print{
   @page{size:A4;margin:10mm}
+  /* Nearly every size in the document is in rem, which tracks the ROOT font
+     size, not body — so this is the one lever that scales the whole sheet.
+     14/16 buys the headroom a one-service booking needs to stay on one page. */
+  html{font-size:14px}
   body{background:#fff;font-size:12px}
   .topbar,.editor,.guest-bar,.no-print{display:none!important}
   .layout{display:block;padding:0;max-width:none}
-  .doc{width:auto;min-height:0;padding:0;box-shadow:none}
+  /* overflow must go visible: the screen rule clips, and a long booking has to
+     be allowed to fragment onto a second sheet rather than be cut off. */
+  .doc{width:auto;min-height:0;padding:0;box-shadow:none;overflow:visible}
   .doc,.doc *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .stamp{display:block}
+  /* A one-service booking has to land on a single sheet, so the whole
+     document tightens up for print without dropping anything. */
+  .doc-head{padding-bottom:9px}
+  .doc-head .co img{width:46px;height:46px}
+  .doc-title h2{font-size:1.32rem}
+  .doc-title .no{margin-top:4px;line-height:1.55}
+  .pill{margin-top:5px}
+  .co-contact{line-height:1.45}
+  .grid2{margin-top:10px;gap:14px}
+  .block h3{margin-bottom:4px}
+  .kv{line-height:1.5}
+  .kv .guest-name{margin-bottom:3px}
+  .sec-title{margin:10px 0 4px}
+  table.tbl th,table.tbl td{padding:4px 8px}
+  .totals{margin-top:6px}
+  .totals td{padding:3px 8px}
+  .totals tr.grand td{padding-top:7px}
+  .paybox{margin-top:10px;padding:8px 145px 8px 11px}
+  .paybox .pay-line{line-height:1.5}
+  .notes{margin-top:9px;line-height:1.5}
+  .doc-foot{margin-top:11px;padding-top:8px;line-height:1.5}
   table.tbl tr{page-break-inside:avoid}
-  .paybox,.totals{page-break-inside:avoid}
+  .paybox,.totals,.notes,.doc-foot,.grid2{page-break-inside:avoid}
 }
 </style>
 </head>
@@ -518,16 +547,49 @@ function nextDocNo() {
   try { localStorage.setItem(key, String(n)); } catch (e) {}
   return "BRV-" + day + "-" + String(n).padStart(3,"0");
 }
-// base64url <-> unicode-safe JSON
-function encodeState(o) {
-  const bytes = new TextEncoder().encode(JSON.stringify(o));
+// ---------- link payload ----------
+// The whole booking rides in the URL, so it is deflated before base64. Booking
+// JSON is repetitive text and compresses to roughly a third. The result is
+// tagged so both shapes stay readable forever:
+//   #z=…  deflated  (what every current browser produces)
+//   #d=…  plain     (fallback, and every link issued before compression landed)
+function b64url(bytes) {
   let bin = ""; bytes.forEach((b) => { bin += String.fromCharCode(b); });
   return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
 }
-function decodeState(s) {
+function unb64url(s) {
   const b64 = s.replace(/-/g,"+").replace(/_/g,"/");
   const bin = atob(b64 + "=".repeat((4 - (b64.length % 4)) % 4));
-  const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+  return Uint8Array.from(bin, (c) => c.charCodeAt(0));
+}
+async function through(bytes, Ctor) {
+  const s = new Ctor("deflate-raw");
+  const writer = s.writable.getWriter();
+  writer.write(bytes); writer.close();
+  const chunks = []; let len = 0;
+  const reader = s.readable.getReader();
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value); len += value.length;
+  }
+  const out = new Uint8Array(len); let at = 0;
+  chunks.forEach((c) => { out.set(c, at); at += c.length; });
+  return out;
+}
+async function encodeState(o) {
+  const bytes = new TextEncoder().encode(JSON.stringify(o));
+  if (window.CompressionStream) {
+    try {
+      const z = await through(bytes, window.CompressionStream);
+      if (z.length < bytes.length) return "z=" + b64url(z);
+    } catch (e) { /* fall through to the plain form */ }
+  }
+  return "d=" + b64url(bytes);
+}
+async function decodeState(kind, payload) {
+  let bytes = unb64url(payload);
+  if (kind === "z") bytes = await through(bytes, window.DecompressionStream);
   return JSON.parse(new TextDecoder().decode(bytes));
 }
 
@@ -760,7 +822,7 @@ function checkMissing(total, paid, balance) {
     miss.map((m) => "<li>" + esc(m) + "</li>").join("") + "</ul>";
 }
 
-function sync() { readFields(); render(); saveDraft(); }
+function sync() { readFields(); render(); saveDraft(); refreshLink(); }
 
 // ---------- persistence ----------
 const DRAFT_KEY = "brv_receipt_draft";
@@ -830,12 +892,26 @@ function unpackState(o) {
   if (o.notes === undefined) s.notes = (T[s.lang] || T.en).defaultNotes;
   return s;
 }
-function guestLink() {
+async function guestLink() {
   readFields();
-  return location.origin + location.pathname + "#d=" + encodeState(packState());
+  return location.origin + location.pathname + "#" + (await encodeState(packState()));
+}
+
+// Compressing is asynchronous, but a browser only allows a clipboard write or a
+// popup while the click that triggered it is still "live". So the link is
+// rebuilt in the background after every edit and the buttons use that cache,
+// keeping them synchronous. The sequence guard stops a slow earlier build from
+// overwriting a newer one.
+let linkCache = "", linkSeq = 0;
+function refreshLink() {
+  const seq = ++linkSeq;
+  linkCache = "";
+  encodeState(packState())
+    .then((p) => { if (seq === linkSeq) linkCache = location.origin + location.pathname + "#" + p; })
+    .catch(() => {});
 }
 async function copyLink() {
-  const url = guestLink();
+  const url = linkCache || (await guestLink());
   try {
     await navigator.clipboard.writeText(url);
     flash("Guest link copied — paste it into WhatsApp.");
@@ -848,9 +924,18 @@ function sendWhatsApp() {
   const t = T[S.lang] || T.en;
   const digits = (S.guest.wa || "").replace(/[^\d]/g, "");
   const docName = (t[S.type] || t.receipt).toLowerCase();
-  const text = t.waMsg(S.guest.name || "", docName) + "\n" + guestLink();
   const base = digits ? "https://wa.me/" + digits : "https://wa.me/";
-  window.open(base + "?text=" + encodeURIComponent(text), "_blank");
+  const chatUrl = (link) =>
+    base + "?text=" + encodeURIComponent(t.waMsg(S.guest.name || "", docName) + "\n" + link);
+
+  if (linkCache) { window.open(chatUrl(linkCache), "_blank"); return; }
+  // Cache not ready: claim the tab now, while the click still counts, and point
+  // it at WhatsApp once the link finishes building.
+  const win = window.open("", "_blank");
+  guestLink().then((link) => {
+    if (win) win.location = chatUrl(link);
+    else window.open(chatUrl(link), "_blank");
+  });
 }
 
 // ---------- quick-fill presets ----------
@@ -948,12 +1033,21 @@ function initEditor() {
   renderList();
 }
 
-(function boot() {
-  const hash = location.hash || "";
-  const m = hash.match(/^#d=(.+)$/);
+function startEditor() {
+  try {
+    const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
+    if (draft && draft.v === 1) S = unpackState(draft);
+  } catch (e) {}
+  if (!S.issued) S.issued = todayISO();
+  writeFields(); render(); initEditor(); refreshLink();
+}
+
+(async function boot() {
+  // "z" is deflated, "d" is the plain form older links use — both still open.
+  const m = (location.hash || "").match(/^#([dz])=(.+)$/);
   if (m) {
     try {
-      S = unpackState(decodeState(m[1]));
+      S = unpackState(await decodeState(m[1], m[2]));
       document.body.classList.add("guest-view");
       writeFields(); render();
       // Read-only for the guest. To amend a booking, open /booking-receipt.html
@@ -963,12 +1057,7 @@ function initEditor() {
       console.error("This receipt link looks damaged.", e);
     }
   }
-  try {
-    const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null");
-    if (draft && draft.v === 1) S = unpackState(draft);
-  } catch (e) {}
-  if (!S.issued) S.issued = todayISO();
-  writeFields(); render(); initEditor();
+  startEditor();
 })();
 </script>
 </body>
