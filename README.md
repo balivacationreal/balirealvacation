@@ -200,15 +200,20 @@ booking reuses the same id, so a link you already sent a guest keeps working and
 the correction. Nothing is published until the booking has a guest name and a priced
 line, so half-started drafts never reach the database.
 
-**If Convex cannot be reached** the tool silently falls back to the old self-contained
-link, which carries the whole booking, deflated, in the URL fragment (`#z=…`, about 850
-characters; `#d=…` is the uncompressed form older links use). Those still open, so no
-link you have ever sent goes dead. That fallback is also why the page keeps working if
-the database is ever unavailable.
+**The page never renders a booking supplied by the URL.** An earlier version could:
+it accepted a `#z=…` link that carried the whole booking in the address bar, as an
+offline fallback. That meant anyone could edit one into a convincing fake receipt —
+on our own domain, with our logo — without touching the database at all. Those links
+are retired; opening one now says the format is no longer supported. The only thing
+the page will display is a document it fetched back from our own store.
 
-Opening either kind of link shows a read-only guest view with its own **Download PDF**
-button; the editor is hidden. A link to a booking that no longer exists shows the guest
-a short explanation and your WhatsApp number, rather than an empty receipt.
+The trade-off is deliberate: if Convex is unreachable, no receipt can be issued. The
+editor still works and you can still print a PDF, but there is no shareable link until
+the connection is back. The panel at the top of the editor says which state you are in.
+
+Opening a `?r=` link shows a read-only guest view with its own **Download PDF** button;
+the editor is hidden. A link to a booking that no longer exists shows the guest a short
+explanation and your WhatsApp number, rather than an empty receipt.
 
 The printed sheet is tuned to keep a normal one-service booking on a single A4 page.
 A booking with a long itinerary will run to a second page, which is expected — it breaks
@@ -221,10 +226,15 @@ Things worth knowing:
 - **Guest details now live in your Convex database**, where they did not before. The id
   also travels in the query string, so it appears in Netlify and Analytics logs (the
   booking itself does not).
-- **Issuing is open by default.** Anyone who knows your Convex URL could in principle
-  write a receipt row. To lock it down, set a `RECEIPT_KEY` environment variable in the
-  Convex dashboard and paste the same value into **Issuer key** at the bottom of the
-  editor. Reading stays public — that is what makes a guest link work.
+- **Issuing needs the key.** `RECEIPT_KEY` is set as an environment variable in the
+  Convex dashboard, and the same value goes into **Issuer key** at the bottom of the
+  editor, once per browser you issue from. Without it, saving and listing are refused,
+  so the tool cannot produce a guest link at all. Reading stays public — that is what
+  makes a guest link work for someone who has no key.
+- **The page is still public**, and always will be: anyone who finds the URL can open
+  the editor, type into it and print a PDF from their own browser. That is unavoidable
+  for a web page and mostly harmless. What they cannot do is produce a link on this
+  domain, because a link only exists once the booking is in our database.
 - **Saved bookings** still live in this browser (`localStorage`) for speed, but
   **Fetch bookings issued on other devices** pulls the list out of Convex, so a booking
   made on the laptop can be reopened and reprinted from a phone.

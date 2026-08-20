@@ -74,6 +74,11 @@ legend{font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-s
 .warn{margin:14px 0 0;padding:11px 13px;background:#fff8e6;border:1px solid #f2d99a;border-left:4px solid #e0a020;border-radius:8px;font-size:.79rem;line-height:1.6;color:#7a5300}
 .warn b{display:block;margin-bottom:3px;font-family:var(--font-heading)}
 .warn ul{margin:0;padding-left:18px}
+.linkbar{margin:0 0 16px;padding:8px 11px;border-radius:8px;font-size:.78rem;font-weight:600;line-height:1.45}
+.linkbar.idle{background:var(--sand-2);color:var(--muted)}
+.linkbar.publishing{background:#eef6fb;color:var(--primary-color)}
+.linkbar.ready{background:#e6f7ec;color:#1b7a43}
+.linkbar.failed{background:#fdecea;color:#b3261e}
 .status-msg{font-size:.8rem;color:var(--aqua);font-weight:600;min-height:18px;margin-top:6px}
 
 .saved-list{list-style:none;margin:8px 0 0;padding:0;max-height:200px;overflow-y:auto}
@@ -227,7 +232,8 @@ body:not(.guest-view) .guest-bar{display:none}
   <!-- ============ EDITOR (operator only, never printed) ============ -->
   <aside class="editor" id="editor">
     <h2>Booking details</h2>
-    <p class="hint">Fill this in and the document on the right updates live. Nothing is uploaded — the receipt travels inside the link you share.</p>
+    <p class="hint">Fill this in and the document on the right updates live. The booking is saved to our own store, and the guest link points at it.</p>
+    <div class="linkbar idle" id="link-status"></div>
 
     <fieldset>
       <legend>Document</legend>
@@ -560,51 +566,6 @@ function nextDocNo() {
   const n = (parseInt(localStorage.getItem(key) || "0", 10) || 0) + 1;
   try { localStorage.setItem(key, String(n)); } catch (e) {}
   return "BRV-" + day + "-" + String(n).padStart(3,"0");
-}
-// ---------- link payload ----------
-// The whole booking rides in the URL, so it is deflated before base64. Booking
-// JSON is repetitive text and compresses to roughly a third. The result is
-// tagged so both shapes stay readable forever:
-//   #z=…  deflated  (what every current browser produces)
-//   #d=…  plain     (fallback, and every link issued before compression landed)
-function b64url(bytes) {
-  let bin = ""; bytes.forEach((b) => { bin += String.fromCharCode(b); });
-  return btoa(bin).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
-}
-function unb64url(s) {
-  const b64 = s.replace(/-/g,"+").replace(/_/g,"/");
-  const bin = atob(b64 + "=".repeat((4 - (b64.length % 4)) % 4));
-  return Uint8Array.from(bin, (c) => c.charCodeAt(0));
-}
-async function through(bytes, Ctor) {
-  const s = new Ctor("deflate-raw");
-  const writer = s.writable.getWriter();
-  writer.write(bytes); writer.close();
-  const chunks = []; let len = 0;
-  const reader = s.readable.getReader();
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value); len += value.length;
-  }
-  const out = new Uint8Array(len); let at = 0;
-  chunks.forEach((c) => { out.set(c, at); at += c.length; });
-  return out;
-}
-async function encodeState(o) {
-  const bytes = new TextEncoder().encode(JSON.stringify(o));
-  if (window.CompressionStream) {
-    try {
-      const z = await through(bytes, window.CompressionStream);
-      if (z.length < bytes.length) return "z=" + b64url(z);
-    } catch (e) { /* fall through to the plain form */ }
-  }
-  return "d=" + b64url(bytes);
-}
-async function decodeState(kind, payload) {
-  let bytes = unb64url(payload);
-  if (kind === "z") bytes = await through(bytes, window.DecompressionStream);
-  return JSON.parse(new TextDecoder().decode(bytes));
 }
 
 // ---------- state ----------
@@ -1000,6 +961,7 @@ function looksReal() {
 async function publishNow() {
   if (!looksReal()) return;
   const seq = linkSeq;
+  setLinkState("publishing");
   try {
     const out = await convexCall("mutation", "receipts:save", {
       rid: S.rid || undefined,
@@ -1012,16 +974,24 @@ async function publishNow() {
       S.rid = out.rid;
       linkCache = location.origin + location.pathname + "?r=" + out.rid;
       saveDraft();
+      setLinkState("ready");
     }
   } catch (e) {
-    // Long link stays in place; nothing to tell the operator.
-    console.warn("Short link unavailable, using the self-contained link.", e);
+    // No fallback link exists any more, so this has to be said out loud.
+    if (seq === linkSeq) setLinkState("failed", e && e.message ? e.message : String(e));
+    console.warn("Could not publish this booking.", e);
   }
 }
 
+// Resolves to the short ?r= link, publishing first if that has not happened
+// yet. There is deliberately no offline form: a link that carries the booking
+// in the URL can be edited into a convincing fake on our own domain, so the
+// page only ever renders a document it fetched back from our own store.
 async function guestLink() {
   readFields();
-  return location.origin + location.pathname + "#" + (await encodeState(packState()));
+  if (!linkCache) await publishNow();
+  if (!linkCache) throw new Error("This booking could not be published yet.");
+  return linkCache;
 }
 
 // Compressing is asynchronous, but a browser only allows a clipboard write or a
@@ -1030,16 +1000,20 @@ async function guestLink() {
 // keeping them synchronous. The sequence guard stops a slow earlier build from
 // overwriting a newer one.
 let linkCache = "", linkSeq = 0;
+// Every edit invalidates the current link; a new one arrives once publishing
+// catches up. linkSeq means a slow earlier publish cannot overwrite a newer one.
 function refreshLink() {
-  const seq = ++linkSeq;
+  linkSeq++;
   linkCache = "";
-  schedulePublish();   // a short link for this edit follows once typing settles
-  encodeState(packState())
-    .then((p) => { if (seq === linkSeq) linkCache = location.origin + location.pathname + "#" + p; })
-    .catch(() => {});
+  setLinkState(looksReal() ? "publishing" : "idle");
+  schedulePublish();
 }
 async function copyLink() {
-  const url = linkCache || (await guestLink());
+  let url = linkCache;
+  if (!url) {
+    try { url = await guestLink(); }
+    catch (e) { flash("No guest link yet — see the note at the top of this panel."); return; }
+  }
   try {
     await navigator.clipboard.writeText(url);
     flash("Guest link copied — paste it into WhatsApp.");
@@ -1057,13 +1031,36 @@ function sendWhatsApp() {
     base + "?text=" + encodeURIComponent(t.waMsg(S.guest.name || "", docName) + "\n" + link);
 
   if (linkCache) { window.open(chatUrl(linkCache), "_blank"); return; }
-  // Cache not ready: claim the tab now, while the click still counts, and point
-  // it at WhatsApp once the link finishes building.
+  // Not published yet: claim the tab now, while the click still counts, and
+  // point it at WhatsApp once the booking has a link.
   const win = window.open("", "_blank");
-  guestLink().then((link) => {
-    if (win) win.location = chatUrl(link);
-    else window.open(chatUrl(link), "_blank");
-  });
+  guestLink().then(
+    (link) => {
+      if (win) win.location = chatUrl(link);
+      else window.open(chatUrl(link), "_blank");
+    },
+    () => {
+      if (win) win.close();
+      flash("No guest link yet — see the note at the top of this panel.");
+    },
+  );
+}
+
+// The operator has to know whether this booking is shareable yet, because when
+// publishing fails there is no longer any link to fall back on.
+function setLinkState(state, detail) {
+  const el = $("link-status");
+  if (!el) return;
+  const text = {
+    idle: "Add a guest name and a priced line to get a shareable link.",
+    publishing: "Preparing the guest link…",
+    ready: "Guest link ready — Copy or Send on WhatsApp.",
+    failed: "Not shareable: could not reach the booking store." +
+            (issuerKey() ? "" : " No issuer key is set on this device."),
+  }[state] || "";
+  el.className = "linkbar " + state;
+  el.textContent = text;
+  el.title = detail || "";
 }
 
 // ---------- quick-fill presets ----------
@@ -1221,19 +1218,13 @@ function startEditor() {
       return;
     }
   }
-  // "z" is deflated, "d" is the plain form older links use — both still open.
-  const m = (location.hash || "").match(/^#([dz])=(.+)$/);
-  if (m) {
-    try {
-      S = unpackState(await decodeState(m[1], m[2]));
-      document.body.classList.add("guest-view");
-      writeFields(); render();
-      // Read-only for the guest. To amend a booking, open /booking-receipt.html
-      // with no link fragment and re-open it under "Saved bookings".
-      return;
-    } catch (e) {
-      console.error("This receipt link looks damaged.", e);
-    }
+  // Links that carried the whole booking in the URL (#z= / #d=) are retired.
+  // Rendering them meant anyone could edit one into a convincing fake receipt
+  // on our own domain, so the page now only ever shows a document it fetched
+  // back from our own store.
+  if (/^#[dz]=/.test(location.hash || "")) {
+    showLoadError("This booking link is an old format that is no longer supported.");
+    return;
   }
   startEditor();
 })();
