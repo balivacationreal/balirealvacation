@@ -32,7 +32,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
             "item": {
               "@type": "HealthAndBeautyBusiness",
               "name": "Putu Tina – Personal Massage",
-              "telephone": "+62-812-3757-9113",
+              "telephone": ["+62-812-3757-9113", "+62-813-3376-7010"],
               "areaServed": "Bali, Indonesia"
             }
           },
@@ -42,8 +42,25 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
             "item": {
               "@type": "MedicalBusiness",
               "name": "Sampad Mom and Baby Care",
-              "telephone": "+62-821-4598-0807",
-              "areaServed": "Bali, Indonesia"
+              "telephone": "+62-821-4763-3845",
+              "areaServed": "Bali, Indonesia",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Jalan Danau Tondano IV No. 43B",
+                "addressLocality": "Denpasar",
+                "addressRegion": "Bali",
+                "addressCountry": "ID"
+              },
+              "availableService": [
+                { "@type": "MedicalProcedure", "name": "Sterilization" },
+                { "@type": "MedicalProcedure", "name": "Pregnancy check-up" },
+                { "@type": "MedicalProcedure", "name": "24-hour emergency birth delivery" },
+                { "@type": "MedicalProcedure", "name": "Post-delivery treatment" },
+                { "@type": "MedicalProcedure", "name": "Baby treatment" },
+                { "@type": "MedicalProcedure", "name": "Vaccination / immunisation" },
+                { "@type": "MedicalTest", "name": "Pap smear" },
+                { "@type": "MedicalProcedure", "name": "Counselling" }
+              ]
             }
           },
           {
@@ -143,6 +160,23 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
         }
         .wa-contact-btn:hover { background-color: #1da851; transform: translateY(-2px); }
 
+        /* Partner logo + service chips (Sampad card) */
+        .partner-head { display: flex; align-items: center; gap: 15px; margin-bottom: 14px; }
+        .partner-head h3 { margin-bottom: 2px; }
+        .partner-head .partner-provider { margin-bottom: 0; }
+        .partner-logo { width: 86px; height: auto; flex-shrink: 0; }
+        .partner-meta a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,.13); transition: color .2s ease, border-color .2s ease; }
+        .partner-meta a:hover { color: var(--card-accent, var(--primary-color)); border-bottom-color: currentColor; }
+        .partner-services-title {
+            font-family: var(--font-heading); font-weight: 700; font-size: .74rem;
+            letter-spacing: .6px; text-transform: uppercase; color: #8a949a; margin-bottom: 10px;
+        }
+        .partner-services { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 22px; }
+        .partner-services li {
+            background: var(--bg-light); color: #555; font-size: .8rem; line-height: 1.4;
+            padding: 5px 11px; border-radius: 20px; border: 1px solid rgba(0,0,0,.05);
+        }
+
         /* Become a Partner banner */
         .partner-cta {
             background: linear-gradient(135deg, var(--secondary-color), #e0592c);
@@ -233,7 +267,8 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     <p class="partner-provider">Personal Massage Therapist</p>
                     <ul class="partner-meta">
                         <li><i class="fa-solid fa-location-dot"></i> Bali (in-villa &amp; on-location)</li>
-                        <li><i class="fa-brands fa-whatsapp"></i> +62 812-3757-9113</li>
+                        <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/6281237579113" target="_blank" rel="noopener">+62 812-3757-9113</a></li>
+                        <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/6281333767010" target="_blank" rel="noopener">+62 813-3376-7010</a></li>
                     </ul>
                     <p class="partner-desc">Relaxing personal massage delivered right to your villa or hotel. The perfect way to unwind after a sunrise trek or a full day of island hopping.</p>
                     <a class="wa-contact-btn" target="_blank" rel="noopener"
@@ -258,15 +293,32 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                 <!-- Partner Card: Sampad Mom and Baby Care -->
                 <article class="partner-card" style="--card-accent: var(--cat-health);">
                     <span class="partner-badge"><i class="fa-solid fa-baby"></i> Mom &amp; Baby Care</span>
-                    <h3>Sampad Mom and Baby Care</h3>
-                    <p class="partner-provider">by Ni Komang Sumiati Montgomery</p>
+                    <div class="partner-head">
+                        <img class="partner-logo" src="/src/assets/partners/sampad-logo.webp"
+                             width="231" height="260" loading="lazy" decoding="async" alt="Sampad Mom and Baby Care clinic logo">
+                        <div>
+                            <h3>Sampad Mom and Baby Care</h3>
+                            <p class="partner-provider">by Ni Komang Sumiati Montgomery</p>
+                        </div>
+                    </div>
                     <ul class="partner-meta">
-                        <li><i class="fa-solid fa-location-dot"></i> Bali, Indonesia</li>
-                        <li><i class="fa-brands fa-whatsapp"></i> +62 821-4598-0807</li>
+                        <li><i class="fa-solid fa-location-dot"></i> Jalan Danau Tondano IV No. 43B, Denpasar</li>
+                        <li><i class="fa-brands fa-whatsapp"></i> <a href="https://wa.me/6282147633845" target="_blank" rel="noopener">+62 821-4763-3845</a></li>
                     </ul>
                     <p class="partner-desc">Gentle, professional care for mothers and babies — ideal for families travelling with infants who want reassurance and support away from home.</p>
+                    <p class="partner-services-title">Services</p>
+                    <ul class="partner-services">
+                        <li>Sterilization</li>
+                        <li>Pregnancy check-up</li>
+                        <li>24-hour emergency birth delivery</li>
+                        <li>Post-delivery treatment</li>
+                        <li>Baby treatment</li>
+                        <li>Vaccination &amp; immunisation</li>
+                        <li>Pap smear</li>
+                        <li>Counselling</li>
+                    </ul>
                     <a class="wa-contact-btn" target="_blank" rel="noopener"
-                       href="https://wa.me/6282145980807?text=Hello%20Sampad%20Mom%20%26%20Baby%20Care!%20I%20found%20you%20via%20Bali%20Real%20Vacation%20and%20I'd%20like%20to%20ask%20about%20your%20services.">
+                       href="https://wa.me/6282147633845?text=Hello%20Sampad%20Mom%20%26%20Baby%20Care!%20I%20found%20you%20via%20Bali%20Real%20Vacation%20and%20I'd%20like%20to%20ask%20about%20your%20services.">
                         <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
                     </a>
                 </article>
