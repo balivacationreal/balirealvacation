@@ -55,6 +55,39 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
               "telephone": "+62-877-3722-5519",
               "areaServed": "Nusa Penida, Indonesia"
             }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+              "@type": "Offer",
+              "name": "425 m² beachfront land for lease — Desa Ped, Nusa Penida",
+              "description": "A 425 m² SHM (Hak Milik) freehold plot facing Mount Agung, in front of a crystal-clear beach in Desa Ped, about 4.5 km from the fast-boat harbour. Available on a 10–15 year lease directly from the owner.",
+              "url": "https://balirealvacation.com/local-partners.html#land-for-lease",
+              "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+              "availability": "https://schema.org/InStock",
+              "areaServed": "Nusa Penida, Indonesia",
+              "itemOffered": {
+                "@type": "Accommodation",
+                "name": "Beachfront land plot, Desa Ped",
+                "floorSize": {
+                  "@type": "QuantitativeValue",
+                  "value": 425,
+                  "unitCode": "MTK"
+                },
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Desa Ped, Nusa Penida",
+                  "addressRegion": "Bali",
+                  "addressCountry": "ID"
+                }
+              },
+              "seller": {
+                "@type": "Person",
+                "name": "I Gede Suta Pinatih",
+                "telephone": "+62-812-3915-6586"
+              }
+            }
           }
         ]
       }
@@ -316,6 +349,8 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
              To add a NEW category, copy a whole <section class="category-block">
              and define a new --cat-xxxx color in :root.
              ============================================================ -->
+
+{% endraw %}{% include "partials/land-lease-section.njk" %}{% raw %}
 
         <!-- Become a Partner CTA -->
         <section class="partner-cta reveal">
