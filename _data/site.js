@@ -8,13 +8,17 @@ module.exports = {
   instagram: "https://instagram.com/balirealvacation",
   // Primary navigation. `key` maps to _data/ui.json for translated labels.
   // `href` is prefixed per-language in nav.njk (e.g. /zh + /private-driver-tours.html).
+  // An item with `children` renders as a dropdown; the parent link stays clickable.
   nav: [
     { key: "home",            href: "/#home" },
     { key: "about",           href: "/#about" },
     { key: "packages",        href: "/#packages" },
     { key: "private_driver",  href: "/private-driver-tours.html" },
     { key: "airport_transfer",href: "/airport-transfers.html" },
-    { key: "local_partners",  href: "/local-partners.html" },
+    { key: "local_partners",  href: "/local-partners.html", children: [
+        { key: "local_partners_all", href: "/local-partners.html" },
+        { key: "land_investment",    href: "/land-investment.html" }
+      ] },
     { key: "guides",          href: "/#guides" },
     { key: "contact",         href: "/#contact" }
   ],
@@ -22,6 +26,7 @@ module.exports = {
     { key: "f_private_driver", href: "/private-driver-tours.html" },
     { key: "f_airport",        href: "/airport-transfers.html" },
     { key: "f_local_partners", href: "/local-partners.html" },
+    { key: "f_land",           href: "/land-investment.html" },
     { key: "f_penida_guide",   href: "/nusa-penida-guide.html" },
     { key: "f_bali_guide",     href: "/bali-destinations-guide.html" },
     { key: "f_privacy",        href: "/privacy.html" },

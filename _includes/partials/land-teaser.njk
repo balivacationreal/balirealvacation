@@ -1,0 +1,55 @@
+{# =====================================================================
+   Land & Investment — promo block for the Local Partners page, pointing at
+   the dedicated listings page. Include inside <main class="partners-wrapper">:
+     {% endraw %}{% include "partials/land-teaser.njk" %}{% raw %}
+   Copy lives in _data/landAd.js (landAd.i18n = category-level strings).
+   ===================================================================== #}
+{% if landAd.active and landAd.featured %}
+{%- set t = landAd.i18n[lang] or landAd.i18n.en -%}
+{%- set landUrl = collections.i18nUrl['land-investment_' + lang] or '/land-investment.html' -%}
+{%- set featured = landAd.featured -%}
+{%- set openCount = landAd.openListings.length -%}
+
+<section class="category-block reveal" id="land-investment">
+  <div class="category-head">
+    <span class="cat-icon" style="background-color:#2f8f4e;"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i></span>
+    <h2>{{ t.catTitle }}</h2>
+  </div>
+  <p class="category-sub">{{ t.catSub }}</p>
+
+  <a class="lnd-teaser" href="{{ landUrl }}">
+    <span class="lnd-thumb">
+      <img src="{{ featured.images.satellite }}" width="900" height="1491" loading="lazy" decoding="async" alt="">
+    </span>
+    <span class="lnd-copy">
+      <span class="lnd-count"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+        {%- if openCount == 1 %} {{ t.countOne }}{% else %} {{ t.countMany | replace("{n}", openCount) }}{% endif -%}
+      </span>
+      <span class="lnd-headline">{{ featured.i18n[lang].title or featured.i18n.en.title }}</span>
+      <span class="lnd-text">{{ t.teaser }}</span>
+      <span class="lnd-btn">{{ t.browseCta }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></span>
+    </span>
+  </a>
+</section>
+
+<style>
+  .lnd-teaser{display:grid;grid-template-columns:220px minmax(0,1fr);grid-auto-rows:minmax(210px,auto);gap:0;background:#fff;border:1px solid rgba(0,0,0,.05);border-top:4px solid #2f8f4e;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.05);overflow:hidden;text-decoration:none;color:inherit;transition:transform .3s ease,box-shadow .3s ease}
+  .lnd-teaser:hover{transform:translateY(-6px);box-shadow:0 15px 35px rgba(0,0,0,.1)}
+  .lnd-thumb{position:relative;display:block;overflow:hidden;background:#f3ece0}
+  .lnd-thumb img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 32%}
+  .lnd-copy{display:block;padding:26px 30px}
+  .lnd-count{display:inline-flex;align-items:center;gap:7px;background:rgba(47,143,78,.1);color:#2f8f4e;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;padding:6px 12px;border-radius:20px}
+  .lnd-headline{display:block;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:1.25rem;line-height:1.35;color:var(--text-dark,#1f2a30);margin:14px 0 8px}
+  .lnd-text{display:block;font-size:.95rem;color:#666;line-height:1.65;margin-bottom:18px}
+  .lnd-btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.95rem;color:#2f8f4e}
+  .lnd-teaser:hover .lnd-btn i{transform:translateX(4px)}
+  .lnd-btn i{transition:transform .2s ease}
+
+  @media(max-width:768px){
+    .lnd-teaser{grid-template-columns:1fr;grid-auto-rows:auto}
+    .lnd-thumb{height:160px}
+    .lnd-copy{padding:22px 20px}
+    .lnd-headline{font-size:1.1rem}
+  }
+</style>
+{% endif %}

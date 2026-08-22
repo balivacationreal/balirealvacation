@@ -1,0 +1,178 @@
+---
+permalink: "/zh/land-investment.html"
+title: "努沙佩尼达与巴厘岛土地出租 | Bali Real Vacation"
+description: "努沙佩尼达与巴厘岛可租赁的土地，由我们亲自认识的业主直接发布。目前：佩德村 425 平方米 SHM 海边地块，租期 10–15 年。"
+canonical: "https://balirealvacation.com/zh/land-investment.html"
+robots: "index, follow"
+ogTitle: "努沙佩尼达土地出租 — 业主直租"
+ogDescription: "425 平方米 SHM 永久产权地块，正对阿贡火山，位于努沙佩尼达佩德村清澈海滩前方。租期 10–15 年，无中介，无佣金。"
+ogType: "website"
+ogImage: "https://balirealvacation.com/src/assets/land/nusa-penida-land-satellite.webp"
+---
+{% extends "layouts/base.njk" %}
+
+{% block jsonld %}<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "土地与投资 — 努沙佩尼达与巴厘岛",
+      "url": "https://balirealvacation.com/zh/land-investment.html",
+      "description": "努沙佩尼达与巴厘岛可租赁的土地，由业主直接发布。",
+      "isPartOf": {
+        "@type": "TravelAgency",
+        "name": "Bali Real Vacation",
+        "url": "https://balirealvacation.com/"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          {%- for listing in landAd.openListings %}
+          {
+            "@type": "ListItem",
+            "position": {{ loop.index }},
+            "item": {
+              "@type": "Offer",
+              "name": "{{ listing.area }} 平方米 SHM 海边土地出租 — 努沙佩尼达佩德村",
+              "description": "{{ listing.area }} 平方米 SHM（Hak Milik）永久产权地块，正对阿贡火山，位于佩德村清澈海滩前方，距快艇码头约 {{ listing.harbourKm }} 公里。租期 10–15 年，业主直租。",
+              "url": "https://balirealvacation.com/zh/land-investment.html#{{ listing.id }}",
+              "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+              "availability": "https://schema.org/InStock",
+              "areaServed": "Nusa Penida, Indonesia",
+              "itemOffered": {
+                "@type": "Accommodation",
+                "name": "佩德村海边地块",
+                "floorSize": {
+                  "@type": "QuantitativeValue",
+                  "value": {{ listing.area }},
+                  "unitCode": "MTK"
+                },
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Desa Ped, Nusa Penida",
+                  "addressRegion": "Bali",
+                  "addressCountry": "ID"
+                }
+              },
+              "seller": {
+                "@type": "Person",
+                "name": "{{ listing.ownerLegalName }}",
+                "telephone": "{{ listing.whatsappDisplay | replace(' ', '-') }}"
+              }
+            }
+          }{% if not loop.last %},{% endif %}
+          {%- endfor %}
+        ]
+      }
+    }
+    </script>{% endblock %}
+
+{% block headstyle %}{% raw %}<style>
+        /* Page chrome. Nav, footer, floating buttons and .reveal all come from
+           /css/styles.css — only what is specific to this page lives here. */
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary-color, #00557f), #00365a);
+            color: #fff; text-align: center; padding: 70px 20px 60px;
+        }
+        .page-hero h1 { font-size: 2.6rem; margin-bottom: 15px; }
+        .page-hero p { font-size: 1.15rem; max-width: 760px; margin: 0 auto; color: #e0f0ff; }
+        .page-hero .hero-tag {
+            display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px;
+            background: rgba(255,255,255,.14); color: #fff; border-radius: 20px;
+            font-family: var(--font-heading, sans-serif); font-weight: 700;
+            font-size: .74rem; letter-spacing: .6px; text-transform: uppercase;
+            padding: 7px 14px;
+        }
+
+        .land-intro { max-width: 900px; margin: 0 auto; padding: 55px 20px 5px; text-align: center; }
+        .land-intro p { color: #555; font-size: 1.08rem; margin-bottom: 15px; }
+
+        .land-wrapper { max-width: 1200px; margin: 0 auto; padding: 30px 20px 60px; width: 100%; }
+
+        .land-trust {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 22px; margin: 0 auto 46px; max-width: 1000px;
+        }
+        .land-trust div {
+            background: #fff; border: 1px solid rgba(0,0,0,.05); border-radius: 12px;
+            padding: 22px 20px; text-align: center; box-shadow: 0 8px 20px rgba(4,41,62,.05);
+        }
+        .land-trust i { font-size: 1.5rem; color: #2f8f4e; margin-bottom: 10px; }
+        .land-trust b { display: block; font-family: var(--font-heading, sans-serif); margin-bottom: 5px; }
+        .land-trust span { font-size: .9rem; color: #777; line-height: 1.6; }
+
+        .land-cta {
+            background: linear-gradient(135deg, #2f8f4e, #216b39);
+            color: #fff; text-align: center; padding: 55px 40px; margin-top: 60px;
+            border-radius: 15px; box-shadow: 0 15px 35px rgba(47,143,78,.2);
+        }
+        .land-cta h2 { color: #fff; font-size: 2rem; margin-bottom: 15px; }
+        .land-cta p { font-size: 1.08rem; margin: 0 auto 30px; max-width: 680px; color: #eafaf0; }
+        .land-cta .btn-custom {
+            background-color: #fff; color: #216b39; padding: 15px 35px; border-radius: 30px;
+            font-family: var(--font-heading, sans-serif); font-weight: 700; text-decoration: none;
+            display: inline-flex; align-items: center; gap: 10px; transition: all .3s ease;
+        }
+        .land-cta .btn-custom:hover { background-color: var(--primary-color, #00557f); color: #fff; transform: translateY(-3px); }
+
+        .land-disclaimer {
+            max-width: 900px; margin: 34px auto 0; padding: 0 20px;
+            font-size: .86rem; color: #8a949a; line-height: 1.7; text-align: center;
+        }
+
+        @media(max-width: 768px) {
+            .page-hero { padding: 50px 20px 45px; }
+            .page-hero h1 { font-size: 2rem; }
+            .land-cta { padding: 40px 22px; margin-top: 45px; }
+            .land-cta h2 { font-size: 1.6rem; }
+        }
+    </style>{% endraw %}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <span class="hero-tag"><i class="fa-solid fa-seedling" aria-hidden="true"></i> 投资机会</span>
+    <h1>土地与投资</h1>
+    <p>努沙佩尼达与巴厘岛可租赁的土地 — 由我们亲自认识的业主直接发布，让您与产权证书上的本人直接洽谈。</p>
+</section>
+
+<div class="land-intro reveal">
+    <p>我们常年在这些岛上生活，爱上这里的客人常常问同一个问题：<em>还有土地可以租吗？</em>这个页面就是我们的回答。</p>
+    <p>此处的每一块土地都由其合法业主提供。我们不收取佣金，不加价，也不会挡在您与业主之间。</p>
+</div>
+
+<main class="land-wrapper">
+
+    <div class="land-trust reveal">
+        <div>
+            <i class="fa-solid fa-user-check" aria-hidden="true"></i>
+            <b>业主直谈</b>
+            <span>您直接联系产权证书持有人，而非中介。</span>
+        </div>
+        <div>
+            <i class="fa-solid fa-hand-holding-dollar" aria-hidden="true"></i>
+            <b>不收佣金</b>
+            <span>我们以服务的形式发布这些地块，价格就是业主的价格。</span>
+        </div>
+        <div>
+            <i class="fa-solid fa-file-contract" aria-hidden="true"></i>
+            <b>证件可查</b>
+            <span>产权证书与地块图可应要求完整出示。</span>
+        </div>
+    </div>
+
+    {% include "partials/land-listings.njk" %}
+
+    <section class="land-cta reveal">
+        <h2>您有土地要出租吗？</h2>
+        <p>如果您在努沙佩尼达或巴厘岛拥有土地，并希望让已经访问本站的旅客看到，欢迎与我们联系。我们只发布可核实业主身份的地块。</p>
+        <a class="btn-custom" target="_blank" rel="noopener"
+           href="https://wa.me/{{ site.whatsapp }}?text={{ '您好 Bali Real Vacation！我在巴厘岛 / 努沙佩尼达拥有土地，希望发布在你们的「土地与投资」页面。' | urlencode | safe }}">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> 发布您的土地
+        </a>
+    </section>
+
+    <p class="land-disclaimer">
+        Bali Real Vacation 仅以引荐服务的形式发布这些信息。我们不是持牌房地产中介，也不是任何租赁协议的当事方。付款前请务必通过公证人（PPAT）核验产权证书，并寻求独立的法律意见。
+    </p>
+
+</main>
+{% endblock %}

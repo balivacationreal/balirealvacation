@@ -2,13 +2,15 @@
    Land-for-lease advert — homepage welcome pop-up.
    Include near the end of a homepage content block:
      {% endraw %}{% include "partials/land-lease-modal.njk" %}{% raw %}
-   Copy + contact live in _data/landAd.js (set active:false to switch it off).
+   Shows the listing flagged `featured: true` in _data/landAd.js
+   (set active:false there to switch the advert off everywhere).
    Hidden until /js/main.js-independent inline script opens it, so visitors
    with JS disabled — and anyone who already dismissed it — never see it.
    ===================================================================== #}
-{% if landAd.active %}
-{%- set t = landAd.i18n[lang] or landAd.i18n.en -%}
-{%- set detailsUrl = (collections.i18nUrl['local-partners_' + lang] or '/local-partners.html') + landAd.detailsAnchor -%}
+{% if landAd.active and landAd.featured %}
+{%- set listing = landAd.featured -%}
+{%- set t = listing.i18n[lang] or listing.i18n.en -%}
+{%- set detailsUrl = collections.i18nUrl['land-investment_' + lang] or '/land-investment.html' -%}
 
 <div class="lla-overlay" id="lla-overlay" role="dialog" aria-modal="true"
      aria-labelledby="lla-title" aria-describedby="lla-lead" hidden>
@@ -18,8 +20,8 @@
     </button>
 
     <figure class="lla-media">
-      <img src="{{ landAd.images.satellite }}" width="900" height="1491" loading="eager" fetchpriority="low" decoding="async"
-           alt="Satellite view of the 425 m² plot for lease in Desa Ped, Nusa Penida, on the coast road in front of the beach">
+      <img src="{{ listing.images.satellite }}" width="900" height="1491" loading="eager" fetchpriority="low" decoding="async"
+           alt="Satellite view of the {{ listing.area }} m² plot for lease in Desa Ped, Nusa Penida, on the coast road in front of the beach">
     </figure>
 
     <div class="lla-body">
@@ -37,9 +39,9 @@
 
       <div class="lla-actions">
         <a class="lla-btn lla-btn-wa" target="_blank" rel="noopener"
-           href="https://wa.me/{{ landAd.whatsapp }}?text={{ t.waText | urlencode | safe }}">
+           href="https://wa.me/{{ listing.whatsapp }}?text={{ t.waText | urlencode | safe }}">
           <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-          {{ t.cta }} · {{ landAd.whatsappDisplay }}
+          {{ t.cta }} · {{ listing.whatsappDisplay }}
         </a>
         <a class="lla-btn lla-btn-ghost" href="{{ detailsUrl }}">{{ t.details }} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
       </div>

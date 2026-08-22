@@ -1,3 +1,12 @@
+{# Resolves a nav href to the current language, keeping any #anchor.
+   Falls back to the raw href when this page has no translation. #}
+{%- macro navHref(raw, urls, lang) -%}
+{%- set parts = raw.split('#') -%}
+{%- set tkey = (parts[0] | replace('/', '') | replace('.html', '')) or 'index' -%}
+{%- set anchor = ('#' + parts[1]) if (parts | length > 1) else '' -%}
+{%- set localized = urls[tkey + '_' + lang] -%}
+{{- (localized + anchor) if localized else raw -}}
+{%- endmacro -%}
 <header>
     <a href="{{ collections.i18nUrl['index_' + lang] or '/' }}" class="logo">
         <img src="/src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation Logo" width="50" height="50">
@@ -9,12 +18,18 @@
     <nav id="navMenu">
         <ul>
             {% for item in site.nav %}
-            {%- set parts = item.href.split('#') -%}
-            {%- set tkey = (parts[0] | replace('/', '') | replace('.html', '')) or 'index' -%}
-            {%- set anchor = ('#' + parts[1]) if (parts | length > 1) else '' -%}
-            {%- set localized = collections.i18nUrl[tkey + '_' + lang] -%}
-            {%- set href = (localized + anchor) if localized else item.href -%}
-            <li><a href="{{ href }}">{{ ui[item.key][lang] or ui[item.key].en }}</a></li>
+            {%- if item.children -%}
+            <li class="nav-has-sub">
+                <a href="{{ navHref(item.href, collections.i18nUrl, lang) }}">{{ ui[item.key][lang] or ui[item.key].en }}<i class="fa-solid fa-chevron-down nav-caret" aria-hidden="true"></i></a>
+                <ul class="sub-menu">
+                    {% for child in item.children %}
+                    <li><a href="{{ navHref(child.href, collections.i18nUrl, lang) }}">{{ ui[child.key][lang] or ui[child.key].en }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {%- else -%}
+            <li><a href="{{ navHref(item.href, collections.i18nUrl, lang) }}">{{ ui[item.key][lang] or ui[item.key].en }}</a></li>
+            {%- endif -%}
             {% endfor %}
         </ul>
         {% include "partials/lang-switcher.njk" %}
