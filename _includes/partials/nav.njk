@@ -7,6 +7,47 @@
 {%- set localized = urls[tkey + '_' + lang] -%}
 {{- (localized + anchor) if localized else raw -}}
 {%- endmacro -%}
+{# Dropdown styling lives here rather than in /css/styles.css on purpose: the
+   stylesheet is cached far longer than the HTML, so shipping them separately
+   leaves visitors with new markup and old CSS — which renders the sub-menu as
+   a flat inline list and overflows the bar. Inline, they can never skew. #}
+<style>
+  nav ul li.nav-has-sub{position:relative}
+  nav ul li.nav-has-sub > a{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+  .nav-caret{font-size:.68em;transition:transform .2s ease}
+  nav ul li.nav-has-sub:hover > a .nav-caret,
+  nav ul li.nav-has-sub:focus-within > a .nav-caret{transform:rotate(180deg)}
+
+  nav ul li.nav-has-sub > ul.sub-menu{
+    display:block; /* overrides the flex row that `nav ul` sets */
+    position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(6px);
+    min-width:210px;margin:0;padding:8px;list-style:none;
+    background:#fff;border:1px solid rgba(4,41,62,.06);border-radius:12px;
+    box-shadow:0 14px 40px rgba(4,41,62,.14);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .18s ease,transform .18s ease;z-index:120
+  }
+  /* Invisible bridge so the pointer can cross the gap to the panel. */
+  nav ul li.nav-has-sub > ul.sub-menu::before{content:"";position:absolute;left:0;right:0;top:-10px;height:10px}
+  nav ul li.nav-has-sub:hover > ul.sub-menu,
+  nav ul li.nav-has-sub:focus-within > ul.sub-menu{
+    opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)
+  }
+  nav ul li.nav-has-sub > ul.sub-menu li a{display:block;padding:10px 14px;border-radius:8px;font-size:.95rem;white-space:nowrap}
+  nav ul li.nav-has-sub > ul.sub-menu li a:hover{background:var(--bg-light,#fbf8f3)}
+
+  @media(max-width:768px){
+    /* No hover on touch: the sub-items sit inline under their parent. */
+    nav ul li.nav-has-sub{display:flex;flex-direction:column;align-items:center}
+    nav ul li.nav-has-sub > ul.sub-menu{
+      position:static;display:flex;flex-direction:column;align-items:center;gap:14px;
+      min-width:0;margin:0;padding:14px 0 0;background:none;border:none;border-radius:0;
+      box-shadow:none;opacity:1;visibility:visible;pointer-events:auto;transform:none
+    }
+    nav ul li.nav-has-sub > ul.sub-menu li a{padding:0;font-size:.92rem;opacity:.85}
+    .nav-caret{display:none}
+  }
+</style>
 <header>
     <a href="{{ collections.i18nUrl['index_' + lang] or '/' }}" class="logo">
         <img src="/src/assets/bali-real-vacation-logo.webp" alt="Bali Real Vacation Logo" width="50" height="50">

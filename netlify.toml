@@ -34,6 +34,21 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# CSS/JS revalidate for the same reason. These filenames are not fingerprinted,
+# so caching them longer than the HTML ships new markup against old styles --
+# which is how the nav dropdown once rendered as a flat, overflowing list.
+# Both files are small and answer with a 304, so the cost is one cheap
+# conditional request per visit.
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # ----- 3. Baseline security headers --------------------------
 [[headers]]
   for = "/*"
