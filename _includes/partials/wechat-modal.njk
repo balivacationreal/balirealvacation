@@ -1,0 +1,196 @@
+{# =====================================================================
+   WeChat contact dialog. Opened by any element with [data-wechat-open]
+   (the floating button on desktop, the sticky bar button on mobile).
+   Details live in _data/site.js -> site.wechat; labels in _data/ui.json.
+
+   WeChat has no wa.me-style handle link, but the official QR encodes a
+   real u.wechat.com URL, so the button below works on a phone and the
+   code covers desktop. Styles are inline on purpose: /css/styles.css is
+   cached far longer than the HTML, so shipping them apart risks new
+   markup landing against old CSS.
+   ===================================================================== #}
+{%- set w = site.wechat -%}
+<div class="wc-overlay" id="wc-overlay" role="dialog" aria-modal="true"
+     aria-labelledby="wc-title" hidden>
+  <div class="wc-card" id="wc-card" role="document" tabindex="-1">
+    <button type="button" class="wc-close" id="wc-close"
+            aria-label="{{ ui.wechat_close[lang] or ui.wechat_close.en }}">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+
+    <span class="wc-badge"><i class="fa-brands fa-weixin" aria-hidden="true"></i> {{ ui.wechat[lang] or ui.wechat.en }}</span>
+    <h2 class="wc-title" id="wc-title">{{ ui.wechat_title[lang] or ui.wechat_title.en }}</h2>
+    <p class="wc-sub">{{ ui.wechat_sub[lang] or ui.wechat_sub.en }}</p>
+
+    <figure class="wc-qr">
+      <img src="{{ w.qr }}" width="442" height="442" loading="lazy" decoding="async"
+           alt="WeChat QR code for {{ w.name }}">
+      <figcaption>{{ w.name }}</figcaption>
+    </figure>
+
+    <a class="wc-open" href="{{ w.link }}" target="_blank" rel="noopener">
+      <i class="fa-brands fa-weixin" aria-hidden="true"></i>
+      {{ ui.wechat_open[lang] or ui.wechat_open.en }}
+    </a>
+
+    <div class="wc-id">
+      <span class="wc-id-label">{{ ui.wechat_id_label[lang] or ui.wechat_id_label.en }}</span>
+      <code id="wc-id-value">{{ w.id }}</code>
+      <button type="button" class="wc-copy" id="wc-copy"
+              data-copy="{{ w.id }}"
+              data-label="{{ ui.wechat_copy[lang] or ui.wechat_copy.en }}"
+              data-done="{{ ui.wechat_copied[lang] or ui.wechat_copied.en }}">
+        {{ ui.wechat_copy[lang] or ui.wechat_copy.en }}
+      </button>
+    </div>
+
+    <p class="wc-hint">{{ ui.wechat_hint[lang] or ui.wechat_hint.en }}</p>
+  </div>
+</div>
+
+<style>
+  .wc-overlay{position:fixed;inset:0;z-index:2100;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(4,41,62,.62);backdrop-filter:blur(4px);opacity:0;transition:opacity .25s ease}
+  .wc-overlay[hidden]{display:none}
+  .wc-overlay.is-open{opacity:1}
+  .wc-card{outline:none;position:relative;width:min(380px,100%);max-height:92vh;overflow-y:auto;background:#fff;border-radius:var(--radius,18px);padding:30px 26px 26px;text-align:center;box-shadow:0 30px 80px rgba(4,41,62,.35);transform:translateY(16px) scale(.98);transition:transform .25s ease}
+  .wc-overlay.is-open .wc-card{transform:none}
+
+  .wc-close{position:absolute;top:12px;right:12px;width:38px;height:38px;border:none;border-radius:50%;background:#f2f4f5;color:var(--text-dark,#1f2a30);font-size:1.05rem;cursor:pointer;transition:background .2s ease,transform .2s ease}
+  .wc-close:hover{background:#e6e9ea;transform:rotate(90deg)}
+  .wc-close:focus-visible{outline:2px solid #07c160;outline-offset:2px}
+
+  .wc-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(7,193,96,.12);color:#07813f;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.72rem;letter-spacing:.6px;text-transform:uppercase;padding:6px 13px;border-radius:20px}
+  .wc-title{font-size:1.3rem;line-height:1.3;color:var(--primary-color,#00557f);margin:13px 0 8px}
+  .wc-sub{font-size:.92rem;color:#5c6b73;line-height:1.6;margin-bottom:18px}
+
+  .wc-qr{margin:0 0 18px}
+  .wc-qr img{display:block;width:210px;height:210px;margin:0 auto;border:1px solid #eceff0;border-radius:12px;padding:8px;background:#fff}
+  .wc-qr figcaption{margin-top:9px;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.9rem;color:var(--text-dark,#1f2a30)}
+
+  .wc-open{display:flex;align-items:center;justify-content:center;gap:10px;background:#07c160;color:#fff;text-decoration:none;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:1rem;padding:13px 20px;border-radius:30px;transition:background .25s ease,transform .2s ease}
+  .wc-open:hover{background:#06a552;transform:translateY(-2px)}
+  .wc-open:focus-visible{outline:2px solid #07813f;outline-offset:2px}
+
+  .wc-id{display:flex;align-items:center;gap:9px;justify-content:center;flex-wrap:wrap;margin:16px 0 0;padding:11px 12px;background:var(--bg-light,#fbf8f3);border-radius:10px}
+  .wc-id-label{font-size:.74rem;letter-spacing:.5px;text-transform:uppercase;color:#8a949a;font-weight:700}
+  .wc-id code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.82rem;color:var(--text-dark,#1f2a30);word-break:break-all}
+  .wc-copy{border:1px solid rgba(0,0,0,.12);background:#fff;border-radius:20px;padding:5px 12px;font-size:.78rem;font-weight:700;cursor:pointer;color:#07813f;transition:background .2s ease}
+  .wc-copy:hover{background:#f2fbf6}
+  .wc-copy:focus-visible{outline:2px solid #07c160;outline-offset:2px}
+
+  .wc-hint{font-size:.8rem;color:#8a949a;line-height:1.6;margin-top:14px}
+
+  /* Trigger buttons -------------------------------------------------- */
+  .wc-float{border:none;cursor:pointer;background-color:#07c160}
+  .mbb-wechat{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:7px;background:#07c160;color:#fff;border:none;cursor:pointer;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.95rem;padding:12px 16px;border-radius:30px}
+  .mbb-wechat i{font-size:1.05rem}
+
+  @media(max-width:768px){
+    .wc-card{padding:26px 20px 22px}
+    .wc-qr img{width:186px;height:186px}
+  }
+  @media(max-width:360px){
+    /* Two buttons plus the label is tight on the smallest phones. */
+    .mobile-book-bar .mbb-label{font-size:.72rem}
+    .mbb-wechat{padding:12px 13px}
+    .mbb-wechat span{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .wc-overlay,.wc-card,.wc-open,.wc-close{transition:none}
+    .wc-card{transform:none}
+  }
+</style>
+
+<script>
+(function () {
+  var overlay = document.getElementById('wc-overlay');
+  if (!overlay) return;
+  var card = document.getElementById('wc-card');
+  var last = null;
+
+  function open(e) {
+    if (e) e.preventDefault();
+    last = document.activeElement;
+    overlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(function () { overlay.classList.add('is-open'); });
+    if (card) card.focus();
+    document.addEventListener('keydown', onKey);
+  }
+  function close() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKey);
+    window.setTimeout(function () { overlay.hidden = true; }, 250);
+    if (last && last.focus) last.focus();
+  }
+  function onKey(e) { if (e.key === 'Escape' || e.key === 'Esc') close(); }
+
+  document.querySelectorAll('[data-wechat-open]').forEach(function (b) {
+    b.addEventListener('click', open);
+  });
+  document.getElementById('wc-close').addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  // Following the link means WeChat is opening — get the dialog out of the way.
+  var openBtn = overlay.querySelector('.wc-open');
+  if (openBtn) openBtn.addEventListener('click', function () { window.setTimeout(close, 400); });
+
+  var copy = document.getElementById('wc-copy');
+  if (copy) {
+    copy.addEventListener('click', function () {
+      var text = copy.getAttribute('data-copy');
+      var settled = false;
+
+      function done(ok) {
+        if (settled) return;
+        settled = true;
+        if (ok) {
+          copy.textContent = copy.getAttribute('data-done');
+          window.setTimeout(function () {
+            copy.textContent = copy.getAttribute('data-label');
+          }, 1800);
+        } else {
+          selectId();   // never claim success we did not get
+        }
+      }
+
+      // Last resort: highlight the ID so it can be copied by hand.
+      function selectId() {
+        var el = document.getElementById('wc-id-value');
+        if (!el || !window.getSelection || !document.createRange) return;
+        var r = document.createRange();
+        r.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(r);
+      }
+
+      function legacy() {
+        // Guard the whole function, not just done(): the clipboard promise can
+        // reject after the timeout already ran this, and a second textarea
+        // select/remove wipes the selection the first pass just made.
+        if (settled) return;
+        var t = document.createElement('textarea');
+        t.value = text;
+        t.setAttribute('readonly', '');
+        t.style.cssText = 'position:absolute;left:-9999px';
+        document.body.appendChild(t);
+        t.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+        document.body.removeChild(t);
+        done(ok);   // execCommand returns false when it is blocked — respect that
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function () { done(true); }, legacy);
+        // Some in-app browsers (WeChat's own included) leave that promise
+        // pending forever rather than rejecting, which would hang the button.
+        window.setTimeout(function () { if (!settled) legacy(); }, 350);
+      } else {
+        legacy();
+      }
+    });
+  }
+})();
+</script>

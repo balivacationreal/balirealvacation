@@ -6,6 +6,15 @@ module.exports = {
   whatsapp: "6282317794462",
   telegram: "+6282317794462",
   instagram: "https://instagram.com/balirealvacation",
+  // WeChat. `link` is the payload decoded from the official QR, so tapping it on
+  // a phone opens WeChat's add-friend screen the way wa.me opens a chat.
+  // `id` is the internal wxid — shown for reference; the QR/link are what work.
+  wechat: {
+    name: "Bali Real Vacation",
+    id: "wxid_tw9j59wb6aeh22",
+    link: "https://u.wechat.com/kP7cvk9Ubhki3cB2hJDrQe0?s=3",
+    qr: "/src/assets/wechat-qr.webp"
+  },
   // Primary navigation. `key` maps to _data/ui.json for translated labels.
   // `href` is prefixed per-language in nav.njk (e.g. /zh + /private-driver-tours.html).
   // An item with `children` renders as a dropdown; the parent link stays clickable.

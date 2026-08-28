@@ -18,6 +18,7 @@
 <div class="floating-buttons">
     <a href="https://t.me/{{ site.telegram }}" class="float-btn tg-btn" target="_blank" title="Contact us on Telegram" aria-label="Contact us on Telegram"><i class="fa-brands fa-telegram"></i></a>
     <a href="https://wa.me/{{ site.whatsapp }}" class="float-btn wa-btn" target="_blank" title="Contact us on WhatsApp" aria-label="Contact us on WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <button type="button" class="float-btn wc-float" data-wechat-open title="{{ ui.wechat_title[lang] or ui.wechat_title.en }}" aria-label="{{ ui.wechat_title[lang] or ui.wechat_title.en }}"><i class="fa-brands fa-weixin"></i></button>
 </div>
 
 <button id="scrollTopBtn" title="Go to top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
@@ -25,5 +26,8 @@
 <!-- Mobile sticky booking bar -->
 <div class="mobile-book-bar">
     <div class="mbb-label">{{ ui.plan_trip[lang] or ui.plan_trip.en }}<b>{{ ui.chat_local[lang] or ui.chat_local.en }}</b></div>
+    <button type="button" class="mbb-wechat" data-wechat-open aria-label="{{ ui.wechat_title[lang] or ui.wechat_title.en }}"><i class="fa-brands fa-weixin"></i><span>{{ ui.wechat[lang] or ui.wechat.en }}</span></button>
     <a href="https://wa.me/{{ site.whatsapp }}" class="mbb-btn" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> {{ ui.book[lang] or ui.book.en }}</a>
 </div>
+
+{% include "partials/wechat-modal.njk" %}
