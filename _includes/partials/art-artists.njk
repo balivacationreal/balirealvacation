@@ -1,0 +1,252 @@
+{# =====================================================================
+   Inspiring Balinese Art — the whole page body, shared by
+   /balinese-art.html and its /id and /zh twins. The language pages carry
+   nothing but front matter and JSON-LD; every string comes from _data/art.js,
+   so a new artist is added there once and appears in all three languages.
+
+   Usage, inside {% block content %}:
+     {% include "partials/art-artists.njk" %}
+   ===================================================================== #}
+{% if art.active %}
+{%- set t = art.i18n[lang] or art.i18n.en -%}
+
+<style>
+  /* Page chrome (nav, footer, floating buttons, .reveal) comes from
+     /css/styles.css — only what is specific to this page lives here. */
+  .page-hero{background:linear-gradient(135deg,#5c3d8f,#33235c);color:#fff;text-align:center;padding:70px 20px 60px}
+  .page-hero h1{font-size:2.6rem;margin-bottom:15px}
+  .page-hero p{font-size:1.15rem;max-width:760px;margin:0 auto;color:#e6dcf7}
+  .page-hero .hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;background:rgba(255,255,255,.14);color:#fff;border-radius:20px;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.74rem;letter-spacing:.6px;text-transform:uppercase;padding:7px 14px}
+
+  .art-intro{max-width:900px;margin:0 auto;padding:55px 20px 5px;text-align:center}
+  .art-intro h2{font-size:1.6rem;margin-bottom:16px;color:var(--text-dark,#1f2a30)}
+  .art-intro p{color:#555;font-size:1.08rem;margin-bottom:15px}
+
+  .art-wrapper{max-width:1200px;margin:0 auto;padding:30px 20px 60px;width:100%}
+
+  /* ---- One artist ---- */
+  .artist{background:#fff;border:1px solid rgba(0,0,0,.05);border-top:4px solid #5c3d8f;border-radius:15px;box-shadow:0 12px 30px rgba(4,41,62,.06);padding:38px 40px 40px;margin-bottom:45px}
+  .artist-head{display:flex;align-items:center;gap:22px;margin-bottom:30px}
+  .artist-portrait{width:96px;height:96px;border-radius:50%;object-fit:cover;object-position:center 22%;flex-shrink:0;border:3px solid #fff;box-shadow:0 6px 18px rgba(4,41,62,.18)}
+  .artist-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(92,61,143,.09);color:#5c3d8f;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;padding:6px 12px;border-radius:20px;margin-bottom:10px}
+  .artist-head h2{font-size:1.9rem;line-height:1.25;color:var(--text-dark,#1f2a30);margin-bottom:5px}
+  .artist-born{font-weight:500;font-size:1.1rem;color:#8a949a;white-space:nowrap}
+  .artist-tagline{color:#777;font-size:1rem}
+
+  .artist-body{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:40px;align-items:start}
+  .artist-story p{color:#555;font-size:1rem;line-height:1.8;margin-bottom:16px}
+  .artist-story h3{font-family:var(--font-heading,sans-serif);font-size:.78rem;letter-spacing:.7px;text-transform:uppercase;color:#8a949a;margin:30px 0 14px}
+  .artist-exhibitions{list-style:none;border-top:1px solid rgba(0,0,0,.06)}
+  .artist-exhibitions li{display:flex;gap:16px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.06);font-size:.92rem;color:#666;line-height:1.55}
+  .artist-exhibitions b{flex-shrink:0;width:44px;font-family:var(--font-heading,sans-serif);color:#5c3d8f}
+
+  .artist-aside{display:flex;flex-direction:column;gap:22px}
+  .artist-aside figure{margin:0}
+  .artist-aside img{display:block;width:100%;height:auto;border-radius:10px;background:var(--bg-light,#fbf8f3)}
+  .artist-aside figcaption{font-size:.82rem;color:#8a949a;line-height:1.6;margin-top:9px}
+
+  /* ---- The work that is for sale ---- */
+  .work-featured{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:38px;align-items:start;margin-top:45px;padding-top:38px;border-top:1px solid rgba(0,0,0,.07)}
+  .work-canvas{margin:0}
+  .work-canvas img{display:block;width:100%;height:auto;border-radius:8px;box-shadow:0 16px 40px rgba(4,41,62,.16)}
+  .work-status{display:inline-flex;align-items:center;gap:7px;background:rgba(47,143,78,.1);color:#2f8f4e;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.72rem;letter-spacing:.5px;text-transform:uppercase;padding:6px 12px;border-radius:20px;margin-bottom:14px}
+  .work-info h3{font-size:1.7rem;color:var(--text-dark,#1f2a30);margin-bottom:4px}
+  .work-info h3 span{display:block;font-size:1rem;font-weight:500;color:#8a949a;margin-top:3px}
+  .work-spec{font-size:.9rem;color:#5c3d8f;font-weight:600;margin:12px 0 18px}
+  .work-info>p{color:#555;font-size:1rem;line-height:1.8;margin-bottom:15px}
+  .work-price{display:flex;align-items:baseline;gap:10px;background:var(--bg-light,#fbf8f3);border-radius:10px;padding:14px 18px;margin:22px 0 20px}
+  .work-price dt{font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.76rem;letter-spacing:.6px;text-transform:uppercase;color:#8a949a}
+  .work-price dd{font-family:var(--font-heading,sans-serif);font-weight:700;color:var(--text-dark,#1f2a30)}
+  .art-wa-btn{display:flex;align-items:center;justify-content:center;gap:10px;background-color:#25D366;color:#fff;text-decoration:none;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:1rem;padding:14px 22px;border-radius:30px;transition:background .3s,transform .2s}
+  .art-wa-btn:hover{background-color:#1da851;transform:translateY(-2px)}
+  .art-wa-number{display:block;text-align:center;font-size:.88rem;color:#8a949a;margin-top:10px}
+  .art-wa-number a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(0,0,0,.13)}
+  .art-wa-number a:hover{color:#5c3d8f}
+  .work-note{font-size:.85rem;color:#8a949a;line-height:1.7;margin-top:16px}
+  .work-thumb{margin:26px 0 0}
+  .work-thumb img{display:block;width:100%;height:auto;border-radius:10px}
+  .work-thumb figcaption{font-size:.82rem;color:#8a949a;margin-top:9px}
+
+  /* ---- Earlier work ---- */
+  .work-past-title{font-family:var(--font-heading,sans-serif);font-size:.78rem;letter-spacing:.7px;text-transform:uppercase;color:#8a949a;margin:42px 0 16px}
+  .work-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+  .work-past{margin:0}
+  .work-past img{display:block;width:100%;height:auto;border-radius:10px;box-shadow:0 8px 22px rgba(4,41,62,.08)}
+  .work-past figcaption{margin-top:11px}
+  .work-past b{display:block;font-family:var(--font-heading,sans-serif);font-size:1rem;color:var(--text-dark,#1f2a30)}
+  .work-past span{display:block;font-size:.84rem;color:#8a949a;margin-top:3px}
+
+  /* ---- Closing banner ---- */
+  .art-cta{background:linear-gradient(135deg,#5c3d8f,#33235c);color:#fff;text-align:center;padding:55px 40px;margin-top:60px;border-radius:15px;box-shadow:0 15px 35px rgba(92,61,143,.2)}
+  .art-cta h2{color:#fff;font-size:2rem;margin-bottom:15px}
+  .art-cta p{font-size:1.08rem;margin:0 auto 30px;max-width:700px;color:#e6dcf7}
+  .art-cta .btn-custom{background-color:#fff;color:#5c3d8f;padding:15px 35px;border-radius:30px;font-family:var(--font-heading,sans-serif);font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .3s ease}
+  .art-cta .btn-custom:hover{background-color:var(--secondary-color,#ff6b4a);color:#fff;transform:translateY(-3px)}
+
+  .art-disclaimer{max-width:900px;margin:34px auto 0;padding:0 20px;font-size:.86rem;color:#8a949a;line-height:1.7;text-align:center}
+
+  @media(max-width:980px){
+    .artist-body,.work-featured{grid-template-columns:1fr;gap:30px}
+    .artist-aside{flex-direction:row;flex-wrap:wrap}
+    .artist-aside figure{flex:1 1 240px}
+  }
+  @media(max-width:768px){
+    .page-hero{padding:50px 20px 45px}
+    .page-hero h1{font-size:2rem}
+    .artist{padding:28px 22px 30px}
+    .artist-head{gap:16px}
+    .artist-portrait{width:72px;height:72px}
+    .artist-head h2{font-size:1.5rem}
+    .work-info h3{font-size:1.4rem}
+    .art-cta{padding:40px 22px;margin-top:45px}
+    .art-cta h2{font-size:1.6rem}
+  }
+</style>
+
+<section class="page-hero">
+  <span class="hero-tag"><i class="fa-solid fa-palette" aria-hidden="true"></i> {{ t.heroTag }}</span>
+  <h1>{{ t.heroTitle }}</h1>
+  <p>{{ t.heroLead }}</p>
+</section>
+
+<div class="art-intro reveal">
+  <h2>{{ t.introTitle }}</h2>
+  {%- for para in t.intro %}
+  <p>{{ para }}</p>
+  {%- endfor %}
+</div>
+
+<main class="art-wrapper">
+
+  {%- for artist in art.openArtists %}
+  {%- set a = artist.i18n[lang] or artist.i18n.en -%}
+  <article class="artist reveal" id="{{ artist.id }}">
+
+    <header class="artist-head">
+      <img class="artist-portrait" src="{{ artist.photos.portrait.src }}"
+           width="{{ artist.photos.portrait.w }}" height="{{ artist.photos.portrait.h }}"
+           loading="lazy" decoding="async" alt="{{ artist.name }}">
+      <div>
+        <span class="artist-badge"><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> {{ a.badge }}</span>
+        <h2>{{ artist.name }}<span class="artist-born"> · {{ artist.born }}</span></h2>
+        <p class="artist-tagline">{{ a.tagline }}</p>
+      </div>
+    </header>
+
+    <div class="artist-body">
+      <div class="artist-story">
+        {%- for para in a.bio %}
+        <p>{{ para }}</p>
+        {%- endfor %}
+
+        {%- if artist.exhibitions.length %}
+        <h3>{{ a.exhibitionsTitle }}</h3>
+        <ul class="artist-exhibitions">
+          {%- for row in artist.exhibitions %}
+          <li><b>{{ row[0] }}</b><span>{{ row[1] }}</span></li>
+          {%- endfor %}
+        </ul>
+        {%- endif %}
+      </div>
+
+      <aside class="artist-aside">
+        <figure>
+          <img src="{{ artist.photos.atWork.src }}"
+               width="{{ artist.photos.atWork.w }}" height="{{ artist.photos.atWork.h }}"
+               loading="lazy" decoding="async"
+               alt="{{ artist.name }} painting on the floor of her studio">
+          <figcaption>{{ a.atWorkCaption }}</figcaption>
+        </figure>
+        <figure>
+          <img src="{{ artist.photos.magazine.src }}"
+               width="{{ artist.photos.magazine.w }}" height="{{ artist.photos.magazine.h }}"
+               loading="lazy" decoding="async"
+               alt="Magazine profile of {{ artist.name }}">
+          <figcaption>{{ a.magazineCaption }}</figcaption>
+        </figure>
+      </aside>
+    </div>
+
+    {#- The piece that is for sale, shown in full. #}
+    {%- for work in artist.forSaleWorks %}
+    {%- set w = a.works[work.id] -%}
+    <section class="work-featured" id="{{ work.id }}">
+      <figure class="work-canvas">
+        <img src="{{ work.images.main.src }}"
+             width="{{ work.images.main.w }}" height="{{ work.images.main.h }}"
+             loading="lazy" decoding="async"
+             alt="“{{ work.title }}” — {{ w.subtitle }}, a painting by {{ artist.name }}">
+      </figure>
+
+      <div class="work-info">
+        <span class="work-status"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> {{ a.forSaleLabel }}</span>
+        <h3>{{ work.title }}<span>{{ w.subtitle }}</span></h3>
+        <p class="work-spec">{{ w.spec }}</p>
+        {%- for para in w.desc %}
+        <p>{{ para }}</p>
+        {%- endfor %}
+
+        <dl class="work-price">
+          <dt>{{ a.priceLabel }}</dt>
+          <dd>{{ a.priceValue }}</dd>
+        </dl>
+
+        <a class="art-wa-btn" target="_blank" rel="noopener"
+           href="https://wa.me/{{ artist.whatsapp }}?text={{ a.waText | urlencode | safe }}">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> {{ a.cta }}
+        </a>
+        <span class="art-wa-number">
+          <a href="https://wa.me/{{ artist.whatsapp }}" target="_blank" rel="noopener">{{ artist.whatsappDisplay }}</a>
+        </span>
+
+        <p class="work-note">{{ a.contactNote }}</p>
+
+        {%- if work.images.withArtist %}
+        <figure class="work-thumb">
+          <img src="{{ work.images.withArtist.src }}"
+               width="{{ work.images.withArtist.w }}" height="{{ work.images.withArtist.h }}"
+               loading="lazy" decoding="async"
+               alt="{{ artist.name }} holding “{{ work.title }}”">
+          <figcaption>{{ w.withArtistCaption }}</figcaption>
+        </figure>
+        {%- endif %}
+      </div>
+    </section>
+    {%- endfor %}
+
+    {#- Everything else she has painted, for context rather than for sale. #}
+    {%- if artist.pastWorks.length %}
+    <p class="work-past-title">{{ a.pastWorkLabel }}</p>
+    <div class="work-grid">
+      {%- for work in artist.pastWorks %}
+      {%- set w = a.works[work.id] -%}
+      <figure class="work-past">
+        <img src="{{ work.images.main.src }}"
+             width="{{ work.images.main.w }}" height="{{ work.images.main.h }}"
+             loading="lazy" decoding="async"
+             alt="{{ artist.name }} holding one of her earlier paintings">
+        <figcaption>
+          <b>{{ w.subtitle }}</b>
+          <span>{{ w.spec }}</span>
+        </figcaption>
+      </figure>
+      {%- endfor %}
+    </div>
+    {%- endif %}
+
+  </article>
+  {%- endfor %}
+
+  <section class="art-cta reveal">
+    <h2>{{ t.ctaTitle }}</h2>
+    <p>{{ t.ctaText }}</p>
+    <a class="btn-custom" target="_blank" rel="noopener"
+       href="https://wa.me/{{ site.whatsapp }}?text={{ t.ctaWaText | urlencode | safe }}">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> {{ t.ctaBtn }}
+    </a>
+  </section>
+
+  <p class="art-disclaimer">{{ t.disclaimer }}</p>
+
+</main>
+{% endif %}

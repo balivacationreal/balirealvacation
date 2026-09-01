@@ -1,0 +1,68 @@
+{# Structured data for the Balinese Art page. Built from _data/art.js so the
+   markup never drifts from what is actually on the page. Values go through
+   `dump | safe`: dump emits the surrounding quotes and escapes what is
+   inside, and safe stops Nunjucks HTML-escaping those quotes back to &quot;.
+   Include inside {% block jsonld %} — `canonical` comes from the page. #}
+{%- set t = art.i18n[lang] or art.i18n.en -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ t.heroTitle | dump | safe }},
+  "url": {{ canonical | dump | safe }},
+  "description": {{ description | dump | safe }},
+  "inLanguage": {{ lang | dump | safe }},
+  "isPartOf": {
+    "@type": "TravelAgency",
+    "name": "Bali Real Vacation",
+    "url": "https://balirealvacation.com/"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {%- for artist in art.openArtists %}
+      {%- set a = artist.i18n[lang] or artist.i18n.en -%}
+      {%- for work in artist.forSaleWorks %}
+      {%- set w = a.works[work.id] -%}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "item": {
+          "@type": "VisualArtwork",
+          "name": {{ work.title | dump | safe }},
+          "alternateName": {{ w.subtitle | dump | safe }},
+          "url": {{ (canonical + "#" + work.id) | dump | safe }},
+          "image": {{ (site.url + work.images.main.src) | dump | safe }},
+          "description": {{ (w.desc | join(" ")) | dump | safe }},
+          "artform": "Painting",
+          "artMedium": "Oil on canvas",
+          "artworkSurface": "Canvas",
+          "width": { "@type": "QuantitativeValue", "value": 60, "unitCode": "CMT" },
+          "height": { "@type": "QuantitativeValue", "value": 50, "unitCode": "CMT" },
+          "creator": {
+            "@type": "Person",
+            "name": {{ artist.name | dump | safe }},
+            "birthDate": {{ artist.born | string | dump | safe }},
+            "nationality": "Indonesian",
+            "jobTitle": "Painter",
+            "telephone": {{ (artist.whatsappDisplay | replace(" ", "-")) | dump | safe }}
+          },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "businessFunction": "http://purl.org/goodrelations/v1#Sell",
+            "areaServed": "Bali, Indonesia",
+            "seller": {
+              "@type": "Person",
+              "name": {{ artist.name | dump | safe }},
+              "telephone": {{ (artist.whatsappDisplay | replace(" ", "-")) | dump | safe }}
+            }
+          }
+        }
+      }{% if not loop.last %},{% endif %}
+      {%- endfor %}
+      {%- endfor %}
+    ]
+  }
+}
+</script>
