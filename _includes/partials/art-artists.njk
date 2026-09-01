@@ -118,11 +118,14 @@
 
 <main class="art-wrapper">
 
+  {#- `reveal` goes on the sections inside the card, never on the card itself:
+      one artist runs to roughly 5,600px on a phone, and animating that as a
+      single block both looks wrong and builds one very tall compositor layer. -#}
   {%- for artist in art.openArtists %}
   {%- set a = artist.i18n[lang] or artist.i18n.en -%}
-  <article class="artist reveal" id="{{ artist.id }}">
+  <article class="artist" id="{{ artist.id }}">
 
-    <header class="artist-head">
+    <header class="artist-head reveal">
       <img class="artist-portrait" src="{{ artist.photos.portrait.src }}"
            width="{{ artist.photos.portrait.w }}" height="{{ artist.photos.portrait.h }}"
            loading="lazy" decoding="async" alt="{{ artist.name }}">
@@ -133,7 +136,7 @@
       </div>
     </header>
 
-    <div class="artist-body">
+    <div class="artist-body reveal">
       <div class="artist-story">
         {%- for para in a.bio %}
         <p>{{ para }}</p>
@@ -170,7 +173,7 @@
     {#- The piece that is for sale, shown in full. #}
     {%- for work in artist.forSaleWorks %}
     {%- set w = a.works[work.id] -%}
-    <section class="work-featured" id="{{ work.id }}">
+    <section class="work-featured reveal" id="{{ work.id }}">
       <figure class="work-canvas">
         <img src="{{ work.images.main.src }}"
              width="{{ work.images.main.w }}" height="{{ work.images.main.h }}"
@@ -216,8 +219,8 @@
 
     {#- Everything else she has painted, for context rather than for sale. #}
     {%- if artist.pastWorks.length %}
-    <p class="work-past-title">{{ a.pastWorkLabel }}</p>
-    <div class="work-grid">
+    <p class="work-past-title reveal">{{ a.pastWorkLabel }}</p>
+    <div class="work-grid reveal">
       {%- for work in artist.pastWorks %}
       {%- set w = a.works[work.id] -%}
       <figure class="work-past">

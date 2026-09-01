@@ -207,24 +207,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   // 5. Scroll Reveal Animation Logic
-  const revealOptions = {
-    root: null,
-    rootMargin: "0px",
-    threshold: 0.15, // Triggers when 15% of the element is visible
-  };
-  const scrollObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-        // Unobserve after revealing so it stays visible and saves processing power
-        observer.unobserve(entry.target);
-      }
-    });
-  }, revealOptions);
-  // Find all elements with the 'reveal' class and watch them
-  document.querySelectorAll(".reveal").forEach((el) => {
-    scrollObserver.observe(el);
-  });
+  const revealTargets = document.querySelectorAll(".reveal");
+  const revealAll = () =>
+    revealTargets.forEach((el) => el.classList.add("active"));
+
+  if (!("IntersectionObserver" in window)) {
+    // No observer, no animation — but never leave the content at opacity 0.
+    revealAll();
+  } else {
+    const revealOptions = {
+      root: null,
+      // Fires once the element's leading edge is 12% inside the viewport.
+      //
+      // Deliberately a rootMargin and NOT a threshold ratio. A threshold of
+      // 0.15 asks for 15% of the element's *area* to be on screen at once,
+      // which an element taller than ~6.7x the viewport can never satisfy — it
+      // would sit at opacity 0 forever. That failed on phones first, because
+      // the same section is taller (single column) and the viewport shorter,
+      // so a page could look fine on a desktop and come up blank on a phone.
+      // A rootMargin is measured against the element's edge, so it behaves the
+      // same however long the section is.
+      rootMargin: "0px 0px -12% 0px",
+      threshold: 0,
+    };
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+          // Unobserve after revealing so it stays visible and saves processing power
+          observer.unobserve(entry.target);
+        }
+      });
+    }, revealOptions);
+    revealTargets.forEach((el) => scrollObserver.observe(el));
+  }
   // 6. Scroll to Top Logic (Safely Wrapped)
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   if (scrollTopBtn) {

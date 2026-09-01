@@ -900,6 +900,18 @@ footer {
 .reveal.active {
   opacity: 1;
   transform: translateY(0); /* Glides into place */
+  /* Drop the hint once the element has arrived. Left on permanently it keeps
+     every revealed section promoted to its own compositor layer, which a phone
+     pays for in memory on a long page full of photographs. */
+  will-change: auto;
+}
+/* Someone who has asked for less motion still gets the content, immediately. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 /* Optional: Staggered delays for items in a grid */
 .delay-1 {
