@@ -29,9 +29,37 @@ const listings = [
       leaseYears: "10–15",
       harbourKm: "4.5",
 
-      images: {
-        satellite: "/src/assets/land/nusa-penida-land-satellite.webp",
-        certificate: "/src/assets/land/nusa-penida-land-certificate-map.webp"
+      // Shown in order on the listing page; the first is also the thumbnail for
+      // the Local Partners teaser and the homepage pop-up. `captionKey` looks up
+      // the translated caption in this listing's i18n block. `crop` fits a tall
+      // image to a fixed height so it does not tower over the copy beside it.
+      // `alt` stays English: it describes the picture, not the page copy.
+      gallery: [
+        {
+          key: "satellite",
+          src: "/src/assets/land/nusa-penida-land-satellite.webp",
+          w: 900, h: 1491, crop: true,
+          captionKey: "satelliteCaption",
+          alt: "Satellite view of the 425 m² plot for lease in Desa Ped, Nusa Penida, on the coast road in front of the beach"
+        },
+        {
+          key: "certificate",
+          src: "/src/assets/land/nusa-penida-land-certificate-map.webp",
+          w: 900, h: 793,
+          captionKey: "certificateCaption",
+          alt: "Official land-office plot map showing the parcel on the Toya Pakeh – Ped main road"
+        }
+      ],
+
+      // Structured data (schema.org). English only, and per listing — it used to
+      // be hardcoded in the page template inside a loop over every listing, which
+      // would have described a second plot as Suta's.
+      seo: {
+        name: "425 m² SHM beachfront land for lease — Desa Ped, Nusa Penida",
+        description:
+          "A 425 m² SHM (Hak Milik) freehold plot facing Mount Agung, in front of a crystal-clear beach in Desa Ped, about 4.5 km from the fast-boat harbour. Available on a 10–15 year lease directly from the owner.",
+        itemName: "Beachfront land plot, Desa Ped",
+        addressLocality: "Desa Ped, Nusa Penida"
       },
 
       i18n: {
@@ -153,8 +181,197 @@ const listings = [
           ]
         }
       }
+    },
+
+    {
+      id: "ketut-the-layar-400",
+      active: true,
+      featured: false, // the homepage pop-up shows the `featured: true` listing
+
+      // Contact goes to the owner, deliberately not to the agency number.
+      owner: "Ketut Suartawan",
+      ownerLegalName: "Ketut Suartawan",
+      whatsapp: "6285253401899",
+      whatsappDisplay: "+62 852-5340-1899",
+
+      area: 400,
+      leaseYears: null, // term not set — to be agreed with the owner
+      harbourKm: null,
+      beachMetres: 50,
+
+      gallery: [
+        {
+          key: "roadside",
+          src: "/src/assets/land/ketut-land-roadside.webp",
+          w: 1000, h: 750,
+          captionKey: "roadsideCaption",
+          alt: "The main road frontage of the plot for lease on Nusa Penida, with a new concrete drain along the verge"
+        },
+        {
+          key: "plot",
+          src: "/src/assets/land/ketut-land-plot.webp",
+          w: 1000, h: 750,
+          captionKey: "plotCaption",
+          alt: "Standing on the plot for lease, looking inland past coconut palms towards the hills"
+        },
+        {
+          key: "satellite",
+          src: "/src/assets/land/ketut-land-satellite.webp",
+          w: 900, h: 1273, crop: true,
+          captionKey: "satelliteCaption",
+          alt: "Aerial view showing the approximate position of the plot beside Villa The Layar, on the main road"
+        },
+        {
+          key: "sitePlan",
+          src: "/src/assets/land/ketut-land-site-plan.webp",
+          w: 900, h: 1273,
+          captionKey: "sitePlanCaption",
+          alt: "Sketch plan showing the plot between Villa The Layar and the three-metre lane, with the main road to the north"
+        }
+      ],
+
+      seo: {
+        name: "400 m² roadside land for lease — Nusa Penida",
+        description:
+          "A 400 m² plot for lease on Nusa Penida, fronting the main road beside Villa The Layar and about 50 metres from the beach. Offered directly by the owner; lease term and price agreed with him.",
+        itemName: "Roadside land plot beside Villa The Layar, Nusa Penida",
+        addressLocality: "Nusa Penida"
+      },
+
+      i18n: {
+        en: {
+          badge: "Investment Opportunity",
+          title: "Roadside Land for Lease on Nusa Penida",
+          lead:
+            "A 400 m² plot on the main road beside Villa The Layar, about 50 metres from the beach — offered for lease directly by its owner, Ketut Suartawan.",
+          facts: [
+            "400 m² (4 are) of flat land",
+            "Fronts the main road, with the new roadside drain already in",
+            "About 50 metres from the beach",
+            "Next door to Villa The Layar, the owner's own villa",
+            "A three-metre lane runs down the far side, so access on two sides",
+            "Lease term and price agreed directly with the owner"
+          ],
+          directNote: "Deal directly with the owner — no agent, no commission.",
+          roadsideCaption:
+            "The frontage on the main road. The concrete drain along the verge is new.",
+          plotCaption:
+            "On the plot, looking inland — flat and cleared, with coconut palms and the hills behind.",
+          satelliteCaption:
+            "Roughly where the plot sits, between Villa The Layar and the three-metre lane. The outline is ours, drawn to help you place it — it is not a surveyed boundary.",
+          sitePlanCaption:
+            "How the plot sits among its neighbours. Sketched for orientation only: the figures on it are indicative, and Ketut will show you the certificate and the surveyed measurements.",
+          cta: "WhatsApp Ketut",
+          details: "See full details",
+          close: "Close",
+          waText:
+            "Halo Pak Ketut! Saya melihat tanah yang disewakan di dekat Villa The Layar, Nusa Penida, di balirealvacation.com dan ingin tahu lebih lanjut. / Hello Ketut! I saw your land for lease near Villa The Layar on balirealvacation.com and I would like to know more.",
+          body: [
+            "This plot sits right on the main road through the village, next door to Villa The Layar — the owner's own place, so he is on site and easy to find. The beach is about fifty metres away, close enough to walk in a minute.",
+            "It is flat and already cleared, and the roadside drain along the frontage has been built. A three-metre lane runs down the far side, which means access from two sides rather than one. Along this stretch the neighbouring plots already carry a villa and a shop, so the ground is proven for a guest house, a café, or a small shop of your own."
+          ],
+          termsTitle: "Lease terms",
+          terms: [
+            ["Plot size", "400 m² (4 are)"],
+            ["Location", "Nusa Penida — main road, beside Villa The Layar"],
+            ["To the beach", "About 50 metres"],
+            ["Access", "Main road frontage, plus a three-metre lane on the far side"],
+            ["Lease length", "To be agreed with the owner"],
+            ["Price", "On request — ask Ketut directly"],
+            ["Contact", "Ketut Suartawan — the owner, directly"]
+          ]
+        },
+
+        id: {
+          badge: "Peluang Investasi",
+          title: "Tanah Pinggir Jalan Disewakan di Nusa Penida",
+          lead:
+            "Tanah 400 m² di tepi jalan raya, bersebelahan dengan Villa The Layar, sekitar 50 meter dari pantai — disewakan langsung oleh pemiliknya, Ketut Suartawan.",
+          facts: [
+            "Luas 400 m² (4 are), tanah datar",
+            "Menghadap langsung ke jalan raya, gorong-gorong tepi jalan sudah terpasang",
+            "Sekitar 50 meter dari pantai",
+            "Bersebelahan dengan Villa The Layar, milik pemilik tanah sendiri",
+            "Ada jalan 3 meter di sisi lainnya, jadi akses dari dua sisi",
+            "Masa sewa dan harga disepakati langsung dengan pemilik"
+          ],
+          directNote:
+            "Berhubungan langsung dengan pemilik — tanpa perantara, tanpa komisi.",
+          roadsideCaption:
+            "Bagian depan tanah di tepi jalan raya. Gorong-gorong beton di pinggirnya masih baru.",
+          plotCaption:
+            "Di atas tanahnya, menghadap ke arah darat — datar dan sudah bersih, dengan pohon kelapa dan perbukitan di belakang.",
+          satelliteCaption:
+            "Perkiraan posisi tanah, di antara Villa The Layar dan jalan 3 meter. Garis oranye kami buat sendiri sebagai bantuan orientasi — bukan batas hasil pengukuran.",
+          sitePlanCaption:
+            "Posisi tanah terhadap sekelilingnya. Sketsa ini untuk gambaran saja: ukuran yang tertera bersifat indikatif, dan Ketut akan menunjukkan sertifikat serta ukuran resminya.",
+          cta: "WhatsApp Ketut",
+          details: "Lihat detail lengkap",
+          close: "Tutup",
+          waText:
+            "Halo Pak Ketut! Saya melihat tanah yang disewakan di dekat Villa The Layar, Nusa Penida, di balirealvacation.com dan ingin tahu lebih lanjut.",
+          body: [
+            "Tanah ini berada tepat di tepi jalan raya desa, bersebelahan dengan Villa The Layar — milik pemiliknya sendiri, jadi beliau ada di lokasi dan mudah ditemui. Pantainya sekitar lima puluh meter, cukup satu menit berjalan kaki.",
+            "Tanahnya datar dan sudah dibersihkan, dan gorong-gorong di tepi jalan depan sudah jadi. Di sisi lainnya ada jalan selebar 3 meter, sehingga aksesnya dari dua sisi, bukan satu. Di sepanjang ruas ini lahan tetangganya sudah terbangun vila dan toko, jadi lokasinya cocok untuk guest house, kafe, atau toko kecil milik Anda sendiri."
+          ],
+          termsTitle: "Ketentuan sewa",
+          terms: [
+            ["Luas tanah", "400 m² (4 are)"],
+            ["Lokasi", "Nusa Penida — tepi jalan raya, sebelah Villa The Layar"],
+            ["Ke pantai", "Sekitar 50 meter"],
+            ["Akses", "Menghadap jalan raya, ditambah jalan 3 meter di sisi lain"],
+            ["Masa sewa", "Disepakati dengan pemilik"],
+            ["Harga", "Hubungi Ketut langsung"],
+            ["Kontak", "Ketut Suartawan — langsung dengan pemilik"]
+          ]
+        },
+
+        zh: {
+          badge: "投资机会",
+          title: "努沙佩尼达临街土地出租",
+          lead:
+            "400 平方米地块，紧邻大路，与 Villa The Layar 相邻，距海滩约 50 米 — 由业主 Ketut Suartawan 本人直接出租。",
+          facts: [
+            "400 平方米（4 are）平整土地",
+            "直接临大路，路边排水渠已建好",
+            "距海滩约 50 米",
+            "紧邻业主自家的 Villa The Layar",
+            "另一侧有一条 3 米宽小路，两面通行",
+            "租期与价格由业主本人商定"
+          ],
+          directNote: "直接与业主洽谈 — 无中介，无佣金。",
+          roadsideCaption: "地块临大路的一面，路边的混凝土排水渠是新建的。",
+          plotCaption:
+            "站在地块上向内陆望去 — 地势平整、已清理，椰林与远山为背景。",
+          satelliteCaption:
+            "地块的大致位置，位于 Villa The Layar 与 3 米小路之间。橙色轮廓由我们绘制，仅供辨识位置，并非实测边界。",
+          sitePlanCaption:
+            "地块与周边的相对位置。此图仅供参考：图上尺寸为示意性质，Ketut 会向您出示产权证与实测数据。",
+          cta: "WhatsApp 联系 Ketut",
+          details: "查看详细信息",
+          close: "关闭",
+          waText:
+            "Halo Pak Ketut! Saya melihat tanah yang disewakan di dekat Villa The Layar, Nusa Penida, di balirealvacation.com dan ingin tahu lebih lanjut. / 您好！我在 balirealvacation.com 上看到您位于 Villa The Layar 旁的出租土地，想了解更多信息。",
+          body: [
+            "这块地就在村里的主路边，紧挨着 Villa The Layar — 那是业主自己的别墅，所以他人就在现场，很好找。海滩约五十米，步行一分钟即到。",
+            "土地平整、已清理完毕，临路一侧的排水渠也已建好。另一侧有一条 3 米宽的小路，因此两面都能进出，而不是只有一面。这一段路上，邻近地块已经建起别墅和店铺，说明这里适合开设民宿、咖啡馆，或您自己的小店。"
+          ],
+          termsTitle: "租赁条件",
+          terms: [
+            ["地块面积", "400 平方米（4 are）"],
+            ["位置", "努沙佩尼达 — 主路旁，Villa The Layar 隔壁"],
+            ["至海滩", "约 50 米"],
+            ["通行", "临主路，另一侧另有 3 米宽小路"],
+            ["租期", "与业主商定"],
+            ["价格", "请直接向 Ketut 咨询"],
+            ["联系人", "Ketut Suartawan — 直接联系业主"]
+          ]
+        }
+      }
     }
 ];
+
+const withHero = (l) => ({ ...l, hero: l.gallery[0] });
 
 module.exports = {
   active: true,
@@ -193,10 +410,14 @@ module.exports = {
   listings,
 
   // Pre-filtered for the templates: Nunjucks cannot build these itself, since a
-  // `set` inside a `for` loop does not survive the loop.
-  openListings: listings.filter((l) => l.active),
-  featured:
-    listings.find((l) => l.active && l.featured) ||
-    listings.find((l) => l.active) ||
-    null
+  // `set` inside a `for` loop does not survive the loop. `hero` is the first
+  // gallery image, carrying its own dimensions — the teaser and the pop-up used
+  // to hardcode 900x1491, which is only right for the first listing.
+  openListings: listings.filter((l) => l.active).map(withHero),
+  featured: (() => {
+    const f =
+      listings.find((l) => l.active && l.featured) ||
+      listings.find((l) => l.active);
+    return f ? withHero(f) : null;
+  })()
 };

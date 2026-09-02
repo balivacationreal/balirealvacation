@@ -31,7 +31,10 @@ module.exports = {
         { key: "land_investment",    href: "/land-investment.html" }
       ] },
     { key: "art",             href: "/balinese-art.html" },
-    { key: "guides",          href: "/#guides" },
+    { key: "guides",          href: "/#guides", children: [
+        { key: "penida_guide",     href: "/nusa-penida-guide.html" },
+        { key: "bali_guide",       href: "/bali-destinations-guide.html" }
+      ] },
     { key: "contact",         href: "/#contact" }
   ],
   footerLinks: [

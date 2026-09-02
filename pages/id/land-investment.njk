@@ -11,60 +11,7 @@ ogImage: "https://balirealvacation.com/src/assets/land/nusa-penida-land-satellit
 ---
 {% extends "layouts/base.njk" %}
 
-{% block jsonld %}<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Tanah & Investasi — Nusa Penida & Bali",
-      "url": "https://balirealvacation.com/id/land-investment.html",
-      "description": "Tanah yang disewakan di Nusa Penida dan Bali, ditayangkan langsung oleh pemiliknya.",
-      "isPartOf": {
-        "@type": "TravelAgency",
-        "name": "Bali Real Vacation",
-        "url": "https://balirealvacation.com/"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          {%- for listing in landAd.openListings %}
-          {
-            "@type": "ListItem",
-            "position": {{ loop.index }},
-            "item": {
-              "@type": "Offer",
-              "name": "Tanah tepi pantai {{ listing.area }} m² SHM disewakan — Desa Ped, Nusa Penida",
-              "description": "Tanah {{ listing.area }} m² bersertifikat SHM (Hak Milik) menghadap Gunung Agung, di depan pantai berair jernih di Desa Ped, sekitar {{ listing.harbourKm }} km dari pelabuhan fast boat. Disewakan 10–15 tahun langsung dari pemilik.",
-              "url": "https://balirealvacation.com/id/land-investment.html#{{ listing.id }}",
-              "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
-              "availability": "https://schema.org/InStock",
-              "areaServed": "Nusa Penida, Indonesia",
-              "itemOffered": {
-                "@type": "Accommodation",
-                "name": "Bidang tanah tepi pantai, Desa Ped",
-                "floorSize": {
-                  "@type": "QuantitativeValue",
-                  "value": {{ listing.area }},
-                  "unitCode": "MTK"
-                },
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Desa Ped, Nusa Penida",
-                  "addressRegion": "Bali",
-                  "addressCountry": "ID"
-                }
-              },
-              "seller": {
-                "@type": "Person",
-                "name": "{{ listing.ownerLegalName }}",
-                "telephone": "{{ listing.whatsappDisplay | replace(' ', '-') }}"
-              }
-            }
-          }{% if not loop.last %},{% endif %}
-          {%- endfor %}
-        ]
-      }
-    }
-    </script>{% endblock %}
+{% block jsonld %}{% include "partials/land-jsonld.njk" %}{% endblock %}
 
 {% block headstyle %}{% raw %}<style>
         /* Page chrome. Nav, footer, floating buttons and .reveal all come from

@@ -42,16 +42,13 @@
       </div>
 
       <div class="lls-media">
-        <figure class="lls-sat">
-          <img src="{{ listing.images.satellite }}" width="900" height="1491" loading="lazy" decoding="async"
-               alt="Satellite view of the {{ listing.area }} m² plot for lease in Desa Ped, Nusa Penida, on the coast road in front of the beach">
-          <figcaption>{{ t.satelliteCaption }}</figcaption>
+        {%- for img in listing.gallery %}
+        <figure{% if img.crop %} class="lls-sat"{% endif %}>
+          <img src="{{ img.src }}" width="{{ img.w }}" height="{{ img.h }}" loading="lazy" decoding="async"
+               alt="{{ img.alt }}">
+          <figcaption>{{ t[img.captionKey] }}</figcaption>
         </figure>
-        <figure>
-          <img src="{{ listing.images.certificate }}" width="900" height="793" loading="lazy" decoding="async"
-               alt="Official land-office plot map showing the parcel on the Toya Pakeh – Ped main road">
-          <figcaption>{{ t.certificateCaption }}</figcaption>
-        </figure>
+        {%- endfor %}
       </div>
     </div>
   </article>

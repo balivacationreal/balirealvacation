@@ -9,6 +9,8 @@
   "local_partners_all": { "en": "All Partners", "id": "Semua Mitra", "zh": "全部合作伙伴" },
   "land_investment": { "en": "Land & Investment", "id": "Tanah & Investasi", "zh": "土地与投资" },
   "art":             { "en": "Balinese Art", "id": "Seni Bali", "zh": "巴厘艺术" },
+  "penida_guide":    { "en": "Nusa Penida", "id": "Nusa Penida", "zh": "努沙佩尼达" },
+  "bali_guide":      { "en": "Bali", "id": "Bali", "zh": "巴厘岛" },
   "guides":          { "en": "Travel Guides", "id": "Panduan Wisata", "zh": "旅行指南" },
   "contact":         { "en": "Contact", "id": "Kontak", "zh": "联系我们" },
   "f_private_driver":{ "en": "Private Driver Tours", "id": "Tur Sopir Pribadi", "zh": "专属司机包车" },

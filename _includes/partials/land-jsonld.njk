@@ -1,0 +1,65 @@
+{# Structured data for the Land & Investment page, built from _data/landAd.js.
+   Previously this lived inline in all three language pages and, although it
+   looped over every listing, it hardcoded one plot's details — Desa Ped, SHM
+   title, Mount Agung, a 10–15 year lease. A second listing would have been
+   published with the first one's facts, so the per-listing copy now comes from
+   `listing.seo` and the optional terms are emitted only when a listing has them.
+   Values go through `dump | safe`: dump supplies the quotes and escapes what is
+   inside, safe stops Nunjucks turning those quotes into &quot;.
+   Include inside {% block jsonld %} — `canonical` comes from the page. #}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Land & Investment — Nusa Penida & Bali",
+  "url": {{ canonical | dump | safe }},
+  "description": "Land available for lease on Nusa Penida and Bali, listed directly by the owners.",
+  "inLanguage": {{ lang | dump | safe }},
+  "isPartOf": {
+    "@type": "TravelAgency",
+    "name": "Bali Real Vacation",
+    "url": "https://balirealvacation.com/"
+  },
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {%- for listing in landAd.openListings %}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "item": {
+          "@type": "Offer",
+          "name": {{ listing.seo.name | dump | safe }},
+          "description": {{ listing.seo.description | dump | safe }},
+          "url": {{ (canonical + "#" + listing.id) | dump | safe }},
+          "image": {{ (site.url + listing.hero.src) | dump | safe }},
+          "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
+          "availability": "https://schema.org/InStock",
+          "areaServed": {{ listing.seo.addressLocality | dump | safe }},
+          "itemOffered": {
+            "@type": "Accommodation",
+            "name": {{ listing.seo.itemName | dump | safe }},
+            "floorSize": {
+              "@type": "QuantitativeValue",
+              "value": {{ listing.area }},
+              "unitCode": "MTK"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": {{ listing.seo.addressLocality | dump | safe }},
+              "addressRegion": "Bali",
+              "addressCountry": "ID"
+            }
+          },
+          "seller": {
+            "@type": "Person",
+            "name": {{ listing.ownerLegalName | dump | safe }},
+            "telephone": {{ (listing.whatsappDisplay | replace(" ", "-")) | dump | safe }}
+          }
+        }
+      }{% if not loop.last %},{% endif %}
+      {%- endfor %}
+    ]
+  }
+}
+</script>

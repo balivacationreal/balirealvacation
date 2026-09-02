@@ -22,6 +22,7 @@ const TOURS = [
   { value: "North Bali Canyoning",         en: "North Bali Canyoning",         id: "Canyoning Bali Utara",                  zh: "北巴厘岛峡谷探险" },
   { value: "Mount Batur Sunrise Trekking", en: "Mount Batur Sunrise Trekking", id: "Trekking Matahari Terbit Gunung Batur", zh: "巴图尔火山日出徒步" },
   { value: "Private Driver Tour",          en: "Private Driver Tour",          id: "Tur Sopir Pribadi",                     zh: "专属司机之旅" },
+  { value: "Airport Transfer",             en: "Airport Transfer",             id: "Antar-Jemput Bandara",                  zh: "机场接送" },
 ];
 
 const I18N = {

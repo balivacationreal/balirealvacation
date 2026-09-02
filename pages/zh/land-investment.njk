@@ -11,60 +11,7 @@ ogImage: "https://balirealvacation.com/src/assets/land/nusa-penida-land-satellit
 ---
 {% extends "layouts/base.njk" %}
 
-{% block jsonld %}<script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "土地与投资 — 努沙佩尼达与巴厘岛",
-      "url": "https://balirealvacation.com/zh/land-investment.html",
-      "description": "努沙佩尼达与巴厘岛可租赁的土地，由业主直接发布。",
-      "isPartOf": {
-        "@type": "TravelAgency",
-        "name": "Bali Real Vacation",
-        "url": "https://balirealvacation.com/"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          {%- for listing in landAd.openListings %}
-          {
-            "@type": "ListItem",
-            "position": {{ loop.index }},
-            "item": {
-              "@type": "Offer",
-              "name": "{{ listing.area }} 平方米 SHM 海边土地出租 — 努沙佩尼达佩德村",
-              "description": "{{ listing.area }} 平方米 SHM（Hak Milik）永久产权地块，正对阿贡火山，位于佩德村清澈海滩前方，距快艇码头约 {{ listing.harbourKm }} 公里。租期 10–15 年，业主直租。",
-              "url": "https://balirealvacation.com/zh/land-investment.html#{{ listing.id }}",
-              "businessFunction": "http://purl.org/goodrelations/v1#LeaseOut",
-              "availability": "https://schema.org/InStock",
-              "areaServed": "Nusa Penida, Indonesia",
-              "itemOffered": {
-                "@type": "Accommodation",
-                "name": "佩德村海边地块",
-                "floorSize": {
-                  "@type": "QuantitativeValue",
-                  "value": {{ listing.area }},
-                  "unitCode": "MTK"
-                },
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Desa Ped, Nusa Penida",
-                  "addressRegion": "Bali",
-                  "addressCountry": "ID"
-                }
-              },
-              "seller": {
-                "@type": "Person",
-                "name": "{{ listing.ownerLegalName }}",
-                "telephone": "{{ listing.whatsappDisplay | replace(' ', '-') }}"
-              }
-            }
-          }{% if not loop.last %},{% endif %}
-          {%- endfor %}
-        ]
-      }
-    }
-    </script>{% endblock %}
+{% block jsonld %}{% include "partials/land-jsonld.njk" %}{% endblock %}
 
 {% block headstyle %}{% raw %}<style>
         /* Page chrome. Nav, footer, floating buttons and .reveal all come from
