@@ -258,6 +258,64 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
+  // 6b. Card Carousels (drivers/guides, and any future row of cards)
+  //
+  // The track scrolls on its own via CSS — touch, trackpad, wheel and the
+  // arrow keys all work with this script absent. All this adds is the pair
+  // of desktop arrow buttons, which is why they ship hidden in the markup
+  // and are only revealed once we know there is something to scroll to.
+  document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+    const track = carousel.querySelector(".carousel-track");
+    const prev = carousel.querySelector(".carousel-prev");
+    const next = carousel.querySelector(".carousel-next");
+    if (!track || !prev || !next) return;
+
+    // One card plus one gap. Measured rather than hardcoded so the card
+    // width can change in CSS — including at the mobile breakpoint —
+    // without this drifting out of step.
+    const step = () => {
+      const card = track.querySelector(".crew-card, .carousel-item");
+      if (!card) return track.clientWidth * 0.8;
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card.getBoundingClientRect().width + gap;
+    };
+
+    const update = () => {
+      // 2px of slack: sub-pixel layout means scrollWidth and clientWidth
+      // rarely land exactly equal even when nothing can scroll.
+      const scrollable = track.scrollWidth - track.clientWidth > 2;
+      prev.hidden = !scrollable;
+      next.hidden = !scrollable;
+      if (!scrollable) return;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    };
+
+    const go = (direction) => {
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      track.scrollBy({
+        left: direction * step(),
+        behavior: reduced ? "auto" : "smooth",
+      });
+    };
+
+    prev.addEventListener("click", () => go(-1));
+    next.addEventListener("click", () => go(1));
+    track.addEventListener("scroll", update, { passive: true });
+
+    // The card width is a viewport unit on phones, and the images load
+    // late, so both a resize and a late layout can change what fits.
+    if ("ResizeObserver" in window) {
+      new ResizeObserver(update).observe(track);
+    } else {
+      window.addEventListener("resize", update, { passive: true });
+    }
+    track.querySelectorAll("img").forEach((img) => {
+      if (!img.complete) img.addEventListener("load", update, { once: true });
+    });
+
+    update();
+  });
   // 7. FAQ Accordion Logic
   document.querySelectorAll(".faq-question").forEach((question) => {
     question.addEventListener("click", () => {

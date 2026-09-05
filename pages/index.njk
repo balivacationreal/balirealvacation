@@ -102,8 +102,9 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
         /* Crew Section */
         .crew-section { padding: 60px 50px 80px; background-color: var(--bg-light); text-align: center; }
         .crew-intro { max-width: 600px; margin: 0 auto 40px; color: #555; font-size: 1.1rem; }
-        .crew-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .crew-card { background: #fff; width: 320px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; text-align: left; }
+        /* Carousel track. The authoritative rules live in css/styles.css, which loads after this block. */
+        .crew-container { display: flex; flex-wrap: nowrap; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; max-width: 1200px; margin: 0 auto; }
+        .crew-card { background: #fff; flex: 0 0 320px; width: 320px; scroll-snap-align: start; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; text-align: left; }
         .crew-card:hover { transform: translateY(-8px); }
         .crew-img { width: 100%; height: 250px; object-fit: cover; }
         .crew-info { padding: 25px; }
@@ -237,7 +238,8 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
     /* Adjust Container Paddings */
     .about-section, .crew-section, .testimonials, .booking-section { padding: 40px 20px; }
     .packages-container { padding: 0 20px 40px; gap: 20px; }
-    .package-card, .crew-card { width: 100%; max-width: 380px; }
+    .package-card { width: 100%; max-width: 380px; }
+    .crew-card { flex: 0 0 78vw; width: 78vw; max-width: 320px; }
     /* 2. Fix the Overlapping Badge */
     .about-image { margin-bottom: 30px; } /* Adds space so the badge doesn't hit the text */
     .experience-badge { right: 10px; bottom: -15px; width: 90px; height: 90px; font-size: 0.8rem; padding: 10px; }
@@ -398,8 +400,13 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
     <section class="crew-section reveal" id="crew">
         <h2 class="section-title">Meet Your Local Guides</h2>
         <p class="crew-intro">Our experienced and friendly drivers are here to ensure your journey is safe, fun, and unforgettable.</p>
-        <div class="crew-container">
-            <div class="crew-card reveal delay-1">
+        {% endraw %}<div class="carousel" data-carousel>
+          <button class="carousel-nav carousel-prev" type="button" aria-label="{{ ui.crew_prev[lang] or ui.crew_prev.en }}" hidden>
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <div class="crew-container carousel-track" tabindex="0" role="region"
+               aria-label="{{ ui.crew_region[lang] or ui.crew_region.en }}">{% raw %}
+            <div class="crew-card">
                 <img src="src/assets/crew/ketut-widiasa.webp" alt="Ketut Widiasa" class="crew-img" loading="lazy">
                 <div class="crew-info">
                     <h3>Ketut Widiasa</h3>
@@ -407,7 +414,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     <p>Hailing from Buleleng, North Bali, Ketut is a highly experienced driver. He is well-spoken, humorous, and keeps his vehicle impeccably clean. Always responsive and responsible on the road.</p>
                 </div>
             </div>
-            <div class="crew-card reveal delay-2">
+            <div class="crew-card">
                 <img src="src/assets/crew/gede-jahendra.webp" alt="Gede Jahendra" class="crew-img" loading="lazy">
                 <div class="crew-info">
                     <h3>Gede Jahendra</h3>
@@ -415,7 +422,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     <p>Born and raised in Nusa Penida, Gede possesses deep knowledge about the hidden gems of Bali. He is known by our clients for being incredibly honest, reliable, and responsible.</p>
                 </div>
             </div>
-            <div class="crew-card reveal delay-3">
+            <div class="crew-card">
                 <img src="src/assets/crew/putu-ardi.webp" alt="Putu Ardi" class="crew-img" loading="lazy">
                 <div class="crew-info">
                     <h3>Putu Ardi</h3>
@@ -423,7 +430,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     <p>A true Nusa Penida local, Putu is kind and honest. Beyond guiding, he is an excellent photographer who will make sure you capture the perfect moments during any adventure.</p>
                 </div>
             </div>
-            <div class="crew-card reveal delay-4">
+            <div class="crew-card">
                 <img src="src/assets/crew/kadek-tresna.webp" alt="Kadek Tresna" class="crew-img" loading="lazy">
                 <div class="crew-info">
                     <h3>Kadek Tresna</h3>
@@ -431,7 +438,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     <p>Bringing decades of experience to the team, Kadek is a dedicated senior driver and true Balinese local. Diligent, honest, and deeply knowledgeable about the island, he guarantees a safe and comfortable adventure for our guests, rain or shine.</p>
                 </div>
             </div>
-            <div class="crew-card reveal delay-5">
+            <div class="crew-card">
                 <img src="src/assets/crew/agung-putri.webp" alt="Agung Putri" class="crew-img" loading="lazy">
                 <div class="crew-info">
                     <h3>Agung Putri</h3>
@@ -439,7 +446,11 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                     <p>A hard-working Balinese local based in Denpasar, Agung Putri handles airport transfers, full-day trips, private driving and custom routes anywhere on the island. One of the island's women drivers, she is known among guests for being honest about time and price — and for arriving exactly when she said she would.</p>
                 </div>
             </div>
-        </div>
+          </div>{% endraw %}
+          <button class="carousel-nav carousel-next" type="button" aria-label="{{ ui.crew_next[lang] or ui.crew_next.en }}" hidden>
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>{% raw %}
     </section>
     <section class="destinations-section" id="destinations">
         <h2 class="section-title reveal" style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 10px;">Explore Bali & Beyond</h2>

@@ -102,8 +102,9 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
         /* Crew Section */
         .crew-section { padding: 60px 50px 80px; background-color: var(--bg-light); text-align: center; }
         .crew-intro { max-width: 600px; margin: 0 auto 40px; color: #555; font-size: 1.1rem; }
-        .crew-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .crew-card { background: #fff; width: 320px; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; text-align: left; }
+        /* Carousel track. The authoritative rules live in css/styles.css, which loads after this block. */
+        .crew-container { display: flex; flex-wrap: nowrap; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; max-width: 1200px; margin: 0 auto; }
+        .crew-card { background: #fff; flex: 0 0 320px; width: 320px; scroll-snap-align: start; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.08); transition: transform 0.3s; text-align: left; }
         .crew-card:hover { transform: translateY(-8px); }
         .crew-img { width: 100%; height: 250px; object-fit: cover; }
         .crew-info { padding: 25px; }
@@ -237,7 +238,8 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
     /* Adjust Container Paddings */
     .about-section, .crew-section, .testimonials, .booking-section { padding: 40px 20px; }
     .packages-container { padding: 0 20px 40px; gap: 20px; }
-    .package-card, .crew-card { width: 100%; max-width: 380px; }
+    .package-card { width: 100%; max-width: 380px; }
+    .crew-card { flex: 0 0 78vw; width: 78vw; max-width: 320px; }
     /* 2. Fix the Overlapping Badge */
     .about-image { margin-bottom: 30px; } /* Adds space so the badge doesn't hit the text */
     .experience-badge { right: 10px; bottom: -15px; width: 90px; height: 90px; font-size: 0.8rem; padding: 10px; }
@@ -401,8 +403,13 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
 <section class="crew-section reveal" id="crew">
     <h2 class="section-title">认识您的当地向导</h2>
     <p class="crew-intro">我们经验丰富且友好的司机在这里确保您的旅程安全、有趣且令人难忘。</p>
-    <div class="crew-container">
-        <div class="crew-card reveal delay-1">
+    {% endraw %}<div class="carousel" data-carousel>
+      <button class="carousel-nav carousel-prev" type="button" aria-label="{{ ui.crew_prev[lang] or ui.crew_prev.en }}" hidden>
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <div class="crew-container carousel-track" tabindex="0" role="region"
+           aria-label="{{ ui.crew_region[lang] or ui.crew_region.en }}">{% raw %}
+        <div class="crew-card">
             <img src="/src/assets/crew/ketut-widiasa.webp" alt="Ketut Widiasa" class="crew-img" loading="lazy">
             <div class="crew-info">
                 <h3>Ketut Widiasa</h3>
@@ -410,7 +417,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                 <p>Ketut 来自巴厘岛北部的布莱伦，是一位经验丰富的司机。他口齿伶俐，幽默风趣，并且总是保持车厢一尘不染。他在路上反应迅速且极具责任感。</p>
             </div>
         </div>
-        <div class="crew-card reveal delay-2">
+        <div class="crew-card">
             <img src="/src/assets/crew/gede-jahendra.webp" alt="Gede Jahendra" class="crew-img" loading="lazy">
             <div class="crew-info">
                 <h3>Gede Jahendra</h3>
@@ -418,7 +425,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                 <p>Gede 在佩尼达岛土生土长，对巴厘岛的隐藏宝石有着深刻的了解。他以极其诚实、可靠和负责任而受到我们客户的认可。</p>
             </div>
         </div>
-        <div class="crew-card reveal delay-3">
+        <div class="crew-card">
             <img src="/src/assets/crew/putu-ardi.webp" alt="Putu Ardi" class="crew-img" loading="lazy">
             <div class="crew-info">
                 <h3>Putu Ardi</h3>
@@ -426,7 +433,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                 <p>Putu 是真正的佩尼达岛当地人，为人善良诚实。除了提供向导服务，他还是一位出色的摄影师，会确保在您的任何冒险中捕捉到完美的瞬间。</p>
             </div>
         </div>
-        <div class="crew-card reveal delay-4">
+        <div class="crew-card">
             <img src="/src/assets/crew/kadek-tresna.webp" alt="Kadek Tresna" class="crew-img" loading="lazy">
             <div class="crew-info">
                 <h3>Kadek Tresna</h3>
@@ -434,7 +441,7 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                 <p>Kadek 为团队带来了数十年的经验，是一位敬业的资深司机和真正的巴厘岛当地人。他勤奋、诚实且对岛屿了如指掌，确保为您提供安全舒适的旅程。</p>
             </div>
         </div>
-        <div class="crew-card reveal delay-5">
+        <div class="crew-card">
             <img src="src/assets/crew/agung-putri.webp" alt="Agung Putri" class="crew-img" loading="lazy">
             <div class="crew-info">
                 <h3>Agung Putri</h3>
@@ -442,7 +449,11 @@ ogImage: "https://balirealvacation.com/src/assets/ulun-danu-beratan-temple-beaut
                 <p>Agung Putri 是勤劳的巴厘岛本地人，住在登巴萨，提供机场接送、一日游、私人包车及各类定制行程，服务覆盖全岛。作为一位女性司机，她因守时、并在时间与价格上诚实透明而深受客人信赖。</p>
             </div>
         </div>
-    </div>
+      </div>{% endraw %}
+      <button class="carousel-nav carousel-next" type="button" aria-label="{{ ui.crew_next[lang] or ui.crew_next.en }}" hidden>
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>{% raw %}
 </section>
     <section class="destinations-section" id="destinations">
         <h2 class="section-title reveal" style="color: var(--primary-color); font-size: 2.5rem; margin-bottom: 10px;">探索巴厘岛及周边</h2>

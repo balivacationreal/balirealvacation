@@ -351,22 +351,148 @@ nav ul li a:hover {
   color: #555;
   font-size: 1.1rem;
 }
-.crew-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
+/* ── Carousel ────────────────────────────────────────────────
+   A horizontal, scroll-snapping track with arrow buttons. Built
+   generically (.carousel / .carousel-track) rather than only for the
+   crew, because the same treatment suits any row of cards that grows
+   over time — the driver list is simply the first one to need it.
+
+   Scrolling itself is pure CSS, so it works with touch, a trackpad, a
+   mouse wheel and the keyboard before any JavaScript runs. main.js only
+   adds the arrow buttons, and hides them when there is nothing to
+   scroll to. If that script fails, the track is still fully usable.
+
+   NOTE: cards inside the track must NOT carry .reveal. A card scrolled
+   out of the track is clipped by the scroll container, so it never
+   intersects the viewport, so the reveal observer never fires and it
+   stays at opacity 0 — the same failure mode as the tall-section bug.
+   The section keeps its own .reveal; the cards do not.
+   ──────────────────────────────────────────────────────────── */
+.carousel {
+  position: relative;
   max-width: 1200px;
   margin: 0 auto;
 }
+.crew-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  /* Vertical padding is load-bearing: a scroll container clips at its
+     padding box, and the cards lift 10px on hover with a soft shadow
+     under them. Without it both get sheared off. */
+  padding: 14px 4px 26px;
+  scroll-padding-left: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(4, 41, 62, 0.25) transparent;
+}
+.crew-container:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+  border-radius: var(--radius);
+}
+.crew-container::-webkit-scrollbar {
+  height: 8px;
+}
+.crew-container::-webkit-scrollbar-thumb {
+  background: rgba(4, 41, 62, 0.22);
+  border-radius: 99px;
+}
+.crew-container::-webkit-scrollbar-track {
+  background: transparent;
+}
 .crew-card {
   background: #fff;
+  flex: 0 0 320px;
   width: 320px;
+  scroll-snap-align: start;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s;
   text-align: left;
+  /* The card is a flex column so every role label and paragraph lines up
+     across cards of different text lengths — in a wrapping grid unequal
+     heights were invisible, side by side in a track they are not. */
+  display: flex;
+  flex-direction: column;
+}
+.crew-card .crew-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+/* Side by side, one long biography stretches EVERY card to its height and
+   leaves the others with a block of empty white below the text. Clamping the
+   description keeps the row compact and the cards uniform, which is most of
+   the space saving the carousel is for. Raise or remove the line count if a
+   bio needs to be read in full on the card. */
+.crew-info p {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Arrow buttons. Hidden by default and revealed by main.js only when the
+   track actually overflows, so a short list on a wide screen shows none. */
+.carousel-nav {
+  position: absolute;
+  /* 14px of track padding + half the 250px photo. Anchored to the image
+     rather than the card so the buttons do not drift when a card's text
+     length changes. */
+  top: 139px;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(4, 41, 62, 0.1);
+  border-radius: 50%;
+  background: #fff;
+  color: var(--primary-color);
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(4, 41, 62, 0.28);
+  transition:
+    background 0.25s,
+    color 0.25s,
+    opacity 0.25s;
+}
+.carousel-nav:hover {
+  background: var(--primary-color);
+  color: #fff;
+}
+.carousel-nav:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 3px;
+}
+/* Overlaid on the track's edge rather than outside it: at 1200px and below
+   there is no room beside the carousel, and a button that only clears the
+   cards on a wide monitor would sit half off-screen on a laptop. */
+.carousel-prev {
+  left: 8px;
+}
+.carousel-next {
+  right: 8px;
+}
+/* At either end the button stays in place but stops inviting a click —
+   removing it would shift the track sideways on every scroll. */
+.carousel-nav[disabled] {
+  opacity: 0.32;
+  cursor: default;
+  pointer-events: none;
+}
+.carousel-nav[hidden] {
+  display: none;
 }
 .crew-card:hover {
   transform: translateY(-8px);
@@ -716,10 +842,25 @@ footer {
     padding: 0 20px 40px;
     gap: 20px;
   }
-  .package-card,
-  .crew-card {
+  .package-card {
     width: 100%;
     max-width: 380px;
+  }
+  /* A peek of the next card is the affordance that says "this scrolls" —
+     a full-width card would look like a plain stack. */
+  .crew-card {
+    flex: 0 0 78vw;
+    width: 78vw;
+    max-width: 320px;
+  }
+  .crew-container {
+    gap: 16px;
+    padding: 12px 4px 22px;
+  }
+  /* On a phone the arrows would sit on top of the cards; the swipe is the
+     control there, and the scrollbar shows the position. */
+  .carousel-nav {
+    display: none !important;
   }
   /* 2. Fix the Overlapping Badge */
   .about-image {
@@ -910,6 +1051,13 @@ footer {
   .reveal {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+  .crew-container {
+    scroll-behavior: auto;
+  }
+  .crew-card,
+  .carousel-nav {
     transition: none;
   }
 }

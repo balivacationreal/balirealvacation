@@ -82,7 +82,7 @@ balirealvacation/
 │
 ├── css/styles.css            # Global stylesheet — design tokens + lang-switcher styles
 ├── js/
-│   ├── main.js               # Menu, currency converter, FAQ accordion, booking + airport WhatsApp forms
+│   ├── main.js               # Menu, currency converter, FAQ accordion, card carousels, booking forms
 │   ├── reviews.js            # Testimonials, from Convex
 │   └── visitor-globe.js      # <visitor-globe> custom element (shadow DOM, self-localizing)
 └── src/assets/               # Images (.webp / .jpg) + countries-110m.json — passed through untouched
@@ -132,6 +132,18 @@ DNS/SSL: apex `balirealvacation.com` is canonical (non-www), www 301s to it, `Fu
 
 ### Add or change a nav / footer link
 Edit **`_data/site.js`** — the `nav` and `footerLinks` arrays drive every page in every language. Also add the translated label to **`_data/ui.json`**.
+
+### Add a driver or guide
+The crew cards are a horizontal carousel (`.carousel` + `.crew-container.carousel-track`), so adding people costs no vertical space — the row scrolls instead of growing. Copy an existing `.crew-card` block into the track on **all three** homepages (`pages/index.njk`, `pages/id/`, `pages/zh/`) and translate the role and bio.
+
+Two rules when editing the track:
+
+- **Never put `.reveal` on a card inside the track.** A card scrolled out of view is clipped by the scroll container, so it never intersects the viewport, so the reveal observer never fires and the card sits at `opacity: 0` forever. The section keeps its own `.reveal`; the cards must not have one. (Same failure mode as the tall-section bug in `23101d6`.)
+- **Use an absolute image path** — `/src/assets/crew/name.webp`, with the leading slash. A relative path resolves against `/id/` and `/zh/` and 404s there.
+
+Bios are clamped to 5 lines (`.crew-info p` in `css/styles.css`) so one long biography cannot stretch every card in the row. Change the line count there, or drop the rule to show bios in full.
+
+The arrows come from `js/main.js` (section 6b) and are generic: any `[data-carousel]` wrapper containing a `.carousel-track` plus `.carousel-prev` / `.carousel-next` buttons gets the same behaviour, so another card row can be converted without new JavaScript. Scrolling itself is pure CSS scroll-snap, so touch, trackpad, wheel and arrow keys all work even if that script never runs; the buttons stay hidden unless the track actually overflows.
 
 ### Add a new tour page
 1. Create `pages/my-new-tour.njk` from an existing template.
