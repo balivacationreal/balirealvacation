@@ -261,34 +261,125 @@ document.addEventListener("DOMContentLoaded", () => {
   // 6b. Card Carousels (drivers/guides, and any future row of cards)
   //
   // The track scrolls on its own via CSS — touch, trackpad, wheel and the
-  // arrow keys all work with this script absent. All this adds is the pair
-  // of desktop arrow buttons, which is why they ship hidden in the markup
-  // and are only revealed once we know there is something to scroll to.
+  // arrow keys all work with this script absent. This adds the desktop
+  // arrow buttons (hidden until we know there is something to scroll to)
+  // and a row of dots.
+  //
+  // The dots matter on a phone specifically: the arrows are hidden there
+  // by design (a 44px circle over a driver's face was worse than the swipe
+  // it replaced), so without them a phone visitor has NOTHING on screen
+  // that signals "this is a set of 5, swipe for more" — only a sliver of
+  // the next card peeking past the edge. A dot row is the standard,
+  // unambiguous signal for a browsable set, it needs no gesture support to
+  // be understood, and tapping one is itself a second way to move the
+  // carousel that does not depend on touch-scroll working at all.
+  const CAROUSEL_LANG = (document.documentElement.lang || "en").slice(0, 2).toLowerCase();
+  const CAROUSEL_STRINGS = {
+    en: (n) => `Go to page ${n}`,
+    id: (n) => `Ke halaman ${n}`,
+    zh: (n) => `跳转到第 ${n} 页`,
+  };
+  const carouselDotLabel = CAROUSEL_STRINGS[CAROUSEL_LANG] || CAROUSEL_STRINGS.en;
+
   document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     const track = carousel.querySelector(".carousel-track");
     const prev = carousel.querySelector(".carousel-prev");
     const next = carousel.querySelector(".carousel-next");
     if (!track || !prev || !next) return;
 
+    const cards = () => [...track.children].filter((el) => el.nodeType === 1);
+
     // One card plus one gap. Measured rather than hardcoded so the card
     // width can change in CSS — including at the mobile breakpoint —
     // without this drifting out of step.
     const step = () => {
-      const card = track.querySelector(".crew-card, .carousel-item");
+      const card = cards()[0];
       if (!card) return track.clientWidth * 0.8;
       const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
       return card.getBoundingClientRect().width + gap;
     };
 
+    const maxScroll = () => Math.max(0, track.scrollWidth - track.clientWidth);
+
+    // Dots represent PAGES (one viewport-width of cards), not individual
+    // cards. A dot-per-card scheme breaks as soon as more than one card is
+    // visible at a time: the target for card N is N * cardWidth, which
+    // overshoots the track's real max scroll once N is near the end, the
+    // browser silently clamps the scroll, and two dots land on the
+    // identical position — the "active" dot then disagrees with what is
+    // actually on screen. Paging by the track's own width sidesteps that,
+    // and it keeps the dot row bounded as more drivers are added over
+    // time: on desktop several cards share a page, so twenty drivers is a
+    // handful of dots, not twenty. On a phone, where one card fills the
+    // track, a page and a card are the same thing, so what a phone visitor
+    // actually sees is still one dot per driver.
+    const pageCount = () => Math.max(1, Math.ceil(track.scrollWidth / Math.max(1, track.clientWidth)));
+
+    // Rebuilt whenever the page count changes, not just once — a resize
+    // (rotating a phone, dragging a browser window) can change how many
+    // cards fit per page and therefore how many dots there should be.
+    let dots = [];
+    const dotsEl = document.createElement("div");
+    dotsEl.className = "carousel-dots";
+    dotsEl.setAttribute("role", "tablist");
+    const buildDots = () => {
+      const count = pageCount();
+      if (count < 2 || dots.length === count) return;
+      dotsEl.replaceChildren();
+      dots = Array.from({ length: count }, (_, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "carousel-dot";
+        dot.setAttribute("role", "tab");
+        dot.setAttribute("aria-label", carouselDotLabel(i + 1));
+        dot.addEventListener("click", () => {
+          const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          const left = Math.min(i * track.clientWidth, maxScroll());
+          track.scrollTo({ left, behavior: reduced ? "auto" : "smooth" });
+        });
+        dotsEl.append(dot);
+        return dot;
+      });
+      carousel.append(dotsEl);
+    };
+
     const update = () => {
       // 2px of slack: sub-pixel layout means scrollWidth and clientWidth
       // rarely land exactly equal even when nothing can scroll.
-      const scrollable = track.scrollWidth - track.clientWidth > 2;
+      const scrollable = maxScroll() > 2;
       prev.hidden = !scrollable;
       next.hidden = !scrollable;
+      dotsEl.hidden = !scrollable;
       if (!scrollable) return;
       prev.disabled = track.scrollLeft <= 2;
-      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+      next.disabled = track.scrollLeft >= maxScroll() - 2;
+
+      buildDots();
+      // Find the dot whose OWN click target is nearest the current scroll
+      // position — not scrollLeft divided by the track width. Division
+      // breaks the instant maxScroll is smaller than a full track width
+      // (routine once several cards share a page): scrollLeft can then
+      // never climb high enough for the ratio to round up to the last
+      // dot, so the indicator would freeze on "page 1" forever even
+      // though the track is genuinely scrolled all the way to the end.
+      // Deriving the index from the same targets the click handler uses
+      // keeps the two in permanent agreement.
+      const limit = maxScroll();
+      let index = 0;
+      let closest = Infinity;
+      dots.forEach((_, i) => {
+        const target = Math.min(i * track.clientWidth, limit);
+        const distance = Math.abs(track.scrollLeft - target);
+        if (distance < closest) {
+          closest = distance;
+          index = i;
+        }
+      });
+      dots.forEach((dot, i) => {
+        const active = i === index;
+        dot.classList.toggle("is-active", active);
+        dot.setAttribute("aria-selected", String(active));
+      });
     };
 
     const go = (direction) => {

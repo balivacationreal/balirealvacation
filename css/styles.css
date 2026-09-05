@@ -494,6 +494,45 @@ nav ul li a:hover {
 .carousel-nav[hidden] {
   display: none;
 }
+
+/* Dot indicators. This is the part that makes the row unmistakably a
+   carousel on a phone, where the arrows above are hidden and a swipe is
+   the only gesture-based way to move it — a peek of the next card alone
+   does not read as "browsable" to every visitor. Tapping a dot is also a
+   second, gesture-free way to advance, independent of whether touch-scroll
+   behaves the same on every device. */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.carousel-dots[hidden] {
+  display: none;
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(4, 41, 62, 0.18);
+  cursor: pointer;
+  transition:
+    background 0.25s,
+    transform 0.25s;
+}
+.carousel-dot:hover {
+  background: rgba(4, 41, 62, 0.32);
+}
+.carousel-dot:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+.carousel-dot.is-active {
+  background: var(--primary-color);
+  transform: scale(1.25);
+}
 .crew-card:hover {
   transform: translateY(-8px);
 }
@@ -862,6 +901,16 @@ footer {
   .carousel-nav {
     display: none !important;
   }
+  /* The fixed .mobile-book-bar sits at z-index 1200 across the bottom
+     ~74px of every mobile screen (matched by `body { padding-bottom:
+     74px }` below, for the same reason at the very end of the page) and
+     swallows any tap that lands on whatever happens to be underneath it.
+     The dots are the last thing in this section, so without this they
+     scroll to exactly that dead strip the moment a visitor finishes
+     reading a card — the tap never reaches the dot, it hits the bar. */
+  .carousel-dots {
+    margin-bottom: 74px;
+  }
   /* 2. Fix the Overlapping Badge */
   .about-image {
     margin-bottom: 30px;
@@ -1057,7 +1106,8 @@ footer {
     scroll-behavior: auto;
   }
   .crew-card,
-  .carousel-nav {
+  .carousel-nav,
+  .carousel-dot {
     transition: none;
   }
 }
