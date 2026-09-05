@@ -896,6 +896,19 @@ footer {
     gap: 16px;
     padding: 12px 4px 22px;
   }
+  /* The 5-line clamp on .crew-info p exists to keep cards the SAME height
+     when several sit side by side on desktop — otherwise one long bio
+     stretches every card in the row and leaves the rest with empty white
+     space below. On a phone only one card is ever on screen at a time, so
+     there is no neighbour to line up against, and the clamp only serves
+     to cut a real bio off mid-sentence. Let it run full length here; the
+     card grows to fit, same as it always did before the clamp existed. */
+  .crew-info p {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+  }
   /* On a phone the arrows would sit on top of the cards; the swipe is the
      control there, and the scrollbar shows the position. */
   .carousel-nav {
