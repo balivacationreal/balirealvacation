@@ -41,7 +41,9 @@ balirealvacation/
 │   └── partials/
 │       ├── nav.njk           # Shared navigation
 │       ├── lang-switcher.njk # EN | ID | 中文 pill switcher
-│       └── footer.njk        # Footer + floating buttons + mobile book bar
+│       ├── footer.njk        # Footer + floating buttons + mobile book bar
+│       ├── testimonials.njk  # Reviews list + submission form (Convex-backed)
+│       └── visitor-globe.njk # Visitor globe section — placement, palette, script tag
 │
 ├── pages/                    # English templates (default language)
 │   ├── pages.11tydata.js     # Sets lang=en and auto-generates transKey per page
@@ -67,14 +69,23 @@ balirealvacation/
 │       ├── zh.11tydata.json  # Sets lang=zh for all files in this folder
 │       └── *.njk
 │
+├── netlify/functions/
+│   ├── visitors.mjs          # /api/visitors — Netlify adapter (Blobs + context.geo)
+│   └── lib/visitors-core.mjs # …its logic, host-agnostic so it can be tested
+│
+├── test/visitors.test.mjs    # `npm test` — no deps, no live backend
+│
 ├── convex/
 │   ├── schema.ts             # reviews + receipts tables
 │   ├── reviews.ts            # testimonial submit / list / approve
 │   └── receipts.ts           # booking receipts: save, get, recent, purge (admin)
 │
 ├── css/styles.css            # Global stylesheet — design tokens + lang-switcher styles
-├── js/main.js                # Menu, currency converter, FAQ accordion, booking + airport WhatsApp forms
-└── src/assets/               # Images (.webp / .jpg) — passed through untouched
+├── js/
+│   ├── main.js               # Menu, currency converter, FAQ accordion, booking + airport WhatsApp forms
+│   ├── reviews.js            # Testimonials, from Convex
+│   └── visitor-globe.js      # <visitor-globe> custom element (shadow DOM, self-localizing)
+└── src/assets/               # Images (.webp / .jpg) + countries-110m.json — passed through untouched
 ```
 
 ---
@@ -87,7 +98,13 @@ Requires Node.js 18+.
 npm install        # one time — installs Eleventy
 npm start          # dev server with live reload → http://localhost:8080
 npm run build      # production build → _site/
+npm test           # unit tests for the /api/visitors function
 ```
+
+`npm start` serves static files only, so `/api/visitors` 404s and the visitor
+globe shows "statistics unavailable" — that is the intended failure, not a
+broken dev setup. To exercise the function locally, run `npx netlify dev`
+instead, which serves the build and the function together.
 
 `_site/` is regenerated on every build and is git-ignored. Never edit it directly.
 
@@ -272,6 +289,87 @@ The Quick-fill price list lives in the `TRANSFERS`, `TOURS` and `DRIVER_DAY_RATE
 at the top of the `<script>` in `pages/booking-receipt.njk`. When you change a public
 price, update it there too — nothing breaks if you forget, you just have to retype the
 amount on the receipt.
+
+---
+
+## Visitor globe (`/api/visitors`)
+
+The dark band between the reviews and the booking form on each homepage. It
+shows total visitors, how many people are on the site right now, the countries
+they are reading from, and a spinning globe with a dot per city.
+
+**Where the pieces are**
+
+| Piece | File |
+|---|---|
+| The custom element | `js/visitor-globe.js` |
+| Section markup, palette, script tag | `_includes/partials/visitor-globe.njk` |
+| The API | `netlify/functions/visitors.mjs` (adapter) + `lib/visitors-core.mjs` (logic) |
+| Tests | `test/visitors.test.mjs` — `npm test` |
+| Country outlines | `src/assets/countries-110m.json` (Natural Earth, public domain) |
+| What visitors are told | `pages/privacy.njk` §4, and its `id/` and `zh/` twins |
+
+**Storage** is Netlify Blobs, store `visitor-globe`, two keys. `stats` holds the
+total, one row per place and the dedupe hashes; it is written once per new
+visitor. `presence` holds the last five minutes of heartbeats and churns
+constantly. They are separate on purpose — merging them makes every heartbeat
+fight the visit counter for the same compare-and-set token, and under
+concurrency the retries start losing increments silently. Nothing needs
+provisioning; the store appears on first write.
+
+**Geolocation** is `context.geo`, resolved at Netlify's edge. No IP is ever
+stored, logged, or sent anywhere, and no third-party lookup is involved.
+
+**Adding it to another page** — `{% include "partials/visitor-globe.njk" %}`.
+All text inside the component is localized from `<html lang>`, so nothing else
+is needed. It lazy-loads everything except the visit POST, which stays eager so
+that "total visitors" keeps meaning visitors rather than people who scrolled.
+
+### Things that will bite you
+
+- **Shadow DOM is unreachable from outside.** `css/styles.css` cannot style
+  anything inside the card. The `--vg-*` custom properties in the partial are
+  the entire theming surface.
+- **The five canvas colours are parsed as hex only.** `--vg-land`, `--vg-ocean`,
+  `--vg-rim`, `--vg-past`, `--vg-current`. Writing `rgb()`, `hsl()`,
+  `color-mix()` or a `var()` reference silently falls back to the default with
+  no error anywhere.
+- **`online_now` counts foreground browser tabs, not people.** One person on a
+  phone and a laptop is two. A hidden tab stops polling and drops out within
+  five minutes. Do not pad the number with a random offset — anyone can catch
+  it by opening two tabs, and it would make every other figure on the page
+  untrustworthy.
+- **Only top-level files in `netlify/functions/` become endpoints.** Shared code
+  goes in `lib/`; tests go in `test/`, outside the directory entirely.
+- **`GET` is cached** for 60 s (and 30 s per warm function instance), so assert
+  through `POST` responses when testing — a `GET` can lag a write by a minute.
+
+### Privacy — four rules that keep this out of consent-banner territory
+
+Aggregates only (a count per place, never a row per visit); no IP, ever;
+nothing durable on the device (`sessionStorage`, no cookie, no `localStorage`);
+and only short-lived hashes salted with a value that rotates daily. Break any
+one of them — a per-visit log, a persistent id, an analytics pixel inside the
+widget — and `privacy.njk` §4 becomes untrue and the site needs a consent
+banner. That is a product decision, not a code change.
+
+### Manual check after a deploy
+
+1. `curl https://balirealvacation.com/api/visitors` → zeros, not a 500.
+2. Load the homepage, scroll to the globe, `curl` again → total is 1.
+3. Reload immediately → still 1 (server-side dedupe works).
+4. Open a second browser → 2, and `online_now` is 2.
+5. Close both, wait 6 minutes, `curl` → `online_now` is back to 0.
+
+Step 5 is the one people skip, and a presence list that never prunes is the
+most common way this feature breaks.
+
+### Credit
+
+A fork of [visitor-globe-widget](https://github.com/StatSleuth8/visitor-globe-widget)
+by Shuai Yang (MIT). The copyright and permission notice is in the header of
+`js/visitor-globe.js` — **leave it there**; MIT requires it to travel with every
+copy. Country outlines are Natural Earth, public domain, no obligation.
 
 ---
 

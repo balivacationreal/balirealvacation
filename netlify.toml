@@ -13,6 +13,23 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# ----- Serverless functions ----------------------------------
+# Backs the <visitor-globe> card on the three homepages. The route
+# itself is declared in the function (`export const config = { path }`),
+# so there is no redirect to keep in sync here.
+#
+# Only top-level files in this directory become endpoints; the shared
+# logic lives in netlify/functions/lib/, which is bundled as a plain
+# import and is not reachable over HTTP. Its tests are in test/, out of
+# the directory entirely, so they are never deployed.
+#
+# Storage is Netlify Blobs (store "visitor-globe"), which needs no
+# configuration. Geolocation comes from context.geo at the edge, so no
+# visitor IP ever leaves the function.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # ----- 1. Force www -> non-www (301) -------------------------
 # Every www request is permanently redirected to the apex domain.
 [[redirects]]

@@ -1,0 +1,74 @@
+{# =====================================================================
+   Visitor globe — "where our guests are right now".
+
+   Drop-in on each homepage, BETWEEN the testimonials and the booking
+   form:  {% include "partials/visitor-globe.njk" %}
+
+   Placement is deliberate. The card is social proof — a live count of
+   people planning a Bali trip, and the countries they are reading from —
+   so it belongs immediately after the reviews and immediately before the
+   booking CTA, at the point where a visitor is deciding. It is also low
+   enough down the page that the widget's own lazy-loading (a ~105 KB
+   country topology and a requestAnimationFrame loop) never touches the
+   critical path; only the visit POST is eager, so the total keeps meaning
+   "visitors" and not "people who scrolled this far".
+
+   All text inside the component is localized by /js/visitor-globe.js from
+   <html lang>, the same way /js/reviews.js localizes the testimonials —
+   shadow DOM is unreachable from this file or from css/styles.css.
+
+   The --vg-* custom properties below are the ENTIRE theming surface for
+   the component. The five canvas colours are parsed as HEX ONLY; rgb(),
+   hsl() and color-mix() silently fall back to the built-in defaults, so
+   do not switch them to var() references or colour functions.
+   ===================================================================== #}
+<section class="globe-section" id="visitors">
+  <h2 class="section-title reveal">{{ ui.globe_title[lang] or ui.globe_title.en }}</h2>
+  <div class="globe-wrap">
+    <visitor-globe></visitor-globe>
+  </div>
+</section>
+
+<style>
+  .globe-section {
+    padding: 60px 50px 80px;
+    background-color: var(--ocean-deep);
+  }
+  /* The section sits between two light bands (white reviews above, sand
+     booking form below); the dark ground is what keeps all three from
+     running together, and it makes the globe read as lit rather than flat. */
+  .globe-section .section-title {
+    color: #fff;
+    margin-top: 0;
+  }
+  .globe-wrap {
+    max-width: 1020px;
+    margin: 0 auto;
+  }
+
+  .globe-wrap visitor-globe {
+    --vg-ink: #1f2a30;
+    --vg-muted: #5f6f78;
+    --vg-surface: #ffffff;
+    --vg-border: #e6ddcf;
+    --vg-radius: var(--radius);
+    --vg-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    --vg-accent: #00557f;
+
+    /* Canvas — literal hex only (see the note above). */
+    --vg-land: #0e5b73;    /* continents  */
+    --vg-ocean: #dbeef6;   /* water       */
+    --vg-rim: #00557f;     /* outline     */
+    --vg-past: #ff6b4a;    /* places seen — brand coral */
+    --vg-current: #13b5a6; /* newest place — brand aqua */
+    --vg-live: #15803d;    /* the online-now dot */
+  }
+
+  @media (max-width: 768px) {
+    .globe-section {
+      padding: 40px 20px 60px;
+    }
+  }
+</style>
+
+<script src="/js/visitor-globe.js" defer></script>

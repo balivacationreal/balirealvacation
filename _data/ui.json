@@ -36,6 +36,7 @@
   "wechat_copied":   { "en": "Copied", "id": "Tersalin", "zh": "已复制" },
   "wechat_hint":     { "en": "On a phone: press and hold the code to save it, then in WeChat tap Scan and choose it from your album.", "id": "Di ponsel: tekan dan tahan kode untuk menyimpannya, lalu di WeChat ketuk Pindai dan pilih dari album Anda.", "zh": "手机用户：长按二维码保存，然后在微信中点击「扫一扫」并从相册中选择。" },
   "wechat_close":    { "en": "Close", "id": "Tutup", "zh": "关闭" },
+  "globe_title":     { "en": "Travellers Planning Their Bali Trip", "id": "Wisatawan yang Sedang Merencanakan Perjalanan ke Bali", "zh": "正在规划巴厘岛之旅的旅客" },
   "price_note":     {
     "en": "Please note: our prices may change over time in line with market rates, fuel costs and inflation. The price we confirm for you on WhatsApp is the price you pay — it will not change once your booking is confirmed.",
     "id": "Harap dicatat: harga kami dapat berubah sewaktu-waktu mengikuti harga pasar, biaya bahan bakar, dan inflasi. Harga yang kami konfirmasi melalui WhatsApp adalah harga yang Anda bayar — tidak akan berubah setelah pemesanan dikonfirmasi.",

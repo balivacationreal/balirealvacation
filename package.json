@@ -5,12 +5,14 @@
   "scripts": {
     "start": "eleventy --serve",
     "build": "eleventy",
-    "clean": "rm -rf _site"
+    "clean": "rm -rf _site",
+    "test": "node test/visitors.test.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
   },
   "dependencies": {
+    "@netlify/blobs": "^11.0.3",
     "convex": "^1.41.0"
   }
 }
