@@ -242,6 +242,12 @@ nav ul li a:hover {
   font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-dark);
+  /* "Group of 4+" is two short words and should never be the thing that
+     wraps. Adding a third currency beside it widened the price block
+     enough to break it across two lines, which grew every row in the
+     table; the price block is the flexible half of this row, so let that
+     wrap instead. */
+  white-space: nowrap;
 }
 .price-group {
   display: flex;
@@ -261,6 +267,38 @@ nav ul li a:hover {
   font-size: 0.8rem;
   font-weight: 600;
   line-height: 1;
+}
+
+/* Converted-price lines carry three currencies now, which is long enough to
+   wrap in a narrow column — the airport transfer table cell is ~145px on a
+   phone. Laying the amounts out as wrapping chunks, rather than one string
+   with literal separators in it, means a break lands cleanly between two
+   currencies instead of stranding a separator at the end of a line. The
+   row-gap also gives wrapped lines some breathing room, which the
+   line-height of 1 above otherwise denies them.
+
+   Used by all three price layouts: .idr-price (tour packages, priced in
+   USD), .converted-price (private driver tours) and .price-converted
+   (airport transfers), both of the latter priced in IDR. js/main.js emits
+   the same chunk markup when it rewrites these with live rates. */
+.idr-price,
+.price-converted,
+.converted-price {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 9px;
+}
+/* Tour package prices sit in a right-aligned .price-group column. */
+.idr-price {
+  justify-content: flex-end;
+}
+.cur {
+  white-space: nowrap;
+}
+/* The secondary currencies, muted against the base price beside them. */
+.cur-alt {
+  color: #888;
+  font-weight: normal;
 }
 .per-pax-note {
   font-size: 0.8rem;

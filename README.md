@@ -163,7 +163,17 @@ The arrows come from `js/main.js` (section 6b) and are generic: any `[data-carou
 4. The switcher and hreflang tags update automatically.
 
 ### Change a price
-Edit the `data-usd="…"` attribute on the `.idr-price` span in the tour template. The live currency converter in `main.js` recomputes IDR/AUD automatically using cached exchange rates.
+Edit **only the `data-` attribute** — the converter in `js/main.js` (`initializeTours`) rewrites everything else from live rates (cached 12 hours, base USD, from open.er-api.com). Three layouts, differing in which currency the price is quoted in:
+
+| Where | Markup | Base | Shows |
+|---|---|---|---|
+| Tour packages (`/#packages`, tour pages) | `.idr-price[data-usd]` | USD | IDR · AUD · CNY (USD headline is the sibling `.usd-price`) |
+| Private driver tours | `.auto-price[data-idr]` | IDR | USD · AUD · CNY |
+| Airport transfers | `.price-idr[data-idr]` | IDR | USD · AUD · CNY |
+
+The text inside those elements is a **pre-rendered fallback**, shown only when the rate fetch fails — so it should be updated to roughly match when a price changes, but it is not what visitors normally see. Each amount is emitted as its own `<span class="cur">` chunk (muted ones also get `.cur-alt`); the containers are `flex-wrap`, so a narrow column breaks between currencies instead of stranding a separator mid-line. Keep that structure if you hand-edit a fallback.
+
+Adding a fourth currency means: add the rate to the fetch and its `localStorage` cache key, add a `chunk(...)` call to each of the three renderers, and regenerate the fallbacks. Note the cache check treats a *missing* rate as a cache miss — that is what lets returning visitors pick up a newly added currency instead of waiting for their 12 hours to lapse.
 
 ### Restyle the whole site
 Design tokens at the top of `css/styles.css`:

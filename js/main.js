@@ -1,18 +1,48 @@
+/* Live price conversion.
+ *
+ * Guests are quoted in one of two base currencies depending on the page —
+ * USD for the tour packages, IDR for private driver tours and airport
+ * transfers — and everything else on screen is a converted hint. AUD and
+ * CNY are shown because Australian and Chinese guests are the two largest
+ * non-Indonesian groups; the site ships a Mandarin translation and a WeChat
+ * contact for the same reason.
+ *
+ * All three price layouts are handled here rather than hardcoded in the
+ * templates. Hand-written conversions rot silently: the airport transfer
+ * table read "~$13 USD" for a Rp 200.000 fare, which was right at roughly
+ * 15,400 IDR to the dollar and overstated the price by about 15% by the
+ * time the rate reached 17,700. Three currencies across seventeen fares in
+ * three languages is 150-odd numbers that would all drift the same way.
+ *
+ * The markup keeps a static price as its fallback, so a failed rate fetch
+ * leaves the pre-rendered numbers in place rather than blanking the page.
+ */
 async function initializeTours() {
   // Check localStorage cache (12-hour TTL) to avoid unnecessary API calls
   let idrRate = parseFloat(localStorage.getItem("cached_idr_rate"));
   let audRate = parseFloat(localStorage.getItem("cached_aud_rate"));
+  let cnyRate = parseFloat(localStorage.getItem("cached_cny_rate"));
   const rateTime = parseInt(localStorage.getItem("cached_rate_time") || "0");
   const now = Date.now();
   const TWELVE_HOURS = 43200000;
-  if (!idrRate || !audRate || now - rateTime > TWELVE_HOURS) {
+  // A returning visitor cached rates before CNY was added, so they hold a
+  // fresh idr/aud pair and no cny at all. Treating a missing rate as a
+  // cache miss re-fetches for them instead of leaving the new currency
+  // blank until their 12 hours happen to lapse.
+  if (!idrRate || !audRate || !cnyRate || now - rateTime > TWELVE_HOURS) {
     try {
       const response = await fetch("https://open.er-api.com/v6/latest/USD");
       const data = await response.json();
       idrRate = data.rates.IDR;
       audRate = data.rates.AUD;
+      cnyRate = data.rates.CNY;
+      // A partial response would otherwise cache NaN and render "~$NaN".
+      if (![idrRate, audRate, cnyRate].every(Number.isFinite)) {
+        throw new Error("Incomplete exchange rate response");
+      }
       localStorage.setItem("cached_idr_rate", idrRate);
       localStorage.setItem("cached_aud_rate", audRate);
+      localStorage.setItem("cached_cny_rate", cnyRate);
       localStorage.setItem("cached_rate_time", now);
     } catch (error) {
       console.error(
@@ -22,19 +52,77 @@ async function initializeTours() {
       return; // Static pre-rendered prices remain — nothing more to do
     }
   }
-  // Update all .idr-price spans across the page with live-converted values
-  document.querySelectorAll(".idr-price[data-usd]").forEach((el) => {
-    const usdValue = parseFloat(el.getAttribute("data-usd"));
-    const exactIdr = usdValue * idrRate;
-    const cleanIdr = Math.ceil(exactIdr / 10000) * 10000;
-    const audValue = Math.round(usdValue * audRate);
-    const formattedIdr = new Intl.NumberFormat("id-ID", {
+
+  const round = (value) => Math.round(value).toLocaleString("en-US");
+  const formatIdr = (amount) =>
+    new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
-    }).format(cleanIdr);
-    el.innerHTML = `${formattedIdr} <span style="color:#888;font-weight:normal;">| ~$${audValue} AUD</span>`;
+    }).format(amount);
+
+  /* Each amount is its own .cur chunk rather than one long string, so a
+     narrow column wraps between currencies instead of stranding a
+     separator — see the .cur rules in css/styles.css. Built as elements
+     rather than an HTML string because these lines are rebuilt on every
+     page load; the values are all numbers derived from data- attributes,
+     but there is no reason to hand-assemble markup for them. */
+  const chunk = (text, muted) => {
+    const span = document.createElement("span");
+    span.className = muted ? "cur cur-alt" : "cur";
+    span.textContent = text;
+    return span;
+  };
+
+  /* Tour packages (index + individual tour pages). Priced in USD, with the
+     headline "$65" sitting in a sibling .usd-price, so this element carries
+     the other three currencies. */
+  document.querySelectorAll(".idr-price[data-usd]").forEach((el) => {
+    const usdValue = parseFloat(el.getAttribute("data-usd"));
+    if (!Number.isFinite(usdValue)) return;
+    const cleanIdr = Math.ceil((usdValue * idrRate) / 10000) * 10000;
+    el.replaceChildren(
+      chunk(formatIdr(cleanIdr), false),
+      // "A$" rather than a bare "$", now that a USD figure sits directly
+      // above it and a third currency sits beside it.
+      chunk(`~A$${round(usdValue * audRate)} AUD`, true),
+      chunk(`~¥${round(usdValue * cnyRate)} CNY`, true),
+    );
+  });
+
+  /* Private driver tours and airport transfers. Both are priced in IDR —
+     that is the figure the driver is actually paid — so the conversions
+     run the other way. */
+  const fillFromIdr = (line, idrValue) => {
+    const usdValue = idrValue / idrRate;
+    line.replaceChildren(
+      chunk(`~$${round(usdValue)} USD`, false),
+      chunk(`~A$${round(usdValue * audRate)} AUD`, false),
+      chunk(`~¥${round(usdValue * cnyRate)} CNY`, false),
+    );
+  };
+
+  // Private driver tours: the converted line lives inside the price block,
+  // created here when the template did not ship one.
+  document.querySelectorAll(".auto-price[data-idr]").forEach((el) => {
+    const idrValue = parseFloat(el.getAttribute("data-idr"));
+    if (!Number.isFinite(idrValue)) return;
+    let line = el.querySelector(".converted-price");
+    if (!line) {
+      line = document.createElement("span");
+      line.className = "converted-price";
+      el.append(line);
+    }
+    fillFromIdr(line, idrValue);
+  });
+
+  // Airport transfers: the converted line is a sibling of the price.
+  document.querySelectorAll(".price-idr[data-idr]").forEach((el) => {
+    const idrValue = parseFloat(el.getAttribute("data-idr"));
+    if (!Number.isFinite(idrValue)) return;
+    const line = el.parentElement?.querySelector(".price-converted");
+    if (line) fillFromIdr(line, idrValue);
   });
 }
 document.addEventListener("DOMContentLoaded", () => {
