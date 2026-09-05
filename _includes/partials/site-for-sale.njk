@@ -1,0 +1,253 @@
+{# =====================================================================
+   "This website is for sale" — the site-wide floating advert.
+   Included once by layouts/base.njk, so it appears on every page in every
+   language. Copy, contact details and the on/off switches live in
+   _data/saleAd.js (set active:false there to remove it everywhere).
+
+   It is a pill that expands into a panel, rather than a modal, because it
+   shows on all 55 pages: a full-screen takeover on every one of them would
+   drive away the guests the site is still there to serve. Guests can ignore
+   it; a buyer can open it from whichever page they landed on.
+
+   Placement works around the floating chrome already on screen — the
+   .floating-buttons stack (bottom left), #scrollTopBtn (right, 100–155px up
+   on desktop and 90–135px on mobile) and .mobile-book-bar (bottom 74px on
+   mobile) — so the pill sits directly above the scroll-top button on both.
+   ===================================================================== #}
+{% if saleAd.active %}
+{%- set t = saleAd.i18n[lang] or saleAd.i18n.en -%}
+
+<div class="sfs" id="sfs">
+  <button type="button" class="sfs-pill" id="sfs-pill"
+          aria-expanded="false" aria-controls="sfs-panel" aria-label="{{ t.pillAria }}">
+    <span class="sfs-pill-ico"><i class="fa-solid fa-tag" aria-hidden="true"></i></span>
+    <span class="sfs-pill-long">{{ t.pill }}</span>
+    <span class="sfs-pill-short">{{ t.pillShort }}</span>
+  </button>
+
+  <div class="sfs-panel" id="sfs-panel" role="dialog" aria-labelledby="sfs-title" tabindex="-1" hidden>
+    <div class="sfs-head">
+      <span class="sfs-badge"><i class="fa-solid fa-tag" aria-hidden="true"></i> {{ t.badge }}</span>
+      <h2 class="sfs-title" id="sfs-title">{{ t.title }}</h2>
+      <button type="button" class="sfs-close" id="sfs-close" aria-label="{{ t.close }}">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <div class="sfs-body">
+      <p class="sfs-lead">{{ t.lead }}</p>
+
+      <ul class="sfs-stats">
+        {%- for s in saleAd.stats %}
+        <li><i class="fa-solid {{ s.icon }}" aria-hidden="true"></i> {{ t[s.key] }}</li>
+        {%- endfor %}
+      </ul>
+
+      <p class="sfs-inc-title">{{ t.includesTitle }}</p>
+      <ul class="sfs-inc">
+        {%- for item in t.includes %}
+        <li><i class="fa-solid fa-check" aria-hidden="true"></i> {{ item }}</li>
+        {%- endfor %}
+      </ul>
+
+      <p class="sfs-direct"><i class="fa-solid fa-user-check" aria-hidden="true"></i> {{ t.directNote }}</p>
+    </div>
+
+    <div class="sfs-foot">
+      <a class="sfs-wa" target="_blank" rel="noopener"
+         href="https://wa.me/{{ saleAd.whatsapp }}?text={{ t.waText | urlencode | safe }}">
+        <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+        <span>{{ t.cta }}<b>{{ saleAd.whatsappDisplay }}</b></span>
+      </a>
+      <a class="sfs-tel" href="tel:{{ saleAd.tel }}">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i> {{ t.callCta }} · {{ saleAd.whatsappDisplay }}
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Above .mobile-book-bar (1200) so the pill is never buried, below the
+     homepage land pop-up (2000) so that keeps the screen while it is open. */
+  .sfs-pill,.sfs-panel{position:fixed;z-index:1300;right:30px;bottom:172px}
+
+  .sfs-pill{display:inline-flex;align-items:center;gap:10px;max-width:min(320px,calc(100vw - 60px));padding:9px 18px 9px 9px;border:none;border-radius:40px;cursor:pointer;background:linear-gradient(135deg,var(--ocean-deep,#04293e),var(--primary-color,#00557f));color:#fff;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.9rem;line-height:1.25;text-align:left;box-shadow:0 10px 26px rgba(4,41,62,.32);transition:transform .25s ease,box-shadow .25s ease}
+  .sfs-pill:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(4,41,62,.4)}
+  .sfs-pill:focus-visible{outline:2px solid var(--secondary-color,#ff6b4a);outline-offset:3px}
+  .sfs-pill[hidden]{display:none}
+  .sfs-pill-ico{flex-shrink:0;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:var(--secondary-color,#ff6b4a);font-size:.85rem}
+  .sfs-pill-short{display:none}
+
+  /* Draws the eye a few times on arrival, then stops — a permanent animation
+     on every page would be a nuisance rather than an advert. */
+  .sfs-pill.is-new{animation:sfs-attn 2.4s ease 1.2s 3}
+  @keyframes sfs-attn{
+    0%,100%{box-shadow:0 10px 26px rgba(4,41,62,.32)}
+    25%{box-shadow:0 10px 26px rgba(4,41,62,.32),0 0 0 0 rgba(255,107,74,.45)}
+    50%{box-shadow:0 10px 26px rgba(4,41,62,.32),0 0 0 12px rgba(255,107,74,0)}
+  }
+
+  .sfs-panel{display:flex;flex-direction:column;width:378px;max-width:calc(100vw - 40px);max-height:min(calc(100vh - 210px),620px);background:#fff;border-radius:var(--radius,18px);overflow:hidden;box-shadow:0 26px 70px rgba(4,41,62,.34);transform-origin:100% 100%;transform:translateY(14px) scale(.97);opacity:0;transition:opacity .24s ease,transform .24s ease}
+  .sfs-panel[hidden]{display:none}
+  .sfs-panel.is-open{opacity:1;transform:none}
+  .sfs-panel:focus{outline:none}
+
+  .sfs-head{position:relative;flex-shrink:0;padding:20px 52px 18px 24px;background:linear-gradient(135deg,var(--ocean-deep,#04293e),var(--primary-color,#00557f));color:#fff}
+  .sfs-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,107,74,.92);color:#fff;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.68rem;letter-spacing:.6px;text-transform:uppercase;padding:5px 12px;border-radius:20px}
+  .sfs-title{font-size:1.24rem;line-height:1.3;color:#fff;margin:11px 0 0}
+  .sfs-close{position:absolute;top:14px;right:14px;width:34px;height:34px;border:none;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:1rem;line-height:1;cursor:pointer;transition:background .2s ease,transform .2s ease}
+  .sfs-close:hover{background:rgba(255,255,255,.3);transform:rotate(90deg)}
+  .sfs-close:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  .sfs-body{min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 24px 4px}
+  .sfs-lead{font-size:.93rem;line-height:1.6;color:#54626a;margin-bottom:14px}
+
+  .sfs-stats{list-style:none;margin:0 0 16px;padding:0;display:flex;flex-wrap:wrap;gap:7px}
+  .sfs-stats li{display:inline-flex;align-items:center;gap:6px;background:var(--sand-2,#f3ece0);color:var(--primary-color,#00557f);font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.74rem;padding:5px 11px;border-radius:20px}
+  .sfs-stats li i{font-size:.72rem;opacity:.75}
+
+  .sfs-inc-title{font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.86rem;color:var(--text-dark,#1f2a30);margin-bottom:9px}
+  .sfs-inc{list-style:none;margin:0 0 15px;padding:0;display:grid;gap:8px}
+  .sfs-inc li{display:flex;align-items:flex-start;gap:9px;font-size:.88rem;line-height:1.5;color:var(--text-dark,#1f2a30)}
+  .sfs-inc li i{color:var(--aqua,#13b5a6);font-size:.75rem;margin-top:5px;flex-shrink:0}
+
+  .sfs-direct{display:flex;align-items:flex-start;gap:9px;background:var(--bg-light,#fbf8f3);border-left:3px solid var(--secondary-color,#ff6b4a);border-radius:0 8px 8px 0;padding:10px 13px;font-size:.84rem;line-height:1.5;color:#54626a}
+  .sfs-direct i{color:var(--secondary-color,#ff6b4a);margin-top:4px;flex-shrink:0}
+
+  .sfs-foot{position:relative;flex-shrink:0;padding:16px 24px 20px;background:#fff;border-top:1px solid rgba(4,41,62,.07)}
+  /* The list is taller than the panel on most screens, and a hard cut at the
+     footer reads as the end of the copy — so the last visible line fades while
+     there is more below it, and the fade clears once it is scrolled through. */
+  .sfs-foot::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:30px;background:linear-gradient(rgba(255,255,255,0),#fff);opacity:0;pointer-events:none;transition:opacity .2s ease}
+  .sfs-panel.has-more .sfs-foot::before{opacity:1}
+  .sfs-wa{display:flex;align-items:center;justify-content:center;gap:11px;background:#25d366;color:#fff;text-decoration:none;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.95rem;padding:12px 18px;border-radius:30px;box-shadow:0 8px 22px rgba(37,211,102,.3);transition:background .2s ease,transform .2s ease}
+  .sfs-wa:hover{background:#1da851;transform:translateY(-2px)}
+  .sfs-wa:focus-visible{outline:2px solid var(--primary-color,#00557f);outline-offset:2px}
+  .sfs-wa i{font-size:1.3rem}
+  .sfs-wa span{display:flex;flex-direction:column;line-height:1.2}
+  .sfs-wa b{font-weight:600;font-size:.8rem;opacity:.92;overflow-wrap:anywhere}
+  .sfs-tel{display:block;margin-top:10px;text-align:center;font-size:.8rem;color:#54626a;text-decoration:none}
+  .sfs-tel:hover{color:var(--primary-color,#00557f);text-decoration:underline}
+
+  @media(max-width:768px){
+    /* #scrollTopBtn moves to bottom:90px (45px tall) above the booking bar. */
+    .sfs-pill,.sfs-panel{right:20px;bottom:145px}
+    .sfs-pill{gap:8px;padding:7px 15px 7px 7px;font-size:.82rem}
+    .sfs-pill-ico{width:28px;height:28px;font-size:.78rem}
+    .sfs-pill-long{display:none}
+    .sfs-pill-short{display:inline}
+    .sfs-panel{left:16px;right:16px;width:auto;max-width:none;max-height:min(calc(100vh - 175px),560px)}
+    .sfs-head{padding:17px 48px 15px 19px}
+    .sfs-title{font-size:1.1rem}
+    .sfs-body{padding:16px 19px 4px}
+    .sfs-foot{padding:14px 19px 17px}
+  }
+  /* Short screens (a phone in landscape): let the panel use the room the pill
+     would otherwise have taken, since the pill is hidden while it is open. */
+  @media(max-height:620px){
+    .sfs-panel{bottom:96px;max-height:calc(100vh - 120px)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .sfs-pill,.sfs-panel,.sfs-wa,.sfs-close{transition:none}
+    .sfs-pill.is-new{animation:none}
+    .sfs-panel{transform:none}
+  }
+</style>
+
+<script>
+(function () {
+  var pill = document.getElementById('sfs-pill');
+  var panel = document.getElementById('sfs-panel');
+  if (!pill || !panel) return;
+
+  var KEY = {{ saleAd.storageKey | dump | safe }};
+  var SNOOZE_MS = {{ saleAd.snoozeDays }} * 24 * 60 * 60 * 1000;
+  var AUTO = {{ 'true' if saleAd.autoOpen else 'false' }};
+  var AUTO_DELAY = {{ saleAd.autoOpenDelayMs }};
+
+  var body = panel.querySelector('.sfs-body');
+
+  var store = null;
+  try { store = window.localStorage; } catch (e) { /* private mode — just show it */ }
+
+  // Fade the bottom of the copy only while there is more of it below.
+  function syncFade() {
+    var more = body.scrollHeight - body.clientHeight - body.scrollTop > 4;
+    panel.classList.toggle('has-more', more);
+  }
+
+  function snoozed() {
+    if (!store) return false;
+    return parseInt(store.getItem(KEY) || '0', 10) > Date.now();
+  }
+  function snooze() {
+    if (!store) return;
+    try { store.setItem(KEY, String(Date.now() + SNOOZE_MS)); } catch (e) {}
+  }
+
+  function open() {
+    if (!panel.hidden) return;
+    pill.hidden = true;                 // the panel takes over the pill's corner
+    panel.hidden = false;
+    pill.setAttribute('aria-expanded', 'true');
+    requestAnimationFrame(function () { panel.classList.add('is-open'); syncFade(); });
+    panel.focus();
+    document.addEventListener('keydown', onKeydown);
+    document.addEventListener('click', onDocClick, true);
+    window.addEventListener('resize', syncFade);
+  }
+
+  // `refocus` puts the keyboard back on the pill once it is on screen again —
+  // it has to wait for the closing transition, since focus() on a still-hidden
+  // element is a no-op and would drop the caret back to the top of the page.
+  function close(refocus) {
+    if (panel.hidden) return;
+    snooze();                           // snoozes the auto-open only; the pill stays
+    panel.classList.remove('is-open');
+    pill.setAttribute('aria-expanded', 'false');
+    document.removeEventListener('keydown', onKeydown);
+    document.removeEventListener('click', onDocClick, true);
+    window.removeEventListener('resize', syncFade);
+    window.setTimeout(function () {
+      panel.hidden = true;
+      pill.hidden = false;
+      pill.classList.remove('is-new');
+      if (refocus) pill.focus();
+    }, 240);
+  }
+
+  function onKeydown(e) {
+    if (e.key === 'Escape' || e.key === 'Esc') close(true);
+  }
+  // A tap anywhere else closes it, the way the land pop-up's backdrop does —
+  // but with no backdrop, so the page underneath stays readable and usable.
+  function onDocClick(e) {
+    // No refocus here: the visitor is reading the page, not the advert.
+    if (!panel.contains(e.target) && e.target !== pill) close(false);
+  }
+
+  body.addEventListener('scroll', syncFade);
+  pill.addEventListener('click', function () { open(); });
+  document.getElementById('sfs-close').addEventListener('click', function () { close(true); });
+  // Reaching for WhatsApp or the phone is engagement — stop auto-opening.
+  panel.querySelectorAll('.sfs-wa,.sfs-tel').forEach(function (el) {
+    el.addEventListener('click', snooze);
+  });
+
+  if (!snoozed()) {
+    pill.classList.add('is-new');
+    if (AUTO) {
+      // Wait the homepage land pop-up out rather than stacking on top of it.
+      var tries = 0;
+      (function schedule(delay) {
+        window.setTimeout(function () {
+          var lla = document.getElementById('lla-overlay');
+          if (lla && !lla.hidden && tries++ < 15) return schedule(2000);
+          if (!snoozed()) open();
+        }, delay);
+      })(AUTO_DELAY);
+    }
+  }
+})();
+</script>
+{% endif %}

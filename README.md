@@ -34,6 +34,7 @@ balirealvacation/
 ├── _data/
 │   ├── site.js               # Nav links, footer links, contact info
 │   ├── languages.js          # The 3 languages: en / id / zh
+│   ├── saleAd.js             # "This website is for sale" advert — copy, contact, on/off switch
 │   └── ui.json               # UI string dictionary (nav, buttons, footer, price note) in all 3 languages
 │
 ├── _includes/
@@ -43,6 +44,7 @@ balirealvacation/
 │       ├── lang-switcher.njk # EN | ID | 中文 pill switcher
 │       ├── footer.njk        # Footer + floating buttons + mobile book bar
 │       ├── testimonials.njk  # Reviews list + submission form (Convex-backed)
+│       ├── site-for-sale.njk # Floating "website for sale" pill + panel (every page, all languages)
 │       └── visitor-globe.njk # Visitor globe section — placement, palette, script tag
 │
 ├── pages/                    # English templates (default language)
@@ -186,6 +188,21 @@ Design tokens at the top of `css/styles.css`:
 --font-heading: 'Plus Jakarta Sans';
 --font-body: 'Inter';
 ```
+
+### Switch the "website for sale" advert off
+Everything about it lives in **`_data/saleAd.js`** — set `active: false` there and it
+disappears from all 55 pages at the next build; no template edits, nothing left behind.
+
+Softer options in the same file: `autoOpen: false` keeps the pill in the corner but stops
+the panel opening by itself, and `autoOpenDelayMs` / `snoozeDays` tune how soon it opens and
+how long a dismissal is remembered. Change the copy or the checklist in the `i18n` block —
+one entry each for `en`, `id` and `zh` — and bump `storageKey` if you want visitors who
+already dismissed the old version to see the new one.
+
+The advert is rendered by `partials/site-for-sale.njk`, included once in `layouts/base.njk`,
+so it reaches every page and every language automatically. It sits above `#scrollTopBtn` and
+clear of `.mobile-book-bar`; if you ever move that floating chrome, move the `.sfs-pill` /
+`.sfs-panel` offsets with it.
 
 ---
 
