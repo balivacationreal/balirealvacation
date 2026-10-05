@@ -429,7 +429,7 @@ copy. Country outlines are Natural Earth, public domain, no obligation.
 
 ## Contact
 
-- **WhatsApp / Telegram:** +62 823-1779-4462
+- **WhatsApp / Telegram:** +62 821-4402-7295
 - **Instagram:** [@balirealvacation](https://instagram.com/balirealvacation)
 
 ---

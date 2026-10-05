@@ -370,7 +370,7 @@ body:not(.guest-view) .guest-bar{display:none}
             <p id="d-co-tagline">Your trusted travel partner in Bali &amp; Nusa Penida</p>
             <div class="co-contact">
               <span>balirealvacation.com</span>
-              <span>WhatsApp +62 823-1779-4462</span>
+              <span>WhatsApp +62 821-4402-7295</span>
               <span>Bali, Indonesia</span>
             </div>
           </div>
@@ -436,7 +436,7 @@ body:not(.guest-view) .guest-bar{display:none}
 
       <footer class="doc-foot">
         <b id="d-foot-thanks">Terima kasih — thank you for travelling with us.</b><br>
-        <span id="d-foot-line">Bali Real Vacation · balirealvacation.com · WhatsApp +62 823-1779-4462</span><br>
+        <span id="d-foot-line">Bali Real Vacation · balirealvacation.com · WhatsApp +62 821-4402-7295</span><br>
         <span id="d-foot-issued">This document was issued electronically and is valid without a signature.</span>
       </footer>
     </article>
@@ -491,7 +491,7 @@ const T = {
     mDue:{cash_driver:"Cash, payable to your driver",cash_office:"Cash",bank:"Bank transfer",paypal:"PayPal",card:"Credit / debit card",pending:"To be arranged"},
     payTo:"To be paid to", dueWhen:"Due", dueOnDay:"On the day of service, before departure",
     cashIdr:"Cash amount in rupiah", cashIdrNote:"Please have this amount ready in cash",
-    defaultNotes:"Prices are agreed at the time of booking and are not affected by later market changes.\nPlease keep this document — your driver may ask to see it on the day.\nAny question about your trip: message us on WhatsApp +62 823-1779-4462.",
+    defaultNotes:"Prices are agreed at the time of booking and are not affected by later market changes.\nPlease keep this document — your driver may ask to see it on the day.\nAny question about your trip: message us on WhatsApp +62 821-4402-7295.",
     guestBar:"Your booking receipt from Bali Real Vacation.", download:"Download PDF",
     waMsg:(n,t)=>`Hello ${n}, thank you for booking with Bali Real Vacation. Here is your ${t} — you can view it and save it as a PDF from this link:`,
   },
@@ -513,7 +513,7 @@ const T = {
     mDue:{cash_driver:"Tunai, dibayarkan kepada sopir Anda",cash_office:"Tunai",bank:"Transfer bank",paypal:"PayPal",card:"Kartu kredit / debit",pending:"Akan diatur"},
     payTo:"Dibayarkan kepada", dueWhen:"Jatuh tempo", dueOnDay:"Pada hari layanan, sebelum keberangkatan",
     cashIdr:"Jumlah tunai dalam rupiah", cashIdrNote:"Mohon siapkan jumlah ini dalam bentuk tunai",
-    defaultNotes:"Harga disepakati pada saat pemesanan dan tidak terpengaruh perubahan harga pasar setelahnya.\nSimpan dokumen ini — sopir Anda mungkin memintanya pada hari keberangkatan.\nAda pertanyaan? Hubungi kami di WhatsApp +62 823-1779-4462.",
+    defaultNotes:"Harga disepakati pada saat pemesanan dan tidak terpengaruh perubahan harga pasar setelahnya.\nSimpan dokumen ini — sopir Anda mungkin memintanya pada hari keberangkatan.\nAda pertanyaan? Hubungi kami di WhatsApp +62 821-4402-7295.",
     guestBar:"Kuitansi pemesanan Anda dari Bali Real Vacation.", download:"Unduh PDF",
     waMsg:(n,t)=>`Halo ${n}, terima kasih telah memesan bersama Bali Real Vacation. Berikut ${t} Anda — dapat dilihat dan disimpan sebagai PDF melalui tautan ini:`,
   },
@@ -535,7 +535,7 @@ const T = {
     mDue:{cash_driver:"现金，付予您的司机",cash_office:"现金",bank:"银行转账",paypal:"PayPal",card:"信用卡 / 借记卡",pending:"待安排"},
     payTo:"付款对象", dueWhen:"付款时间", dueOnDay:"服务当天出发前",
     cashIdr:"现金金额（印尼盾）", cashIdrNote:"请准备好该金额的现金",
-    defaultNotes:"价格以预订当时确认为准，不受此后市场价格变动影响。\n请保留本文件 — 出行当天司机可能会查看。\n如有疑问，请通过 WhatsApp +62 823-1779-4462 联系我们。",
+    defaultNotes:"价格以预订当时确认为准，不受此后市场价格变动影响。\n请保留本文件 — 出行当天司机可能会查看。\n如有疑问，请通过 WhatsApp +62 821-4402-7295 联系我们。",
     guestBar:"这是您在 Bali Real Vacation 的预订收据。", download:"下载 PDF",
     waMsg:(n,t)=>`您好 ${n}，感谢您在 Bali Real Vacation 预订。这是您的${t} — 可通过此链接查看并保存为 PDF：`,
   },
@@ -574,7 +574,7 @@ function blankState() {
     v: 1, type: "receipt", lang: "en", cur: "IDR", rid: "",
     no: nextDocNo(), issued: todayISO(),
     guest: { name:"", wa:"", email:"", country:"", pax:2 },
-    svc: { title:"", date:"", time:"", pickup:"", dropoff:"", flight:"", vehicle:"", driver:"Ketut", driverWa:"+62 823-1779-4462" },
+    svc: { title:"", date:"", time:"", pickup:"", dropoff:"", flight:"", vehicle:"", driver:"Ketut", driverWa:"+62 821-4402-7295" },
     itin: [],
     incl: "",
     items: [{ desc:"", qty:1, price:0 }],
@@ -1185,7 +1185,7 @@ function showLoadError(detail) {
     "We could not open this booking</h2>" +
     '<p style="color:var(--muted);font-size:.9rem;line-height:1.7;max-width:440px;margin:0 auto">' +
     "The link may be incomplete, or the booking may have been removed. " +
-    "Please message us on WhatsApp +62 823-1779-4462 and we will send it again." +
+    "Please message us on WhatsApp +62 821-4402-7295 and we will send it again." +
     '</p><p style="color:#b0b8bd;font-size:.72rem;margin-top:18px">' + esc(detail) + "</p></div>";
   $("guest-bar-text").textContent = "Booking not available";
   const btn = document.querySelector(".guest-bar .tb-btn");

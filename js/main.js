@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Open WhatsApp in a new tab
       window.open(
-        "https://wa.me/6282317794462?text=" + encodeURIComponent(waText),
+        "https://wa.me/6282144027295?text=" + encodeURIComponent(waText),
         "_blank",
       );
 
@@ -257,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Open WhatsApp in a new tab
       window.open(
-        "https://wa.me/6282317794462?text=" + encodeURIComponent(waText),
+        "https://wa.me/6282144027295?text=" + encodeURIComponent(waText),
         "_blank",
       );
 

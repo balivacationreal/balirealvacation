@@ -9,6 +9,8 @@
 // Switching things off:
 //   active: false            → removes the advert from all three places
 //   listing.active: false    → hides one listing but keeps its copy on file
+//   popup: false             → drops only the homepage pop-up; the listings
+//                              page and Local Partners teaser stay up
 //
 // Adding a listing: copy a block in `listings`, give it a new `id`, drop the
 // images in src/assets/land/, and translate the three i18n blocks. Only one
@@ -375,6 +377,9 @@ const withHero = (l) => ({ ...l, hero: l.gallery[0] });
 
 module.exports = {
   active: true,
+
+  // Homepage welcome pop-up. Off at Suta's request (2026-10-06).
+  popup: false,
 
   // Category-level copy: the Local Partners teaser and the listings-page chrome.
   i18n: {

@@ -3,11 +3,12 @@
    Include near the end of a homepage content block:
      {% endraw %}{% include "partials/land-lease-modal.njk" %}{% raw %}
    Shows the listing flagged `featured: true` in _data/landAd.js
-   (set active:false there to switch the advert off everywhere).
+   (set popup:false there to drop just this pop-up, active:false to switch
+   the advert off everywhere).
    Hidden until /js/main.js-independent inline script opens it, so visitors
    with JS disabled — and anyone who already dismissed it — never see it.
    ===================================================================== #}
-{% if landAd.active and landAd.featured %}
+{% if landAd.active and landAd.popup and landAd.featured %}
 {%- set listing = landAd.featured -%}
 {%- set t = listing.i18n[lang] or listing.i18n.en -%}
 {%- set detailsUrl = collections.i18nUrl['land-investment_' + lang] or '/land-investment.html' -%}

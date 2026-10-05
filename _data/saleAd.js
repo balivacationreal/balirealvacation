@@ -13,7 +13,8 @@
 // the agency booking number in _data/site.js, which is answered by the team and
 // is for guests, not buyers.
 module.exports = {
-  active: true,
+  // Off at Suta's request (2026-10-06) — set back to true to bring it back.
+  active: false,
 
   // The panel opens by itself once per visitor (see `snoozeDays`) so the offer
   // is not missed by someone who never notices the pill. It waits for the

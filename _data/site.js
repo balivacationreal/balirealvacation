@@ -3,7 +3,7 @@ module.exports = {
   url: "https://balirealvacation.com",
   tagline: "Your trusted travel partner in Bali & Nusa Penida.",
   ga: "G-Y07TTMJDX1",
-  whatsapp: "6282317794462",
+  whatsapp: "6282144027295",
   telegram: "+6282317794462",
   instagram: "https://instagram.com/balirealvacation",
   // WeChat. `link` is the payload decoded from the official QR, so tapping it on
