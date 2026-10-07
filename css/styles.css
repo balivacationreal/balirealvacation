@@ -601,6 +601,33 @@ nav ul li a:hover {
   color: #666;
   line-height: 1.6;
 }
+/* Each driver's own WhatsApp. margin-top:auto pins it to the card's foot, so
+   the buttons line up across the row whatever the bio length. */
+.crew-wa {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 18px;
+  color: #128c4b;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.crew-wa i {
+  font-size: 1.25rem;
+  color: #25d366;
+}
+.crew-wa:hover {
+  text-decoration: underline;
+}
+.crew-wa:focus-visible {
+  outline: 2px solid #25d366;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
 /* Guides Section */
 .guides-section {
   background-color: var(--bg-light);

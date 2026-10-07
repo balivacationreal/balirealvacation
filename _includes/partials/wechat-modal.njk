@@ -5,7 +5,8 @@
 
    WeChat has no wa.me-style handle link, but the official QR encodes a
    real u.wechat.com URL, so the button below works on a phone and the
-   code covers desktop. Styles are inline on purpose: /css/styles.css is
+   code covers desktop. Both are optional: with only an `id` configured the
+   dialog falls back to copy-the-ID instructions. Styles are inline on purpose: /css/styles.css is
    cached far longer than the HTML, so shipping them apart risks new
    markup landing against old CSS.
    ===================================================================== #}
@@ -20,6 +21,7 @@
 
     <span class="wc-badge"><i class="fa-brands fa-weixin" aria-hidden="true"></i> {{ ui.wechat[lang] or ui.wechat.en }}</span>
     <h2 class="wc-title" id="wc-title">{{ ui.wechat_title[lang] or ui.wechat_title.en }}</h2>
+    {%- if w.qr %}
     <p class="wc-sub">{{ ui.wechat_sub[lang] or ui.wechat_sub.en }}</p>
 
     <figure class="wc-qr">
@@ -27,11 +29,16 @@
            alt="WeChat QR code for {{ w.name }}">
       <figcaption>{{ w.name }}</figcaption>
     </figure>
+    {%- else %}
+    <p class="wc-sub">{{ ui.wechat_sub_id[lang] or ui.wechat_sub_id.en }}</p>
+    {%- endif %}
+    {%- if w.link %}
 
     <a class="wc-open" href="{{ w.link }}" target="_blank" rel="noopener">
       <i class="fa-brands fa-weixin" aria-hidden="true"></i>
       {{ ui.wechat_open[lang] or ui.wechat_open.en }}
     </a>
+    {%- endif %}
 
     <div class="wc-id">
       <span class="wc-id-label">{{ ui.wechat_id_label[lang] or ui.wechat_id_label.en }}</span>
@@ -44,7 +51,9 @@
       </button>
     </div>
 
+    {%- if w.qr %}
     <p class="wc-hint">{{ ui.wechat_hint[lang] or ui.wechat_hint.en }}</p>
+    {%- endif %}
   </div>
 </div>
 
