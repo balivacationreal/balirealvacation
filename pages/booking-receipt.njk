@@ -1110,8 +1110,8 @@ function buildPresets() {
       S.cur = "USD";
       const pp = pax >= 4 ? Number(parts[4]) : pax === 3 ? Number(parts[3]) : Number(parts[2]);
       S.svc.title = name;
-      S.items = [{ desc: name + " — all-inclusive private tour (per person)", qty: pax, price: pp }];
-      if (!S.incl) S.incl = "Private air-conditioned transport\nEnglish-speaking driver-guide\nAll entrance fees\nLunch";
+      S.items = [{ desc: name + " — private tour (per person)", qty: pax, price: pp }];
+      if (!S.incl) S.incl = "Private air-conditioned transport\nEnglish-speaking driver-guide";
     } else {
       S.cur = "IDR";
       S.svc.title = name;
