@@ -49,6 +49,11 @@
   .gal-more[hidden]{display:none}
 
   .gal-consent{max-width:720px;margin:44px auto 0;text-align:center;font-size:.88rem;color:#8a949a;line-height:1.7}
+  /* The crew's way in to the upload tool. Kept quiet: guests have no use for
+     it, and the tool asks for an access code anyway. */
+  .gal-crew{text-align:center;margin-top:14px;font-size:.85rem}
+  .gal-crew a{display:inline-flex;align-items:center;gap:7px;color:#8a949a;text-decoration:none;padding:6px 10px}
+  .gal-crew a:hover{color:var(--primary-color,#00557f)}
 
   /* ---- Closing banner ---- */
   .gal-cta{background:#fff;border-top:1px solid rgba(0,0,0,.06);text-align:center;padding:55px 20px 60px}
@@ -112,6 +117,7 @@
     <button type="button" class="gal-more" id="gal-more" hidden>{{ t.more }}</button>
 
     <p class="gal-consent">{{ t.consent }}</p>
+    <p class="gal-crew"><a href="/gallery-upload.html" rel="nofollow"><i class="fa-solid fa-lock" aria-hidden="true"></i> {{ t.crewLink }}</a></p>
 </main>
 
 <section class="gal-cta">

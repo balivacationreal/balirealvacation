@@ -74,6 +74,7 @@ module.exports = {
       photoAlt: "Guests on a trip with",
       consent:
         "Every photo here is shared with our guests' permission. If you are in one and would like it taken down, message us and we will remove it the same day.",
+      crewLink: "Crew: add photos",
       ctaTitle: "Your Photo Could Be Next",
       ctaText:
         "Tell us where you want to go and one of the drivers above will take you there — and take the photo.",
@@ -103,6 +104,7 @@ module.exports = {
       photoAlt: "Tamu dalam perjalanan bersama",
       consent:
         "Setiap foto di sini dibagikan atas izin tamu kami. Jika Anda ada di salah satu foto dan ingin foto itu diturunkan, hubungi kami dan kami akan menghapusnya pada hari yang sama.",
+      crewLink: "Kru: tambah foto",
       ctaTitle: "Foto Berikutnya Bisa Jadi Milik Anda",
       ctaText:
         "Beri tahu kami ke mana Anda ingin pergi, dan salah satu sopir di atas akan mengantar Anda — sekaligus mengambil fotonya.",
@@ -132,6 +134,7 @@ module.exports = {
       photoAlt: "客人与司机同行：",
       consent:
         "这里的每一张照片都已征得客人同意。如果您出现在照片中并希望撤下，请联系我们，我们会在当天删除。",
+      crewLink: "团队成员：上传照片",
       ctaTitle: "下一张照片可能就是您",
       ctaText:
         "告诉我们您想去哪里，上面的司机之一会带您前往 —— 并为您拍下照片。",
