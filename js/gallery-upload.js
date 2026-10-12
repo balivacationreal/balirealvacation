@@ -25,6 +25,7 @@ const LANG_STORE = "brv_gallery_lang";
 const T = {
   id: {
     title: "Unggah Galeri", signOut: "Keluar", otherLang: "English",
+    home: "Beranda situs", viewGallery: "Lihat galeri",
     loginTitle: "Masuk", loginSub: "Masukkan kode akses pribadi Anda. Kode ini diberikan oleh Suta.",
     codeLabel: "Kode akses", signIn: "Masuk", checking: "Memeriksa…",
     badCode: "Kode tidak dikenali. Periksa lagi atau hubungi Suta.",
@@ -54,6 +55,7 @@ const T = {
   },
   en: {
     title: "Gallery Upload", signOut: "Sign out", otherLang: "Bahasa",
+    home: "Website home", viewGallery: "View the gallery",
     loginTitle: "Sign in", loginSub: "Enter your personal access code. Suta gives these out.",
     codeLabel: "Access code", signIn: "Sign in", checking: "Checking…",
     badCode: "That code is not recognised. Check it or ask Suta.",
@@ -135,6 +137,10 @@ function paint() {
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-t]").forEach((n) => { n.textContent = t[n.dataset.t]; });
   $("#gu-lang").textContent = t.otherLang;
+  // The public pages in the language this tool is being used in.
+  const prefix = lang === "id" ? "/id" : "";
+  $("#gu-brand").href = $("#gu-home").href = prefix + "/";
+  $("#gu-gallery").href = prefix + "/guest-gallery.html";
 
   const tourSel = $("#gu-tour");
   const keep = tourSel.value;

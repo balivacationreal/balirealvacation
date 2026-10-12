@@ -38,7 +38,7 @@ const tours = [
 ];
 
 module.exports = {
-  live: false,
+  live: true,
 
   // Same deployment as js/reviews.js. Public by design — what a visitor may
   // read is decided by the Convex functions, not by hiding this address.
