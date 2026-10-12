@@ -1,3 +1,7 @@
+// The gallery links stay out of the nav and footer until the gallery has
+// photos to show — see `live` in _data/gallery.js.
+const gallery = require("./gallery.js");
+
 module.exports = {
   name: "Bali Real Vacation",
   url: "https://balirealvacation.com",
@@ -23,7 +27,8 @@ module.exports = {
     { key: "tours_transport", href: "/#packages", children: [
         { key: "packages",         href: "/#packages" },
         { key: "private_driver",   href: "/private-driver-tours.html" },
-        { key: "airport_transfer", href: "/airport-transfers.html" }
+        { key: "airport_transfer", href: "/airport-transfers.html" },
+        ...(gallery.live ? [{ key: "gallery", href: "/guest-gallery.html" }] : [])
       ] },
     { key: "local_partners",  href: "/local-partners.html", children: [
         { key: "local_partners_all", href: "/local-partners.html" },
@@ -42,6 +47,7 @@ module.exports = {
     { key: "f_local_partners", href: "/local-partners.html" },
     { key: "f_land",           href: "/land-investment.html" },
     { key: "f_art",            href: "/balinese-art.html" },
+    ...(gallery.live ? [{ key: "f_gallery", href: "/guest-gallery.html" }] : []),
     { key: "f_penida_guide",   href: "/nusa-penida-guide.html" },
     { key: "f_bali_guide",     href: "/bali-destinations-guide.html" },
     { key: "f_privacy",        href: "/privacy.html" },

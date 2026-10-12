@@ -1,0 +1,15 @@
+---
+permalink: "/zh/guest-gallery.html"
+title: "客人相册 — 我们的司机与客人在巴厘岛 | Bali Real Vacation"
+description: "来自巴厘岛与努沙佩尼达真实行程的照片：我们的本地司机与他们接待的客人。可按司机或行程浏览。"
+canonical: "https://balirealvacation.com/zh/guest-gallery.html"
+ogTitle: "客人相册 — 我们的司机与客人在巴厘岛 | Bali Real Vacation"
+ogDescription: "真实的旅程，真实的客人。看看我们的本地司机与旅行者在巴厘岛和努沙佩尼达路上的瞬间。"
+ogType: "website"
+eleventyComputed:
+  # Kept out of Google until _data/gallery.js says the gallery is live.
+  robots: "{{ 'index, follow' if gallery.live else 'noindex, follow' }}"
+---
+{% extends "layouts/base.njk" %}
+
+{% block content %}{% include "partials/gallery.njk" %}{% endblock %}

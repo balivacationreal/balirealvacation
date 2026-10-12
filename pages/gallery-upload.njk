@@ -1,0 +1,165 @@
+---
+permalink: "/gallery-upload.html"
+title: "Gallery Upload — Bali Real Vacation"
+description: "Internal tool: drivers add guest photos to the Bali Real Vacation gallery."
+canonical: "https://balirealvacation.com/gallery-upload.html"
+robots: "noindex, nofollow"
+eleventyExcludeFromCollections: true
+---
+{#- Internal tool for the crew, like /booking-receipt.html: its own bare page
+    with none of the site chrome, so nothing floats over the buttons on a
+    phone. Every string and all behaviour is in js/gallery-upload.js; this file
+    is the shell plus the driver and tour lists from _data/gallery.js. -#}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Gallery Upload — Bali Real Vacation</title>
+<link rel="icon" type="image/webp" href="/src/assets/bali-real-vacation-logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --primary-color:#00557f; --secondary-color:#ff6b4a;
+  --ocean-deep:#04293e; --text-dark:#1f2a30; --bg-light:#fbf8f3;
+  --line:#e3e8ec; --muted:#6b7780; --ok:#2f8f4e; --bad:#c0392b;
+  --font-heading:"Plus Jakarta Sans",sans-serif; --font-body:"Inter",sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-body);color:var(--text-dark);background:#eef2f5;font-size:16px;line-height:1.55}
+h1,h2,h3{font-family:var(--font-heading);margin:0}
+button{font:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none !important}
+
+.topbar{position:sticky;top:0;z-index:20;background:var(--ocean-deep);color:#fff;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.topbar .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-weight:800;font-size:.95rem}
+.topbar .brand img{width:30px;height:30px;object-fit:contain;background:#fff;border-radius:6px;padding:2px}
+.topbar .spacer{flex:1}
+.tb-btn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);padding:8px 12px;border-radius:8px;font-weight:600;font-size:.85rem;display:inline-flex;align-items:center;gap:7px}
+.tb-btn:hover{background:rgba(255,255,255,.22)}
+
+main{max-width:720px;margin:0 auto;padding:18px 14px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 18px;margin-bottom:16px;box-shadow:0 4px 14px rgba(4,41,62,.05)}
+.card h2{font-size:1.15rem;margin-bottom:6px}
+.card .sub{color:var(--muted);font-size:.9rem;margin:0 0 16px}
+.who{display:flex;align-items:center;gap:10px;font-family:var(--font-heading);font-weight:700}
+.who i{color:var(--primary-color)}
+
+label.fld{display:block;font-weight:600;font-size:.88rem;margin:14px 0 6px}
+label.fld small{font-weight:400;color:var(--muted)}
+.inp{display:block;width:100%;border:1px solid #cfd7dd;border-radius:10px;padding:12px 13px;background:#fff}
+.inp:focus{outline:2px solid var(--primary-color);outline-offset:1px}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;border:0;border-radius:30px;padding:14px 20px;font-family:var(--font-heading);font-weight:700;font-size:1rem;background:var(--primary-color);color:#fff;margin-top:18px}
+.btn:hover{background:#00466a}
+.btn:disabled{background:#a9b6be;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--primary-color);border:2px dashed var(--primary-color);margin-top:0;padding:22px 20px}
+.btn.ghost:hover{background:var(--bg-light)}
+
+.picked{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px;margin-top:12px}
+.picked .p{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden;background:#e9e4dc}
+.picked img{width:100%;height:100%;object-fit:cover;display:block}
+.picked .x{position:absolute;top:3px;right:3px;width:26px;height:26px;border:0;border-radius:50%;background:rgba(0,0,0,.65);color:#fff;font-size:.8rem;display:flex;align-items:center;justify-content:center}
+.picked .p.done::after,.picked .p.fail::after{content:"\2713";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(47,143,78,.72);color:#fff;font-size:1.6rem;font-weight:700}
+.picked .p.fail::after{content:"!";background:rgba(192,57,43,.78)}
+.picked .p.busy{opacity:.55}
+
+.consent{display:flex;gap:11px;align-items:flex-start;margin-top:18px;padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--bg-light);font-size:.92rem;cursor:pointer}
+.consent input{width:22px;height:22px;flex-shrink:0;margin-top:1px;accent-color:var(--primary-color)}
+
+.msg{margin:14px 0 0;font-size:.92rem;font-weight:600}
+.msg.ok{color:var(--ok)} .msg.err{color:var(--bad)} .msg.info{color:var(--muted);font-weight:500}
+
+.tabs{display:flex;gap:8px;margin:4px 0 14px}
+.tab{flex:1;background:#fff;border:1px solid #cfd7dd;border-radius:30px;padding:9px 10px;font-family:var(--font-heading);font-weight:600;font-size:.86rem;color:var(--text-dark)}
+.tab.is-on{background:var(--primary-color);border-color:var(--primary-color);color:#fff}
+
+.rows{list-style:none;margin:0;padding:0}
+.row{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row img{width:92px;height:69px;object-fit:cover;border-radius:8px;background:#e9e4dc;flex-shrink:0}
+.row .info{flex:1;min-width:0;font-size:.88rem}
+.row .info b{display:block;font-family:var(--font-heading);font-size:.95rem}
+.row .info .cap{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.badge{display:inline-block;margin-top:4px;font-family:var(--font-heading);font-weight:700;font-size:.68rem;letter-spacing:.4px;text-transform:uppercase;padding:3px 9px;border-radius:20px}
+.badge.live{background:rgba(47,143,78,.12);color:var(--ok)}
+.badge.wait{background:rgba(255,107,74,.13);color:#c9482b}
+.row .acts{display:flex;flex-direction:column;gap:6px;flex-shrink:0}
+.act{border:1px solid #cfd7dd;background:#fff;border-radius:8px;padding:8px 11px;font-weight:600;font-size:.8rem;min-width:84px}
+.act.go{background:var(--ok);border-color:var(--ok);color:#fff}
+.act.del{color:var(--bad)}
+.act.del.sure{background:var(--bad);border-color:var(--bad);color:#fff}
+.act:disabled{opacity:.5}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><img src="/src/assets/bali-real-vacation-logo.webp" alt=""><span data-t="title"></span></div>
+  <div class="spacer"></div>
+  <button type="button" class="tb-btn" id="gu-lang"></button>
+  <button type="button" class="tb-btn" id="gu-out" hidden><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> <span data-t="signOut"></span></button>
+</div>
+
+<main>
+  {# ---- Sign in ---- #}
+  <form class="card" id="gu-login" hidden>
+    <h2 data-t="loginTitle"></h2>
+    <p class="sub" data-t="loginSub"></p>
+    <label class="fld" for="gu-code" data-t="codeLabel"></label>
+    <input class="inp" type="password" id="gu-code" autocomplete="current-password" autocapitalize="off" spellcheck="false">
+    <button type="submit" class="btn" id="gu-login-btn" data-t="signIn"></button>
+    <p class="msg" id="gu-login-msg" role="status"></p>
+  </form>
+
+  <div id="gu-app" hidden>
+    <div class="card who"><i class="fa-solid fa-circle-user" aria-hidden="true"></i> <span id="gu-who"></span></div>
+
+    {# ---- Upload ---- #}
+    <form class="card" id="gu-form">
+      <h2 data-t="uploadTitle"></h2>
+      <p class="sub" data-t="uploadSub"></p>
+
+      <input type="file" id="gu-files" accept="image/*" multiple hidden>
+      <button type="button" class="btn ghost" id="gu-pick"><i class="fa-solid fa-images" aria-hidden="true"></i> <span data-t="pick"></span></button>
+      <div class="picked" id="gu-picked"></div>
+
+      <div id="gu-driver-wrap" hidden>
+        <label class="fld" for="gu-driver" data-t="driverLabel"></label>
+        <select class="inp" id="gu-driver"></select>
+      </div>
+
+      <label class="fld" for="gu-tour"><span data-t="tourLabel"></span> <small data-t="optional"></small></label>
+      <select class="inp" id="gu-tour"></select>
+
+      <label class="fld" for="gu-caption"><span data-t="captionLabel"></span> <small data-t="optional"></small></label>
+      <input class="inp" type="text" id="gu-caption" maxlength="200">
+
+      <label class="consent"><input type="checkbox" id="gu-consent"> <span data-t="consent"></span></label>
+
+      <button type="submit" class="btn" id="gu-send"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i> <span data-t="send"></span></button>
+      <p class="msg" id="gu-msg" role="status"></p>
+    </form>
+
+    {# ---- Photos already sent ---- #}
+    <div class="card">
+      <h2 id="gu-list-title"></h2>
+      <div class="tabs" id="gu-tabs">
+        <button type="button" class="tab is-on" data-tab="wait"></button>
+        <button type="button" class="tab" data-tab="live"></button>
+      </div>
+      <p class="msg info" id="gu-list-msg"></p>
+      <ul class="rows" id="gu-rows"></ul>
+    </div>
+  </div>
+</main>
+
+<script type="application/json" id="gu-config">{{ { convexUrl: gallery.convexUrl, drivers: gallery.drivers, tours: gallery.tours } | dump | safe }}</script>
+<script type="module" src="/js/gallery-upload.js"></script>
+</body>
+</html>

@@ -28,4 +28,23 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   }).index("by_rid", ["rid"]),
+
+  // Guest gallery photos shown on /guest-gallery.html. The image files are in
+  // Convex file storage; a row points at them. Hidden until `approved`, same
+  // as reviews. See convex/photos.ts.
+  photos: defineTable({
+    thumbId: v.id("_storage"),        // small copy for the grid
+    fullId: v.id("_storage"),         // large copy for the full-screen view
+    width: v.number(),                // of the large copy, in pixels
+    height: v.number(),
+    driver: v.string(),               // driver slug, e.g. "putu-ardi" (_data/gallery.js)
+    tour: v.optional(v.string()),     // tour name, same values as reviews.tour
+    caption: v.optional(v.string()),
+    consent: v.boolean(),             // the guests agreed to be published
+    approved: v.boolean(),            // moderation gate — false until you approve
+    createdAt: v.number(),            // Date.now()
+  })
+    .index("by_approved", ["approved", "createdAt"])
+    // a driver's own uploads, for the upload page
+    .index("by_driver", ["driver", "createdAt"]),
 });

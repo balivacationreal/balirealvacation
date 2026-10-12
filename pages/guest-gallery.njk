@@ -1,0 +1,15 @@
+---
+permalink: "/guest-gallery.html"
+title: "Guest Gallery — Our Drivers and Their Guests in Bali | Bali Real Vacation"
+description: "Photos from real trips across Bali and Nusa Penida: our local drivers with the guests they looked after. Browse by driver or by tour."
+canonical: "https://balirealvacation.com/guest-gallery.html"
+ogTitle: "Guest Gallery — Our Drivers and Their Guests in Bali | Bali Real Vacation"
+ogDescription: "Real trips, real guests. See our local drivers on the road with the travellers they looked after across Bali and Nusa Penida."
+ogType: "website"
+eleventyComputed:
+  # Kept out of Google until _data/gallery.js says the gallery is live.
+  robots: "{{ 'index, follow' if gallery.live else 'noindex, follow' }}"
+---
+{% extends "layouts/base.njk" %}
+
+{% block content %}{% include "partials/gallery.njk" %}{% endblock %}

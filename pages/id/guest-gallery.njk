@@ -1,0 +1,15 @@
+---
+permalink: "/id/guest-gallery.html"
+title: "Galeri Tamu — Sopir Kami Bersama Tamu di Bali | Bali Real Vacation"
+description: "Foto dari perjalanan nyata di Bali dan Nusa Penida: para sopir lokal kami bersama tamu yang mereka dampingi. Lihat berdasarkan sopir atau tur."
+canonical: "https://balirealvacation.com/id/guest-gallery.html"
+ogTitle: "Galeri Tamu — Sopir Kami Bersama Tamu di Bali | Bali Real Vacation"
+ogDescription: "Perjalanan nyata, tamu nyata. Lihat para sopir lokal kami di perjalanan bersama wisatawan yang mereka dampingi di Bali dan Nusa Penida."
+ogType: "website"
+eleventyComputed:
+  # Kept out of Google until _data/gallery.js says the gallery is live.
+  robots: "{{ 'index, follow' if gallery.live else 'noindex, follow' }}"
+---
+{% extends "layouts/base.njk" %}
+
+{% block content %}{% include "partials/gallery.njk" %}{% endblock %}

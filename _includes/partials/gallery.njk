@@ -1,0 +1,134 @@
+{# =====================================================================
+   Guest Gallery — the whole page body, shared by /guest-gallery.html and
+   its /id and /zh twins. The language pages carry nothing but front matter;
+   every string comes from _data/gallery.js.
+
+   The photos are not in this markup. js/gallery.js fetches the approved
+   list from Convex and fills #gal-grid, the driver chips and the tour menu,
+   so a newly approved photo appears without a rebuild.
+
+   Usage, inside {% block content %}:
+     {% include "partials/gallery.njk" %}
+   ===================================================================== #}
+{%- set t = gallery.i18n[lang] or gallery.i18n.en -%}
+
+<style>
+  /* Page chrome (nav, footer, floating buttons) comes from /css/styles.css —
+     only what is specific to this page lives here. */
+  .page-hero{background:linear-gradient(135deg,var(--primary-color,#00557f),#00365a);color:#fff;text-align:center;padding:70px 20px 60px}
+  .page-hero h1{font-size:2.6rem;margin-bottom:15px}
+  .page-hero p{font-size:1.15rem;max-width:760px;margin:0 auto;color:#e0f0ff}
+  .page-hero .hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;background:rgba(255,255,255,.14);color:#fff;border-radius:20px;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.74rem;letter-spacing:.6px;text-transform:uppercase;padding:7px 14px}
+
+  .gal-wrapper{max-width:1200px;margin:0 auto;padding:40px 20px 50px;width:100%}
+
+  /* ---- Filters ---- */
+  .gal-filters{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;margin-bottom:28px}
+  .gal-filters[hidden]{display:none}
+  .gal-chips{display:flex;flex-wrap:wrap;gap:10px}
+  .gal-chip{background:#fff;border:1px solid rgba(4,41,62,.14);color:var(--text-dark,#1f2a30);border-radius:30px;padding:9px 18px;font-family:var(--font-heading,sans-serif);font-weight:600;font-size:.9rem;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+  .gal-chip:hover{border-color:var(--primary-color,#00557f)}
+  .gal-chip.is-on{background:var(--primary-color,#00557f);border-color:var(--primary-color,#00557f);color:#fff}
+  .gal-chip:focus-visible,.gal-tile:focus-visible,.gal-more:focus-visible,.gal-lb button:focus-visible{outline:2px solid var(--secondary-color,#ff6b4a);outline-offset:2px}
+  .gal-tour{display:flex;align-items:center;gap:10px;font-family:var(--font-heading,sans-serif);font-weight:600;font-size:.9rem;color:#666}
+  .gal-tour[hidden]{display:none}
+  .gal-tour select{font:inherit;color:var(--text-dark,#1f2a30);background:#fff;border:1px solid rgba(4,41,62,.14);border-radius:30px;padding:9px 14px;max-width:100%}
+
+  /* ---- Grid ---- */
+  .gal-state{text-align:center;color:#777;font-size:1.05rem;padding:50px 10px}
+  .gal-state[hidden]{display:none}
+  .gal-grid{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+  .gal-tile{position:relative;display:block;width:100%;aspect-ratio:4/3;padding:0;border:0;border-radius:12px;overflow:hidden;cursor:zoom-in;background:#e9e4dc;box-shadow:0 8px 22px rgba(4,41,62,.08)}
+  .gal-tile img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+  .gal-tile:hover img{transform:scale(1.05)}
+  .gal-tile-meta{position:absolute;left:0;right:0;bottom:0;display:flex;flex-direction:column;gap:2px;padding:34px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.72));color:#fff;text-align:left;font-size:.8rem;line-height:1.35}
+  .gal-tile-meta b{font-family:var(--font-heading,sans-serif);font-size:.95rem}
+
+  .gal-more{display:block;margin:34px auto 0;background:#fff;border:2px solid var(--primary-color,#00557f);color:var(--primary-color,#00557f);border-radius:30px;padding:12px 28px;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:.95rem;cursor:pointer;transition:background .2s,color .2s}
+  .gal-more:hover{background:var(--primary-color,#00557f);color:#fff}
+  .gal-more[hidden]{display:none}
+
+  .gal-consent{max-width:720px;margin:44px auto 0;text-align:center;font-size:.88rem;color:#8a949a;line-height:1.7}
+
+  /* ---- Closing banner ---- */
+  .gal-cta{background:#fff;border-top:1px solid rgba(0,0,0,.06);text-align:center;padding:55px 20px 60px}
+  .gal-cta h2{font-size:1.8rem;color:var(--text-dark,#1f2a30);margin-bottom:12px}
+  .gal-cta p{max-width:620px;margin:0 auto 26px;color:#555;font-size:1.05rem}
+  .gal-wa-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background-color:#25D366;color:#fff;text-decoration:none;font-family:var(--font-heading,sans-serif);font-weight:700;font-size:1rem;padding:14px 26px;border-radius:30px;transition:background .3s,transform .2s}
+  .gal-wa-btn:hover{background-color:#1da851;transform:translateY(-2px)}
+
+  /* ---- Full-screen view ---- */
+  .gal-lb{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(8,14,18,.95);color:#fff}
+  .gal-lb::backdrop{background:rgba(8,14,18,.95)}
+  .gal-lb[open]{display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .gal-lb figure{margin:0;display:flex;flex-direction:column;align-items:center;max-width:100%;max-height:100%;padding:56px 16px 20px}
+  .gal-lb img{display:block;max-width:100%;max-height:calc(100dvh - 150px);width:auto;height:auto;object-fit:contain;border-radius:6px}
+  .gal-lb figcaption{margin-top:14px;text-align:center;font-size:.95rem;line-height:1.5;max-width:720px}
+  .gal-lb figcaption span{display:block;color:#b9c4ca;font-size:.85rem;margin-top:3px}
+  .gal-lb button{position:absolute;display:flex;align-items:center;justify-content:center;width:46px;height:46px;border:0;border-radius:50%;background:rgba(255,255,255,.14);color:#fff;font-size:1.1rem;cursor:pointer;transition:background .2s}
+  .gal-lb button:hover{background:rgba(255,255,255,.28)}
+  .gal-lb button[hidden]{display:none}
+  .gal-lb-close{top:12px;right:12px}
+  .gal-lb-prev{left:12px;top:50%;transform:translateY(-50%)}
+  .gal-lb-next{right:12px;top:50%;transform:translateY(-50%)}
+
+  @media(max-width:768px){
+    .page-hero{padding:50px 20px 45px}
+    .page-hero h1{font-size:2rem}
+    .gal-wrapper{padding:28px 14px 40px}
+    .gal-filters{flex-direction:column;align-items:stretch}
+    /* One swipeable row instead of three wrapped lines of chips. */
+    .gal-chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+    .gal-chips::-webkit-scrollbar{display:none}
+    .gal-chip{flex:0 0 auto}
+    .gal-tour select{flex:1;min-width:0}
+    .gal-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .gal-tile{border-radius:9px}
+    .gal-tile-meta{padding:26px 9px 8px;font-size:.7rem}
+    .gal-tile-meta b{font-size:.8rem}
+    .gal-lb button{width:42px;height:42px}
+    .gal-lb-prev{left:6px}
+    .gal-lb-next{right:6px}
+  }
+</style>
+
+<section class="page-hero">
+    <span class="hero-tag"><i class="fa-solid fa-camera" aria-hidden="true"></i> {{ t.heroTag }}</span>
+    <h1>{{ t.heroTitle }}</h1>
+    <p>{{ t.heroLead }}</p>
+</section>
+
+<main class="gal-wrapper">
+    <div class="gal-filters" id="gal-filters" hidden>
+        <div class="gal-chips" id="gal-chips" role="group" aria-label="{{ t.filterDriver }}"></div>
+        <label class="gal-tour" id="gal-tour-wrap" hidden>
+            <span>{{ t.filterTour }}</span>
+            <select id="gal-tour"></select>
+        </label>
+    </div>
+
+    <p class="gal-state" id="gal-state" role="status">{{ t.loading }}</p>
+    <ul class="gal-grid" id="gal-grid"></ul>
+    <button type="button" class="gal-more" id="gal-more" hidden>{{ t.more }}</button>
+
+    <p class="gal-consent">{{ t.consent }}</p>
+</main>
+
+<section class="gal-cta">
+    <h2>{{ t.ctaTitle }}</h2>
+    <p>{{ t.ctaText }}</p>
+    <a class="gal-wa-btn" href="https://wa.me/{{ site.whatsapp }}?text={{ t.ctaWaText | urlencode }}" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> {{ t.ctaBtn }}</a>
+</section>
+
+<dialog class="gal-lb" id="gal-lb" aria-label="{{ t.heroTitle }}">
+    <button type="button" class="gal-lb-close" id="gal-lb-close" aria-label="{{ t.close }}"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    <button type="button" class="gal-lb-prev" id="gal-lb-prev" aria-label="{{ t.prev }}"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+    <button type="button" class="gal-lb-next" id="gal-lb-next" aria-label="{{ t.next }}"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+    <figure>
+        <img id="gal-lb-img" alt="">
+        <figcaption id="gal-lb-cap"></figcaption>
+    </figure>
+</dialog>
+
+<script type="application/json" id="gal-config">{{ { convexUrl: gallery.convexUrl, pageSize: gallery.pageSize, drivers: gallery.drivers, tours: gallery.tours, t: t } | dump | safe }}</script>
+<script type="module" src="/js/gallery.js"></script>
