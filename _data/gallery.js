@@ -18,6 +18,7 @@
 const drivers = [
   { slug: "putu-ardi",     name: "Putu Ardi" },
   { slug: "ketut-widiasa", name: "Ketut Widiasa" },
+  { slug: "ketut-sukratana", name: "Ketut Sukratana" },
   { slug: "gede-jahendra", name: "Gede Jahendra" },
   { slug: "kadek-tresna",  name: "Kadek Tresna" },
   { slug: "agung-putri",   name: "Agung Putri" }

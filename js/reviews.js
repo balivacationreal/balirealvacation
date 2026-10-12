@@ -38,6 +38,7 @@ const I18N = {
     needComment: "Please write a few words about your experience.",
     success: "Thank you! Your review will appear here once our team approves it.",
     failed: "Sorry, something went wrong. Please try again.",
+    more: "Read more", less: "Show less",
   },
   id: {
     heading: "Apa Kata Wisatawan Kami", formHeading: "Bagikan pengalaman Anda",
@@ -51,6 +52,7 @@ const I18N = {
     needComment: "Silakan tulis beberapa kata tentang pengalaman Anda.",
     success: "Terima kasih! Ulasan Anda akan tampil di sini setelah disetujui tim kami.",
     failed: "Maaf, terjadi kesalahan. Silakan coba lagi.",
+    more: "Baca selengkapnya", less: "Tutup",
   },
   zh: {
     heading: "游客怎么说", formHeading: "分享您的体验",
@@ -64,6 +66,7 @@ const I18N = {
     needComment: "请写几句关于您体验的话。",
     success: "谢谢！您的评价将在我们团队审核后显示在此处。",
     failed: "抱歉，出现了错误，请重试。",
+    more: "展开全文", less: "收起",
   },
 };
 
@@ -109,7 +112,7 @@ function reviewCard(r) {
 
   const body = el("div");
   body.appendChild(starIcons(r.rating));
-  body.appendChild(el("p", { class: "review-text", text: `"${r.comment}"` }));
+  body.appendChild(el("p", { class: "review-text is-clamped", text: `"${r.comment}"` }));
   if (r.tour) {
     body.appendChild(el("p", {
       text: tourLabel(r.tour),
@@ -123,6 +126,21 @@ function reviewCard(r) {
   if (r.location) reviewer.appendChild(el("span", { text: r.location }));
   card.appendChild(reviewer);
   return card;
+}
+
+// The carousel shows each review cut to a few lines (see the .is-clamped rule
+// in testimonials.njk). Only the ones that really are cut get a button, which
+// is why this runs after the cards are in the page and have a size.
+function addReadMore(card) {
+  const text = $(".review-text", card);
+  if (!text || text.scrollHeight <= text.clientHeight + 1) return;
+  const btn = el("button", { class: "rv-more", text: t.more, attrs: { type: "button", "aria-expanded": "false" } });
+  btn.addEventListener("click", () => {
+    const open = text.classList.toggle("is-clamped") === false;
+    btn.textContent = open ? t.less : t.more;
+    btn.setAttribute("aria-expanded", String(open));
+  });
+  text.after(btn);
 }
 
 // --- init -----------------------------------------------------------------
@@ -169,6 +187,7 @@ if (form) {
 
   // load + render approved reviews
   const list = $("#rv-list");
+  list.setAttribute("aria-label", t.heading);
   const setState = (msg) => { list.replaceChildren(el("p", { class: "rv-state", text: msg })); };
   async function loadReviews() {
     if (!convex) { setState(t.error); return; }
@@ -176,6 +195,7 @@ if (form) {
       const rows = await convex.query(anyApi.reviews.listApproved, { limit: 12 });
       if (!rows.length) { setState(t.empty); return; }
       list.replaceChildren(...rows.map(reviewCard));
+      [...list.children].forEach(addReadMore);
     } catch (e) {
       console.error("[reviews] load failed:", e);
       setState(t.error);

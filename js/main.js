@@ -401,7 +401,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // handful of dots, not twenty. On a phone, where one card fills the
     // track, a page and a card are the same thing, so what a phone visitor
     // actually sees is still one dot per driver.
-    const pageCount = () => Math.max(1, Math.ceil(track.scrollWidth / Math.max(1, track.clientWidth)));
+    // 2px of slack for the same sub-pixel reason as in update() below: a
+    // track that is exactly three pages wide must not round up to four.
+    const pageCount = () => Math.max(1, Math.ceil((track.scrollWidth - 2) / Math.max(1, track.clientWidth)));
 
     // Rebuilt whenever the page count changes, not just once — a resize
     // (rotating a phone, dragging a browser window) can change how many
@@ -492,6 +494,12 @@ document.addEventListener("DOMContentLoaded", () => {
     track.querySelectorAll("img").forEach((img) => {
       if (!img.complete) img.addEventListener("load", update, { once: true });
     });
+    // The reviews track starts empty and is filled by reviews.js once the
+    // list has loaded, which changes what there is to scroll to without
+    // changing the track's own size.
+    if ("MutationObserver" in window) {
+      new MutationObserver(update).observe(track, { childList: true });
+    }
 
     update();
   });

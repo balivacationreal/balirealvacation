@@ -7,9 +7,19 @@
 <section class="testimonials" id="reviews">
   <h2 class="section-title reveal" data-rv="heading">What Our Travelers Say</h2>
 
-  {# Live, approved reviews are rendered here by /js/reviews.js #}
-  <div class="testimonials-container" id="rv-list" aria-live="polite">
-    <p class="rv-state" id="rv-loading">Loading reviews…</p>
+  {# Live, approved reviews are rendered here by /js/reviews.js, as a carousel:
+     one review per view on a phone, two from 769px up. The arrows and dots
+     are the shared ones from main.js (section 6b). #}
+  <div class="carousel rv-carousel" data-carousel>
+    <button class="carousel-nav carousel-prev" type="button" aria-label="{{ ui.crew_prev[lang] or ui.crew_prev.en }}" hidden>
+      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+    </button>
+    <div class="testimonials-container carousel-track" id="rv-list" tabindex="0" role="region" aria-live="polite">
+      <p class="rv-state" id="rv-loading">Loading reviews…</p>
+    </div>
+    <button class="carousel-nav carousel-next" type="button" aria-label="{{ ui.crew_next[lang] or ui.crew_next.en }}" hidden>
+      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+    </button>
   </div>
 
   {# Submission form #}
@@ -64,5 +74,41 @@
   .rv-msg{margin-top:14px;font-size:.95rem;min-height:1.2em}
   .rv-msg.ok{color:#1d9e75}
   .rv-msg.err{color:#e24b4a}
-  .rv-state{grid-column:1/-1;text-align:center;color:#888;padding:20px 0}
+  .rv-state{flex:1 0 100%;text-align:center;color:#888;padding:20px 0}
+
+  /* ---- Reviews carousel ----
+     The track replaces the old wrapping grid. The side padding on the
+     carousel is where the arrows sit, so they never cover a review. The
+     track's vertical padding is load-bearing: a scroll container clips at
+     its padding box, and the cards lift on hover with a shadow under them.
+     Its side padding is half the gap on purpose: that makes one card plus
+     one gap an exact half (on a phone, the whole) of the track's width, so
+     the dots, which page by track width, always land on a card edge. */
+  .rv-carousel{max-width:1100px;padding:0 50px}
+  .rv-carousel .testimonials-container{display:flex;flex-wrap:nowrap;gap:24px;max-width:none;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:14px 12px 26px;scroll-padding-left:12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .rv-carousel .testimonials-container::-webkit-scrollbar{display:none}
+  .rv-carousel .testimonials-container:focus-visible{outline:2px solid var(--primary-color,#005B96);outline-offset:4px;border-radius:12px}
+  .rv-carousel .testimonial-card{flex:0 0 calc((100% - 24px) / 2);min-width:0;scroll-snap-align:start}
+  .rv-carousel .carousel-nav{top:50%}
+  .rv-carousel .carousel-prev{left:0}
+  .rv-carousel .carousel-next{right:0}
+  /* A long review would stretch every card in the row to its height, so the
+     text is cut at a few lines and reviews.js adds a "Read more" button to
+     the ones that do not fit. */
+  .rv-carousel .review-text{margin-bottom:0}
+  .rv-carousel .review-text.is-clamped{display:-webkit-box;-webkit-line-clamp:6;line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
+  .rv-more{background:none;border:0;padding:6px 4px;margin-top:6px;color:var(--primary-color,#005B96);font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;position:relative;z-index:2}
+  .rv-more:hover{text-decoration:underline}
+  .rv-carousel .reviewer{margin-top:25px}
+  @media(max-width:768px){
+    .rv-carousel{padding:0}
+    .rv-carousel .testimonials-container{gap:16px;padding:12px 8px 22px;scroll-padding-left:8px}
+    .rv-carousel .testimonial-card{flex-basis:100%;padding:36px 24px}
+    /* The review form follows, so the dots need no clearance for the
+       fixed booking bar the way the crew carousel's do. */
+    .rv-carousel .carousel-dots{margin-bottom:0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .rv-carousel .testimonials-container{scroll-behavior:auto}
+  }
 </style>
